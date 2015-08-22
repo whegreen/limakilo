@@ -1,6 +1,10 @@
 package com.limakilogram.www.bawang.util.api;
 
 import com.google.gson.JsonArray;
+import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
+import com.limakilogram.www.bawang.util.api.stock.StockService;
+import com.limakilogram.www.bawang.util.api.user.LoginResponseModel;
+import com.limakilogram.www.bawang.util.api.user.UserService;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -12,7 +16,7 @@ public class APICallManager {
 
     private static APICallManager instance;
     private RestAdapter restAdapter;
-    private String endPoint = "http://billme.elasticbeanstalk.com";
+    private String endPoint = "http://10.107.155.91:3000";
 //    public static Boolean usingMock = true;
 
     private String authentification;
@@ -52,5 +56,19 @@ public class APICallManager {
         this.authentification = authentification;
     }
 
+    // USERS
+    public boolean loginFacebook(String facebookId, String firstName, String lastName,
+                                 String email, Callback<LoginResponseModel> callback) {
+        UserService userService = restAdapter.create(UserService.class);
+        userService.loginFacebook(facebookId, firstName, lastName, email, callback);
+        return true;
+    }
+
+    // STOCKS
+    public boolean getStocks(Callback<GetStockResponseModel> callback) {
+        StockService stockService = restAdapter.create(StockService.class);
+        stockService.getStocks(getAuthentification(), callback);
+        return true;
+    }
 
 }

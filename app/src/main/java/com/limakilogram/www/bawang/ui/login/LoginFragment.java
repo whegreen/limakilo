@@ -22,6 +22,8 @@ import com.limakilogram.www.bawang.ui.login.mvp.LoginPresenterImpl;
 import com.limakilogram.www.bawang.ui.login.mvp.LoginView;
 import com.limakilogram.www.bawang.ui.main.MainActivity;
 import com.limakilogram.www.bawang.util.api.APICallManager;
+import com.limakilogram.www.bawang.util.api.user.LoginResponseModel;
+import com.limakilogram.www.bawang.util.common.PreferencesManager;
 
 import org.json.JSONException;
 
@@ -68,19 +70,20 @@ public class LoginFragment extends Fragment implements LoginView {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // App code
-
                 final String userId = loginResult.getAccessToken().getUserId();
+
+                Bundle params = new Bundle();
+                params.putString("fields", "first_name,last_name");
 
                 /* make the API call */
                 new GraphRequest(
                         AccessToken.getCurrentAccessToken(),
-                        userId,
-                        null,
+                        "/me",
+                        params,
                         HttpMethod.GET,
                         new GraphRequest.Callback() {
                             public void onCompleted(GraphResponse response) {
                                 /* handle the result */
-
                                 String id = "", firstName = "", lastName = "", email = "";
                                 try {
                                     id = response.getJSONObject().getString("id");
@@ -105,27 +108,26 @@ public class LoginFragment extends Fragment implements LoginView {
                                 ).executeAsync();
 
 
-//                                APICallManager.getInstance().loginFacebook(id,
-//                                    firstName, lastName, email,
-//                                    new Callback<LoginResponseModel>() {
-//                                        @Override
-//                                        public void success(LoginResponseModel loginResponseModel, Response response) {
-//
-//                                            List list = loginResponseModel.getData();
-//                                            String auth = "";
-//                                            for (Object temp : list) {
-//                                                auth = ((LoginResponseModel.LoginResponseData) temp).getAuth();
-//                                            }
-//                                            APICallManager.getInstance().setAuthentification(auth);
-//                                            PreferencesManager.saveAuthToken(getActivity().getBaseContext(), auth);
-//                                            ((LoginPresenterImpl) presenter).loginSuccess();
-//                                        }
-//
-//                                        @Override
-//                                        public void failure(RetrofitError error) {
-//                                            ((LoginPresenterImpl) presenter).loginCancel();
-//                                        }
-//                                    });
+                                APICallManager.getInstance().loginFacebook(id,
+                                    firstName, lastName, email,
+                                    new Callback<LoginResponseModel>() {
+                                        @Override
+                                        public void success(LoginResponseModel loginResponseModel, Response response) {
+                                            List list = loginResponseModel.getData();
+                                            String auth = "";
+                                            for (Object temp : list) {
+                                                auth = ((LoginResponseModel.LoginResponseData) temp).getAuth();
+                                            }
+                                            APICallManager.getInstance().setAuthentification(auth);
+                                            PreferencesManager.saveAuthToken(getActivity().getBaseContext(), auth);
+                                            ((LoginPresenterImpl) presenter).loginSuccess();
+                                        }
+
+                                        @Override
+                                        public void failure(RetrofitError error) {
+                                            ((LoginPresenterImpl) presenter).loginCancel();
+                                        }
+                                    });
 
                             }
 
@@ -138,9 +140,7 @@ public class LoginFragment extends Fragment implements LoginView {
             @Override
             public void onCancel() {
                 // App code
-//                ((LoginPresenterImpl) presenter).loginCancel();
-                ((LoginPresenterImpl) presenter).loginSuccess();
-
+                ((LoginPresenterImpl) presenter).loginCancel();
             }
 
             @Override
