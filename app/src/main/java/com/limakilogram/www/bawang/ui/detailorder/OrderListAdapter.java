@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.util.api.bid.GetMyBidResponseModel;
+import com.limakilogram.www.bawang.util.api.order.GetMyOrderResponseModel;
+
+import java.util.List;
 
 /**
  * Created by martinluter on 8/22/15.
@@ -18,6 +22,7 @@ import com.limakilogram.www.bawang.R;
 public class OrderListAdapter extends ArrayAdapter<OrderModel> {
     private static String TAG = "OrderListAdapter";
     public OrderModel order_data[] = null;
+
     int layoutResourceId;
     private Context context;
 
