@@ -16,9 +16,8 @@
 
 package com.limakilogram.www.bawang.ui.main;
 
-import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -35,9 +34,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.ui.detailorder.DetailOrderActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +127,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
 //        adapter.addFragment(new ChatListFragment(), "Chats");
@@ -144,10 +156,12 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.nav_home :
-//                        Context context = getApplicationContext();
-//                        Intent intent = new Intent(context, ChatActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        context.startActivity(intent);
+
+                        Context context = getApplicationContext();
+                        Intent intent = new Intent(context, DetailOrderActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+
                 }
                 return true;
             }
