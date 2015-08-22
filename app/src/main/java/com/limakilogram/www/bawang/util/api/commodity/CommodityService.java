@@ -12,5 +12,5 @@ import retrofit.http.Header;
 public interface CommodityService {
     @GET("/categories/1")
     void getCategory(@Header("authentification") String authentification,
-                   Callback<GetCommodityCategoriesResponseModel.GetCommodityCategoriesResponseData> callback);
+                   Callback<GetCommodityCategoriesResponseModel> callback);
 }

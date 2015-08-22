@@ -6,9 +6,17 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.util.api.APICallManager;
+import com.limakilogram.www.bawang.util.api.order.PostOrderResponseModel;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by walesadanto on 23/8/15.
@@ -32,12 +40,10 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_order);
 
         TextView view1 = (TextView) findViewById(R.id.confirm_text_1);
-        TextView view2 = (TextView) findViewById(R.id.confirm_text_2);
         TextView view3 = (TextView) findViewById(R.id.confirm_text_3);
         TextView view4 = (TextView) findViewById(R.id.confirm_text_4);
 
         view1.setText(name);
-        view2.setText("input number");
         view3.setText(price);
         view4.setText("paket");
 
@@ -49,6 +55,13 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle("Konfirmasi Order");
 
+        findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postOrder();
+            }
+        });
+
     }
 
     @Override
@@ -59,6 +72,22 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void postOrder(){
+        String stockId = "";
+        String quantity = "";
+        APICallManager.getInstance().postOrder5kg(stockId, quantity, new Callback<PostOrderResponseModel>() {
+            @Override
+            public void success(PostOrderResponseModel postOrderResponseModel, Response response) {
+                Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getBaseContext(), "failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

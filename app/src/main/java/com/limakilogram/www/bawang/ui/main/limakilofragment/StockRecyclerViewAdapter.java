@@ -7,8 +7,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderActivity;
 import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
@@ -50,6 +52,9 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         holder.mTextView.setText(mStocks.get(position).getCommodity()
                 +" "+ mStocks.get(position).getCategory());
         holder.mTextView2.setText(mStocks.get(position).getPrice());
+        holder.mTextView3.setText(mStocks.get(position).getFirstName()+" "+mStocks.get(position).getLastName());
+        holder.mTextView3.setText(mStocks.get(position).getStock());
+
         holder.mBoundAvatar = mStocks.get(position).getAvaUrl();
         holder.mBoundUserId = mStocks.get(position).getStock();
 
@@ -58,10 +63,11 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ConfirmOrderActivity.class);
-                intent.putExtra(ConfirmOrderActivity.EXTRA_NAME, holder.mTextView.getText());
+                intent.putExtra(ConfirmOrderActivity.EXTRA_NAME, holder.commodityName);
 //                intent.putExtra(ConfirmOrderActivity.EXTRA_AVATAR, holder.mBoundAvatar);
                 intent.putExtra(ConfirmOrderActivity.EXTRA_PRICE, holder.mTextView2.getText());
-                intent.putExtra(ConfirmOrderActivity.EXTRA_STOCK, holder.mBoundUserId);
+                intent.putExtra(ConfirmOrderActivity.EXTRA_STOCK, holder.commodityId);
+                intent.putExtra(ConfirmOrderActivity.EXTRA_PRICE, holder.commodityPrice);
 
                 context.startActivity(intent);
 
@@ -69,10 +75,10 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
             }
         });
 
-//        Glide.with(holder.mImageView.getContext())
-//                .load(mStocks.get(position).getAvaUrl())
-//                .fitCenter()
-//                .into(holder.mImageView);
+        Glide.with(holder.mImageView.getContext())
+                .load(mStocks.get(position).getAvaUrl())
+                .fitCenter()
+                .into(holder.mImageView);
 
     }
 
@@ -86,21 +92,29 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
 
         // todo : put some field to be viewed here
         public String text;
+        public String commodityName;
+        public String commodityId;
+        public String commodityPrice;
         public String mBoundAvatar;
         public int mBoundUserId;
 
         public final View mView;
-//        public final ImageView mImageView;
+        public final ImageView mImageView;
         public final TextView mTextView;
         public final TextView mTextView2;
+        public final TextView mTextView3;
+        public final TextView mTextView4;
 
         public StockItemChatViewHolder(View itemView) {
             super(itemView);
             // todo : do some mapping data here
             mView = itemView;
-//            mImageView = (ImageView) itemView.findViewById(R.id.avatar);
+            mImageView = (ImageView) itemView.findViewById(R.id.avatar);
             mTextView = (TextView) itemView.findViewById(android.R.id.text1);
             mTextView2 = (TextView) itemView.findViewById(android.R.id.text2);
+            mTextView3 = (TextView) itemView.findViewById(R.id.text3);
+            mTextView4 = (TextView) itemView.findViewById(R.id.text4);
+
         }
     }
 }

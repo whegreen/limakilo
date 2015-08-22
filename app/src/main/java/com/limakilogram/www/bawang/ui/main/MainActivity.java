@@ -37,6 +37,7 @@ import android.view.View;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderActivity;
 import com.limakilogram.www.bawang.ui.detailorder.OrderListActivity;
 import com.limakilogram.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import com.limakilogram.www.bawang.ui.main.limakilofragment.LimakiloFragment;
@@ -162,12 +163,15 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.nav_home:
                                 Intent intent1 = new Intent(context, OrderListActivity.class);
                                 intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent1.putExtra(OrderListActivity.EXTRA_HISTORY, "order");
+
                                 context.startActivity(intent1);
                                 break;
                             case R.id.nav_messages:
 
                                 Intent intent2 = new Intent(context, OrderListActivity.class);
                                 intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent2.putExtra(OrderListActivity.EXTRA_HISTORY, "bid");
                                 context.startActivity(intent2);
                                 break;
 

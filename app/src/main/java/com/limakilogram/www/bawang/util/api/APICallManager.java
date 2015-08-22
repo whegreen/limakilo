@@ -1,7 +1,10 @@
 package com.limakilogram.www.bawang.util.api;
 
+import com.limakilogram.www.bawang.util.api.bid.BidService;
+import com.limakilogram.www.bawang.util.api.bid.GetMyBidResponseModel;
 import com.limakilogram.www.bawang.util.api.commodity.CommodityService;
 import com.limakilogram.www.bawang.util.api.commodity.GetCommodityCategoriesResponseModel;
+import com.limakilogram.www.bawang.util.api.order.GetMyOrderResponseModel;
 import com.limakilogram.www.bawang.util.api.order.OrderService;
 import com.limakilogram.www.bawang.util.api.order.PostOrderResponseModel;
 import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
@@ -83,16 +86,30 @@ public class APICallManager {
 
     public boolean postOrderGrosir(String quantity, String price, Callback<PostOrderResponseModel> callback){
         OrderService orderService = restAdapter.create(OrderService.class);
-        orderService.postOrder("", quantity, price, "Grosir", callback);
+        orderService.postOrder("1", quantity, price, "Grosir", callback);
+        return true;
+    }
+
+    public boolean getMyOrders(Callback<GetMyOrderResponseModel> callback){
+        OrderService orderService = restAdapter.create(OrderService.class);
+        orderService.getMyOrder(getAuthentification(), callback);
+        return true;
+    }
+
+    // COMMODITIES
+
+    public boolean getCommoditiesCategory(Callback<GetCommodityCategoriesResponseModel> callback){
+        CommodityService commodityService = restAdapter.create(CommodityService.class);
+        commodityService.getCategory(getAuthentification(), callback);
         return true;
     }
 
 
-    // COMMODITIES
+    // BIDS
 
-    public boolean getCommoditiesCategory(Callback<GetCommodityCategoriesResponseModel.GetCommodityCategoriesResponseData> callback){
-        CommodityService commodityService = restAdapter.create(CommodityService.class);
-        commodityService.getCategory(getAuthentification(), callback);
+    public boolean getMyBids(Callback<GetMyBidResponseModel> callback){
+        BidService bidService = restAdapter.create(BidService.class);
+        bidService.getMyBid(getAuthentification(), callback);
         return true;
     }
 

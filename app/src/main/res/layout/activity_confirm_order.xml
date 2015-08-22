@@ -76,8 +76,16 @@ android:fitsSystemWindows="true">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/confirm_text_2"
+            android:text="Jumlah Paket "
+            android:id="@+id/textView5"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="147dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editText"
             android:layout_gravity="center_horizontal" />
 
         <TextView
@@ -100,7 +108,7 @@ android:fitsSystemWindows="true">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lanjut ke pembayaran"
-            android:id="@+id/button"
+            android:id="@+id/confirm_button"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
