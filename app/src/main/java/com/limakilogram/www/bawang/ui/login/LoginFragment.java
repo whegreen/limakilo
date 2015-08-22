@@ -20,6 +20,7 @@ import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.login.mvp.LoginPresenter;
 import com.limakilogram.www.bawang.ui.login.mvp.LoginPresenterImpl;
 import com.limakilogram.www.bawang.ui.login.mvp.LoginView;
+import com.limakilogram.www.bawang.ui.main.MainActivity;
 import com.limakilogram.www.bawang.util.api.APICallManager;
 
 import org.json.JSONException;
@@ -131,12 +132,15 @@ public class LoginFragment extends Fragment implements LoginView {
                         }
                 ).executeAsync();
 
+                ((LoginPresenterImpl) presenter).loginSuccess();
             }
 
             @Override
             public void onCancel() {
                 // App code
-                ((LoginPresenterImpl) presenter).loginCancel();
+//                ((LoginPresenterImpl) presenter).loginCancel();
+                ((LoginPresenterImpl) presenter).loginSuccess();
+
             }
 
             @Override
@@ -157,14 +161,14 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @Override
     public void openMainActivity() {
-//        final Intent mainIntent = new Intent(getActivity(), MainActivity.class);
-//
-//        new Handler().postDelayed(new Runnable() {
-//            public void run() {
-//                mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                startActivity(mainIntent);
-//            }
-//        }, 300L);
+        final Intent mainIntent = new Intent(getActivity(), MainActivity.class);
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(mainIntent);
+            }
+        }, 300L);
 
     }
 

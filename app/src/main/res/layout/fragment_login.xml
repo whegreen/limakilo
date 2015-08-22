@@ -34,9 +34,10 @@
         android:text="Beli sembako eceran fresh dari petani!"
         android:id="@+id/textView2"
         android:textColor="#ffffffff"
-        android:layout_below="@+id/textView"
         android:paddingTop="15dp"
         android:textAlignment="center"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
