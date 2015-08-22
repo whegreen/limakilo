@@ -2,6 +2,41 @@
 <items version="2" >
 
     <item
+        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="b7a78990c10481f43cb4909f535ef4f11e60f1ab">
+        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-f6f59d5d88b12cc205f4e55cb07be5bc4e769c34.jar" />
+    </item>
+    <item
+        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.5/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="6e65060ef2ec6ec98365250d2119d7968626fd3f">
+        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-153c8148baab26a3dc9bbfbc072a3c8493486505.jar" />
+    </item>
+    <item
+        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-00a09a2ff0f09a6ea4a2346801eeba09a727fdbb.jar" />
+    </item>
+    <item
+        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-abea4c79f899600c7a0daf0655e8c7f7ca988ce5.jar" />
+    </item>
+    <item
+        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.5.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="2b1fb39b3c4feeb031b00744fbbe464e3d31a88d">
+        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-e9d91c2459a98d387422898e3bac1843373cb8f8.jar" />
+    </item>
+    <item
         jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
         jumboMode="false"
         revision="23.0.0"
@@ -16,11 +51,11 @@
         <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-07e7ae22d5a7c9de7c7267a7b82e5449de74b8db.jar" />
     </item>
     <item
-        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/jars/classes.jar"
+        jar="/Users/martinluter/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.6.0/a7537446a030da8eb0da4c71424d16c2589f6c4a/glide-3.6.0.jar"
         jumboMode="false"
         revision="23.0.0"
-        sha1="a78bfd2ec508b123ee7c03f4006ba7996ef9a8dc">
-        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-a365584ca8ef9b3f8539ae85be0c69e74c95e1b1.jar" />
+        sha1="a7537446a030da8eb0da4c71424d16c2589f6c4a">
+        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/glide-3.6.0-6f6cdf357e610d47834091ad83b800ba8e61a85c.jar" />
     </item>
     <item
         jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
@@ -30,11 +65,11 @@
         <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-cb899a17f949747c74a613aa771c32d3f5ca36f8.jar" />
     </item>
     <item
-        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.4.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0"
-        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
-        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-00a09a2ff0f09a6ea4a2346801eeba09a727fdbb.jar" />
+        sha1="152e1df65212df23a4b5dba0e819e63bca93192c">
+        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-b5c1a4f4b4b141faddabe522b80e6ee9b13d8dc1.jar" />
     </item>
     <item
         jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.0/jars/classes.jar"
@@ -51,11 +86,18 @@
         <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/retrofit-1.9.0-dfd2b0440b5510085d64ae44e66ced043d57865d.jar" />
     </item>
     <item
-        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0"
-        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-abea4c79f899600c7a0daf0655e8c7f7ca988ce5.jar" />
+        sha1="441ace5a20e7fcf94f30b4394d882ed2f79237c3">
+        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-2d8f900278f82a1064719da090a8cf65d48bda20.jar" />
+    </item>
+    <item
+        jar="/Users/martinluter/limakilogram/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.4/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="467417b1695583fbaee8de0e5f4202b6a2b578e1">
+        <dex dex="/Users/martinluter/limakilogram/app/build/intermediates/pre-dexed/debug/classes-9c37245e70c5ebf179171299f89be94ad5ae0136.jar" />
     </item>
     <item
         jar="/Users/martinluter/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
