@@ -47,7 +47,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("Riwayat Order");
+        collapsingToolbar.setTitle("Konfirmasi Order");
 
     }
 
