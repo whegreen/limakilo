@@ -13,10 +13,21 @@ public class OrderListActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_5kg);
+        setContentView(R.layout.activity_list_order);
 
         ListView lv = (ListView) findViewById(R.id.list_order);
 
+        OrderModel order_data[] = new OrderModel[]
+                {
+                        new OrderModel("Tanggal Order: ", "Keterangan Order: "),
+                        new OrderModel("Tanggal Order: ", "Keterangan Order: "),
+                        new OrderModel("Tanggal Order: ", "Keterangan Order: "),
+                };
 
+
+        OrderListAdapter adapter = new OrderListAdapter(this,
+                R.layout.list_item_order, order_data);
+
+        lv.setAdapter(adapter);
     }
 }
