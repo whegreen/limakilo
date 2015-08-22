@@ -38,6 +38,8 @@ import android.view.View;
 import com.facebook.appevents.AppEventsLogger;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.detailorder.DetailOrderActivity;
+import com.limakilogram.www.bawang.ui.main.grosirfragment.GrosirFragment;
+import com.limakilogram.www.bawang.ui.main.limakilofragment.LimakiloFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,8 +143,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-//        adapter.addFragment(new ChatListFragment(), "Chats");
-//        adapter.addFragment(new ContactsListFragment(), "People");
+        adapter.addFragment(new LimakiloFragment(), "5Kg");
+        adapter.addFragment(new GrosirFragment(), "Grosir");
         viewPager.setAdapter(adapter);
     }
 

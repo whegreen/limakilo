@@ -6,249 +6,184 @@ package com.limakilogram.www.bawang.util.api.stock;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GetStockResponseModel {
+    private List<GetStockResponseData> data = new ArrayList<GetStockResponseData>();
 
-
-    public class Datum {
-
-        @SerializedName("sto_id")
-        @Expose
-        private Integer stoId;
-        @SerializedName("sto_user_id")
-        @Expose
-        private Integer stoUserId;
-        @SerializedName("sto_com_id")
-        @Expose
-        private Integer stoComId;
-        @SerializedName("sto_cat_id")
-        @Expose
-        private Integer stoCatId;
-        @SerializedName("sto_quantity")
-        @Expose
-        private Integer stoQuantity;
-        @SerializedName("sto_price")
-        @Expose
-        private String stoPrice;
-        @SerializedName("sto_expired_date")
-        @Expose
-        private String stoExpiredDate;
-        @SerializedName("sto_description")
-        @Expose
-        private String stoDescription;
-        @SerializedName("sto_create_date")
-        @Expose
-        private String stoCreateDate;
-        @SerializedName("com_id")
-        @Expose
-        private Integer comId;
-        @SerializedName("com_name")
-        @Expose
-        private String comName;
-        @SerializedName("cat_id")
-        @Expose
-        private Integer catId;
-        @SerializedName("cat_com_id")
-        @Expose
-        private Integer catComId;
-        @SerializedName("cat_name")
-        @Expose
-        private String catName;
-
-        /**
-         * @return The stoId
-         */
-        public Integer getStoId() {
-            return stoId;
-        }
-
-        /**
-         * @param stoId The sto_id
-         */
-        public void setStoId(Integer stoId) {
-            this.stoId = stoId;
-        }
-
-        /**
-         * @return The stoUserId
-         */
-        public Integer getStoUserId() {
-            return stoUserId;
-        }
-
-        /**
-         * @param stoUserId The sto_user_id
-         */
-        public void setStoUserId(Integer stoUserId) {
-            this.stoUserId = stoUserId;
-        }
-
-        /**
-         * @return The stoComId
-         */
-        public Integer getStoComId() {
-            return stoComId;
-        }
-
-        /**
-         * @param stoComId The sto_com_id
-         */
-        public void setStoComId(Integer stoComId) {
-            this.stoComId = stoComId;
-        }
-
-        /**
-         * @return The stoCatId
-         */
-        public Integer getStoCatId() {
-            return stoCatId;
-        }
-
-        /**
-         * @param stoCatId The sto_cat_id
-         */
-        public void setStoCatId(Integer stoCatId) {
-            this.stoCatId = stoCatId;
-        }
-
-        /**
-         * @return The stoQuantity
-         */
-        public Integer getStoQuantity() {
-            return stoQuantity;
-        }
-
-        /**
-         * @param stoQuantity The sto_quantity
-         */
-        public void setStoQuantity(Integer stoQuantity) {
-            this.stoQuantity = stoQuantity;
-        }
-
-        /**
-         * @return The stoPrice
-         */
-        public String getStoPrice() {
-            return stoPrice;
-        }
-
-        /**
-         * @param stoPrice The sto_price
-         */
-        public void setStoPrice(String stoPrice) {
-            this.stoPrice = stoPrice;
-        }
-
-        /**
-         * @return The stoExpiredDate
-         */
-        public String getStoExpiredDate() {
-            return stoExpiredDate;
-        }
-
-        /**
-         * @param stoExpiredDate The sto_expired_date
-         */
-        public void setStoExpiredDate(String stoExpiredDate) {
-            this.stoExpiredDate = stoExpiredDate;
-        }
-
-        /**
-         * @return The stoDescription
-         */
-        public String getStoDescription() {
-            return stoDescription;
-        }
-
-        /**
-         * @param stoDescription The sto_description
-         */
-        public void setStoDescription(String stoDescription) {
-            this.stoDescription = stoDescription;
-        }
-
-        /**
-         * @return The stoCreateDate
-         */
-        public String getStoCreateDate() {
-            return stoCreateDate;
-        }
-
-        /**
-         * @param stoCreateDate The sto_create_date
-         */
-        public void setStoCreateDate(String stoCreateDate) {
-            this.stoCreateDate = stoCreateDate;
-        }
-
-        /**
-         * @return The comId
-         */
-        public Integer getComId() {
-            return comId;
-        }
-
-        /**
-         * @param comId The com_id
-         */
-        public void setComId(Integer comId) {
-            this.comId = comId;
-        }
-
-        /**
-         * @return The comName
-         */
-        public String getComName() {
-            return comName;
-        }
-
-        /**
-         * @param comName The com_name
-         */
-        public void setComName(String comName) {
-            this.comName = comName;
-        }
-
-        /**
-         * @return The catId
-         */
-        public Integer getCatId() {
-            return catId;
-        }
-
-        /**
-         * @param catId The cat_id
-         */
-        public void setCatId(Integer catId) {
-            this.catId = catId;
-        }
-
-        /**
-         * @return The catComId
-         */
-        public Integer getCatComId() {
-            return catComId;
-        }
-
-        /**
-         * @param catComId The cat_com_id
-         */
-        public void setCatComId(Integer catComId) {
-            this.catComId = catComId;
-        }
-
-        /**
-         * @return The catName
-         */
-        public String getCatName() {
-            return catName;
-        }
-
-        /**
-         * @param catName The cat_name
-         */
-        public void setCatName(String catName) {
-            this.catName = catName;
-        }
+    public List<GetStockResponseData> getData() {
+        return data;
     }
 
+    public void setData(List<GetStockResponseData> data) {
+        this.data = data;
+    }
+
+    public class GetStockResponseData {
+        @Expose
+        private Integer id;
+        @Expose
+        private Integer stock;
+        @Expose
+        private String price;
+        @Expose
+        private String description;
+        @SerializedName("create_date")
+        @Expose
+        private String createDate;
+        @Expose
+        private String commodity;
+        @Expose
+        private String category;
+        @SerializedName("first_name")
+        @Expose
+        private String firstName;
+        @SerializedName("last_name")
+        @Expose
+        private String lastName;
+        @SerializedName("ava_url")
+        @Expose
+        private String avaUrl;
+
+        /**
+         * @return The id
+         */
+        public Integer getId() {
+            return id;
+        }
+
+        /**
+         * @param id The id
+         */
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        /**
+         * @return The stock
+         */
+        public Integer getStock() {
+            return stock;
+        }
+
+        /**
+         * @param stock The stock
+         */
+        public void setStock(Integer stock) {
+            this.stock = stock;
+        }
+
+        /**
+         * @return The price
+         */
+        public String getPrice() {
+            return price;
+        }
+
+        /**
+         * @param price The price
+         */
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
+        /**
+         * @return The description
+         */
+        public String getDescription() {
+            return description;
+        }
+
+        /**
+         * @param description The description
+         */
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        /**
+         * @return The createDate
+         */
+        public String getCreateDate() {
+            return createDate;
+        }
+
+        /**
+         * @param createDate The create_date
+         */
+        public void setCreateDate(String createDate) {
+            this.createDate = createDate;
+        }
+
+        /**
+         * @return The commodity
+         */
+        public String getCommodity() {
+            return commodity;
+        }
+
+        /**
+         * @param commodity The commodity
+         */
+        public void setCommodity(String commodity) {
+            this.commodity = commodity;
+        }
+
+        /**
+         * @return The category
+         */
+        public String getCategory() {
+            return category;
+        }
+
+        /**
+         * @param category The category
+         */
+        public void setCategory(String category) {
+            this.category = category;
+        }
+
+        /**
+         * @return The firstName
+         */
+        public String getFirstName() {
+            return firstName;
+        }
+
+        /**
+         * @param firstName The first_name
+         */
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        /**
+         * @return The lastName
+         */
+        public String getLastName() {
+            return lastName;
+        }
+
+        /**
+         * @param lastName The last_name
+         */
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        /**
+         * @return The avaUrl
+         */
+        public String getAvaUrl() {
+            return avaUrl;
+        }
+
+        /**
+         * @param avaUrl The ava_url
+         */
+        public void setAvaUrl(String avaUrl) {
+            this.avaUrl = avaUrl;
+        }
+    }
 }

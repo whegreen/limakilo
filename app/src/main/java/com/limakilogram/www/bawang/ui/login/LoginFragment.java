@@ -118,8 +118,10 @@ public class LoginFragment extends Fragment implements LoginView {
                                             for (Object temp : list) {
                                                 auth = ((LoginResponseModel.LoginResponseData) temp).getAuth();
                                             }
-                                            APICallManager.getInstance().setAuthentification(auth);
-                                            PreferencesManager.saveAuthToken(getActivity().getBaseContext(), auth);
+                                            if (auth != null){
+                                                APICallManager.getInstance().setAuthentification(auth);
+                                                PreferencesManager.saveAuthToken(getActivity().getBaseContext(), auth);
+                                            }
                                             ((LoginPresenterImpl) presenter).loginSuccess();
                                         }
 
@@ -134,7 +136,6 @@ public class LoginFragment extends Fragment implements LoginView {
                         }
                 ).executeAsync();
 
-                ((LoginPresenterImpl) presenter).loginSuccess();
             }
 
             @Override
