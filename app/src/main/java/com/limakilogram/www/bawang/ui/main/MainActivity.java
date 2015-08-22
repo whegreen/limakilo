@@ -37,7 +37,7 @@ import android.view.View;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.limakilogram.www.bawang.R;
-import com.limakilogram.www.bawang.ui.detailorder.DetailOrderActivity;
+import com.limakilogram.www.bawang.ui.detailorder.OrderListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,23 +149,30 @@ public class MainActivity extends AppCompatActivity {
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                menuItem.setChecked(true);
-                mDrawerLayout.closeDrawers();
-
-                switch (menuItem.getItemId()) {
-                    case R.id.nav_home :
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        mDrawerLayout.closeDrawers();
 
                         Context context = getApplicationContext();
-                        Intent intent = new Intent(context, DetailOrderActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
 
-                }
-                return true;
-            }
-        });
+                        switch (menuItem.getItemId()) {
+                            case R.id.nav_home:
+                                Intent intent1 = new Intent(context, OrderListActivity.class);
+                                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent1);
+                                break;
+                            case R.id.nav_messages:
+
+                                Intent intent2 = new Intent(context, OrderListActivity.class);
+                                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent2);
+                                break;
+
+                        }
+                        return true;
+                    }
+                });
     }
 
 //    @Override
