@@ -38,7 +38,6 @@ import android.view.View;
 import com.facebook.appevents.AppEventsLogger;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.detailorder.OrderListActivity;
-import com.limakilogram.www.bawang.ui.detailorder.DetailOrderActivity;
 import com.limakilogram.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import com.limakilogram.www.bawang.ui.main.limakilofragment.LimakiloFragment;
 
@@ -83,14 +82,14 @@ public class MainActivity extends AppCompatActivity {
             setupViewPager(viewPager);
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new LimakiloFragment(), "5Kg");
+        adapter.addFragment(new LimakiloFragment(), "Paket");
         adapter.addFragment(new GrosirFragment(), "Grosir");
         viewPager.setAdapter(adapter);
     }

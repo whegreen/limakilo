@@ -7,11 +7,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderActivity;
 import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
 
 import java.util.List;
@@ -19,11 +18,13 @@ import java.util.List;
 /**
  * Created by walesadanto on 26/7/15.
  */
-public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecyclerViewAdapter.ChatViewHolder> {
+public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecyclerViewAdapter.StockItemChatViewHolder> {
 
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
     private List<GetStockResponseModel.GetStockResponseData> mStocks;
+
+//    private
 
     public GetStockResponseModel.GetStockResponseData getValueAt(int position){
         return mStocks.get(position);
@@ -36,15 +37,15 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
     }
 
     @Override
-    public ChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public StockItemChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
         view.setBackgroundResource(mBackground);
-        return new ChatViewHolder(view);
+        return new StockItemChatViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ChatViewHolder holder, int position) {
+    public void onBindViewHolder(final StockItemChatViewHolder holder, int position) {
 
         holder.mTextView.setText(mStocks.get(position).getCommodity()
                 +" "+ mStocks.get(position).getCategory());
@@ -55,14 +56,16 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Context context = v.getContext();
-//                Intent intent = new Intent(context, ChatDetailActivity.class);
-//                intent.putExtra(ChatDetailActivity.EXTRA_NAME, holder.mTextView.getText());
-//                intent.putExtra(ChatDetailActivity.EXTRA_AVATAR, holder.mBoundAvatar);
-//                intent.putExtra(ChatDetailActivity.EXTRA_BALANCE, holder.mTextView2.getText());
-//                intent.putExtra(ChatDetailActivity.EXTRA_ID, holder.mBoundUserId);
-//
-//                context.startActivity(intent);
+                Context context = v.getContext();
+                Intent intent = new Intent(context, ConfirmOrderActivity.class);
+                intent.putExtra(ConfirmOrderActivity.EXTRA_NAME, holder.mTextView.getText());
+//                intent.putExtra(ConfirmOrderActivity.EXTRA_AVATAR, holder.mBoundAvatar);
+                intent.putExtra(ConfirmOrderActivity.EXTRA_PRICE, holder.mTextView2.getText());
+                intent.putExtra(ConfirmOrderActivity.EXTRA_STOCK, holder.mBoundUserId);
+
+                context.startActivity(intent);
+
+
             }
         });
 
@@ -79,7 +82,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
     }
 
 
-    public static class ChatViewHolder extends RecyclerView.ViewHolder{
+    public static class StockItemChatViewHolder extends RecyclerView.ViewHolder{
 
         // todo : put some field to be viewed here
         public String text;
@@ -91,7 +94,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         public final TextView mTextView;
         public final TextView mTextView2;
 
-        public ChatViewHolder(View itemView) {
+        public StockItemChatViewHolder(View itemView) {
             super(itemView);
             // todo : do some mapping data here
             mView = itemView;

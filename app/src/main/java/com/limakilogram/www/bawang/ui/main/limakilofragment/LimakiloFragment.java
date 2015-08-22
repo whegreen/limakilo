@@ -1,13 +1,17 @@
 package com.limakilogram.www.bawang.ui.main.limakilofragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.limakilogram.www.bawang.R;
@@ -93,5 +97,33 @@ public class LimakiloFragment extends Fragment implements APICallListener, Limak
     @Override
     public void onAPICallFailed() {
 
+    }
+
+    public void showSpinner(){
+        AlertDialog.Builder builder;
+        AlertDialog alertDialog;
+
+        Context mContext = getActivity().getBaseContext();
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.spinner_order,null);
+
+        String array_spinner[];
+        array_spinner=new String[5];
+
+        array_spinner[0]="1";
+        array_spinner[1]="2";
+        array_spinner[2]="3";
+        array_spinner[3]="4";
+        array_spinner[4]="5";
+
+        Spinner s = (Spinner) layout.findViewById(R.id.Spinner01);
+
+        ArrayAdapter adapter = new ArrayAdapter(getActivity().getBaseContext() ,android.R.layout.simple_spinner_item, array_spinner);
+
+        s.setAdapter(adapter);
+
+        builder = new AlertDialog.Builder(mContext);
+        builder.setView(layout);
+        alertDialog = builder.create();
     }
 }

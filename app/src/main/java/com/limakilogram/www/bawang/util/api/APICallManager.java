@@ -1,6 +1,5 @@
 package com.limakilogram.www.bawang.util.api;
 
-import com.google.gson.JsonArray;
 import com.limakilogram.www.bawang.util.api.commodity.CommodityService;
 import com.limakilogram.www.bawang.util.api.commodity.GetCommodityCategoriesResponseModel;
 import com.limakilogram.www.bawang.util.api.order.OrderService;
@@ -20,7 +19,7 @@ public class APICallManager {
 
     private static APICallManager instance;
     private RestAdapter restAdapter;
-    private String endPoint = "http://10.107.155.91:3000";
+    private String endPoint = "http://10.107.157.165:3000";
 //    public static Boolean usingMock = true;
 
     private String authentification;
