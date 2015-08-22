@@ -36,6 +36,11 @@
             android:label="@string/app_name" >
         </activity>
 
+        <activity
+            android:name=".ui.detailorder.DetailOrderActivity"
+            android:label="@string/app_name" >
+        </activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="fc14a57bc04990c2e0ac6b34ed9eb209dfe4f54d" />

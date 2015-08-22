@@ -3,29 +3,37 @@ package com.limakilogram.www.bawang.ui.main.limakilofragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.main.limakilofragment.mvp.LimakiloFragmentPresenter;
 import com.limakilogram.www.bawang.ui.main.limakilofragment.mvp.LimakiloFragmentView;
 import com.limakilogram.www.bawang.util.api.APICallListener;
 import com.limakilogram.www.bawang.util.api.APICallManager;
+import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
 import com.limakilogram.www.bawang.util.common.PreferencesManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by walesadanto on 22/8/15.
  */
 public class LimakiloFragment extends Fragment implements APICallListener, LimakiloFragmentView {
 
-
-//    List<GetRecentChatResponseModel.GetRecentResponseData> chatList =
-//            new ArrayList<GetRecentChatResponseModel.GetRecentResponseData>();
+    List<GetStockResponseModel.GetStockResponseData> stockList =
+            new ArrayList<GetStockResponseModel.GetStockResponseData>();
     private LimakiloFragmentPresenter presenter;
     RecyclerView recyclerView;
 
@@ -41,147 +49,39 @@ public class LimakiloFragment extends Fragment implements APICallListener, Limak
     }
 
     public void setupChatRecyclerView(){
-//        recyclerView.setLayoutManager(new LinearLayoutManager((recyclerView.getContext())));
-//        recyclerView.setAdapter(new ChatRecyclerViewAdapter(getActivity(), chatList));
+        recyclerView.setLayoutManager(new LinearLayoutManager((recyclerView.getContext())));
+        recyclerView.setAdapter(new StockRecyclerViewAdapter(getActivity(), stockList));
     }
 
     public void retrieveChatList(){
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
 
-//        APICallManager.getInstance().postChat("1", "{20000}", new Callback<PostChatResponseModel>() {
-//            @Override
-//            public void success(PostChatResponseModel postChatResponseModel, Response response) {
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
-//
-//        APICallManager.getInstance().postChat("2", "{50000}", new Callback<PostChatResponseModel>() {
-//            @Override
-//            public void success(PostChatResponseModel postChatResponseModel, Response response) {
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
-//
-//        APICallManager.getInstance().postChat("3", "{56000}", new Callback<PostChatResponseModel>() {
-//            @Override
-//            public void success(PostChatResponseModel postChatResponseModel, Response response) {
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
-//
-//        APICallManager.getInstance().postChat("9", "{-200000}", new Callback<PostChatResponseModel>() {
-//            @Override
-//            public void success(PostChatResponseModel postChatResponseModel, Response response) {
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
-//
-//        APICallManager.getInstance().postChat("11", "{220000}", new Callback<PostChatResponseModel>() {
-//            @Override
-//            public void success(PostChatResponseModel postChatResponseModel, Response response) {
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
-//
-//        APICallManager.getInstance().postChat("14", "{-120000}", new Callback<PostChatResponseModel>() {
-//            @Override
-//            public void success(PostChatResponseModel postChatResponseModel, Response response) {
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
-//
-//        APICallManager.getInstance().postChat("13", "{320000}", new Callback<PostChatResponseModel>() {
-//            @Override
-//            public void success(PostChatResponseModel postChatResponseModel, Response response) {
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
-//
-//        APICallManager.getInstance().postChat("7", "{90000}", new Callback<PostChatResponseModel>() {
-//            @Override
-//            public void success(PostChatResponseModel postChatResponseModel, Response response) {
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
-//
-//        APICallManager.getInstance().postChat("10", "{-60000}", new Callback<PostChatResponseModel>() {
-//            @Override
-//            public void success(PostChatResponseModel postChatResponseModel, Response response) {
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
+        APICallManager.getInstance().getStocks(new Callback<GetStockResponseModel>() {
+            @Override
+            public void success(GetStockResponseModel getStockResponseModel, Response response) {
 
-//        APICallManager.getInstance().getRecentChatList(new Callback<GetRecentChatResponseModel>() {
-//            @Override
-//            public void success(GetRecentChatResponseModel getRecentChatResponseModel, Response response) {
-//
-//                chatList = getRecentChatResponseModel.getData();
-//
-//                for (Iterator<GetRecentChatResponseModel.GetRecentResponseData> i = chatList.iterator(); i.hasNext();){
+                stockList = getStockResponseModel.getData();
+
+//                for (Iterator<GetStockResponseModel.GetStockResponseData> i = stockList.iterator(); i.hasNext();){
 //                    if (i.next().getAvaUrl() == null) i.remove();
 //                }
-//
-//                Collections.sort(chatList, new Comparator<GetRecentChatResponseModel.GetRecentResponseData>() {
-//                    @Override
-//                    public int compare(GetRecentChatResponseModel.GetRecentResponseData lhs, GetRecentChatResponseModel.GetRecentResponseData rhs) {
-//                        return lhs.getUserFirstname().compareTo(rhs.getUserFirstname());
-//                    }
-//                });
-//
-//                setupChatRecyclerView();
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Toast.makeText(getActivity(), "failed to get data", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
+                Collections.sort(stockList, new Comparator<GetStockResponseModel.GetStockResponseData>() {
+                    @Override
+                    public int compare(GetStockResponseModel.GetStockResponseData lhs, GetStockResponseModel.GetStockResponseData rhs) {
+                        return lhs.getCategory().compareTo(rhs.getCategory());
+                    }
+                });
+
+                setupChatRecyclerView();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getActivity(), "failed to get data", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 
