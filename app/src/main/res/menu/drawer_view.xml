@@ -20,11 +20,11 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_dashboard"
-            android:title="Home" />
+            android:title="Riwayat Order" />
         <item
             android:id="@+id/nav_messages"
             android:icon="@drawable/ic_forum"
-            android:title="Transaction" />
+            android:title="Riwayat Grosir" />
     </group>
 
     <!--<item android:title="Sub items">-->
