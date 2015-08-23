@@ -64,6 +64,7 @@
         <EditText
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:textColor="#E74C3C" />
     </LinearLayout>
 
@@ -84,6 +85,7 @@
             android:layout_marginLeft="40dp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:textColor="#E74C3C" />
     </LinearLayout>
 
