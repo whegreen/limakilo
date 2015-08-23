@@ -17,7 +17,8 @@ public interface OrderService {
 
     @FormUrlEncoded
     @POST("/orders")
-    void postOrder(@Field("stock_id") String stockId,
+    void postOrder(@Header("authentification") String authentification,
+                       @Field("stock_id") String stockId,
                        @Field("quantity") String quantity,
                        @Field("price") String price,
                        @Field("type") String type,

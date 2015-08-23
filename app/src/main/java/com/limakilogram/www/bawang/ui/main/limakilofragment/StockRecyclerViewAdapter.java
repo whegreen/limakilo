@@ -53,7 +53,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
                 +" "+ mStocks.get(position).getCategory());
         holder.mTextView2.setText(mStocks.get(position).getPrice());
         holder.mTextView3.setText(mStocks.get(position).getFirstName()+" "+mStocks.get(position).getLastName());
-//        holder.mTextView3.setText(mStocks.get(position).getStock());
+//        holder.mTextView4.setText(mStocks.get(position).getStock());
 
         holder.mBoundAvatar = mStocks.get(position).getAvaUrl();
         holder.mBoundUserId = mStocks.get(position).getStock();

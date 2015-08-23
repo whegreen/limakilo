@@ -1,5 +1,6 @@
 package com.limakilogram.www.bawang.ui.detailorder;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -27,6 +28,8 @@ public class OrderListActivity extends AppCompatActivity {
 
     public static final String EXTRA_HISTORY = "history";
 
+    public Context context;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,8 @@ public class OrderListActivity extends AppCompatActivity {
 
         final ListView lv = (ListView) findViewById(R.id.list_order);
 
+        context = getApplicationContext();
+
         if (history.equals("order")){
             collapsingToolbar.setTitle("Riwayat Paket");
             APICallManager.getInstance().getMyOrders(new Callback<GetMyOrderResponseModel>() {
@@ -54,7 +59,7 @@ public class OrderListActivity extends AppCompatActivity {
 
                     OrderModel order_data[];
                     order_data = convertToOrderModel(getMyOrderResponseModel.getData(), 0);
-                    OrderListAdapter adapter = new OrderListAdapter(getBaseContext(),
+                    OrderListAdapter adapter = new OrderListAdapter(context,
                             R.layout.list_item_order, order_data);//
                     lv.setAdapter(adapter);
 
@@ -74,14 +79,14 @@ public class OrderListActivity extends AppCompatActivity {
 
                     OrderModel order_data[];
                     order_data = convertToOrderModel(getMyBidResponseModel.getData());
-                    OrderListAdapter adapter = new OrderListAdapter(getBaseContext(),
+                    OrderListAdapter adapter = new OrderListAdapter(context,
                             R.layout.list_item_order, order_data);//
                     lv.setAdapter(adapter);
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Toast.makeText(getBaseContext(), "failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "failed : "+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             });

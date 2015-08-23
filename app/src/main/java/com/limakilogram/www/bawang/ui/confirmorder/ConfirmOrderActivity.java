@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     public static final String EXTRA_PRICE = "price";
 
     private String stockId;
+    private EditText editText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         TextView view1 = (TextView) findViewById(R.id.confirm_text_1);
         TextView view3 = (TextView) findViewById(R.id.confirm_text_3);
         TextView view4 = (TextView) findViewById(R.id.confirm_text_4);
+
+        editText = (EditText) findViewById(R.id.editText);
 
         view1.setText(name);
         view3.setText(price);
@@ -75,8 +79,13 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     }
 
     public void postOrder(){
-        String stockId = "";
-        String quantity = "";
+        String stockId = "0";
+        String quantity = "0";
+
+        if (!editText.getText().toString().equals("")){
+            quantity = editText.getText().toString();
+        }
+
         APICallManager.getInstance().postOrder5kg(stockId, quantity, new Callback<PostOrderResponseModel>() {
             @Override
             public void success(PostOrderResponseModel postOrderResponseModel, Response response) {
@@ -85,7 +94,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(getBaseContext(), "failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "failed"+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -81,7 +81,7 @@ public class GrosirFragment extends Fragment implements APICallListener, GrosirF
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(getActivity().getBaseContext(), "failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getBaseContext(), "failed"+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

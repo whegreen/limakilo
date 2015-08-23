@@ -103,7 +103,7 @@ public class LimakiloFragment extends Fragment implements APICallListener, Limak
         AlertDialog.Builder builder;
         AlertDialog alertDialog;
 
-        Context mContext = getActivity().getBaseContext();
+        Context mContext = getActivity().getApplicationContext();
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.spinner_order,null);
 
