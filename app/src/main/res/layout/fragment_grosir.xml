@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical">
 
-
     <LinearLayout
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="80dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="        Bawang: "
+            android:text="Bawang: "
             android:textColor="#E74C3C" />
 
         <RadioGroup
@@ -27,6 +27,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -50,6 +51,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
         android:orientation="horizontal">
 
         <TextView
@@ -68,26 +70,28 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="           Harga: "
+            android:text="Harga: "
             android:textColor="#E74C3C" />
 
         <EditText
             android:id="@+id/price"
+            android:layout_marginLeft="40dp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textColor="#E74C3C" />
     </LinearLayout>
 
     <Button
+        android:layout_marginLeft="125dp"
         android:id="@+id/btn_choice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_red"
         android:paddingLeft="10dp"
