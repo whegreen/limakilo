@@ -2,39 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="80dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bawang"
-        android:textColor="#E74C3C"
-        android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal" />
-    <RadioGroup
-        android:id="@+id/radioSex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mutu 1"
-            android:id="@+id/radioButton"
-            android:checked="true" />
+        android:orientation="horizontal">
 
-        <RadioButton
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mutu 2"
-            android:id="@+id/radioButton2"
             android:layout_gravity="center_horizontal"
-            android:checked="false" />
-    </RadioGroup>
+            android:text="Bawang: "
+            android:textColor="#E74C3C" />
+
+        <RadioGroup
+            android:id="@+id/radioSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Mutu 1" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Mutu 2" />
+            </LinearLayout>
+        </RadioGroup>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
         android:orientation="horizontal">
 
         <TextView
@@ -53,31 +70,33 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="           Harga: "
+            android:text="Harga: "
             android:textColor="#E74C3C" />
 
         <EditText
             android:id="@+id/price"
+            android:layout_marginLeft="40dp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textColor="#E74C3C" />
     </LinearLayout>
 
     <Button
+        android:layout_marginLeft="125dp"
         android:id="@+id/btn_choice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
         android:background="@drawable/rounded_red"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="DETAIL"
+        android:text="Cari Toko"
         android:textColor="#E9E9E9"
         android:textSize="14sp" />
 

@@ -51,7 +51,7 @@ public class OrderListActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         if (history.equals("order")){
-            collapsingToolbar.setTitle("Riwayat Order");
+            collapsingToolbar.setTitle("Riwayat Paket");
             APICallManager.getInstance().getMyOrders(new Callback<GetMyOrderResponseModel>() {
                 @Override
                 public void success(GetMyOrderResponseModel getMyOrderResponseModel, Response response) {
@@ -71,7 +71,7 @@ public class OrderListActivity extends AppCompatActivity {
                 }
             });
         }else{
-            collapsingToolbar.setTitle("Riwayat Bid");
+            collapsingToolbar.setTitle("Riwayat Grosir");
             APICallManager.getInstance().getMyBids(new Callback<GetMyBidResponseModel>() {
                 @Override
                 public void success(GetMyBidResponseModel getMyBidResponseModel, Response response) {

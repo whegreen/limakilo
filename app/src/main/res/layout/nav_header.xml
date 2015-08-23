@@ -22,11 +22,20 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
-    android:gravity="bottom">
+    android:gravity="center_horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar_navheader"
+        android:layout_width="100dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/avatar_icon"
+        android:layout_height="100dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:text="Username"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
