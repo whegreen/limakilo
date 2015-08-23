@@ -25,3 +25,5 @@ local.properties
 circleimageview_1_3_0.xml
 app.iml
 gradle_project_sync_data.bin
+.idea/libraries/circleimageview_1_3_0.xml
+app/app.iml
