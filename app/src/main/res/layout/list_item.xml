@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="1dp"
-                    android:text="Jenis: "
+                    android:text="Jenis:                "
                     android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="1dp"
-                    android:text="Nama KUD: "
+                    android:text="Nama KUD:      "
                     android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
@@ -106,6 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal">
 
@@ -114,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="1dp"
-                    android:text="Harga: Rp."
+                    android:text="Harga:               Rp."
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textColor="#E74C3C" />
 
@@ -135,6 +136,5 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
         android:background="#34495e" />
 </LinearLayout>
