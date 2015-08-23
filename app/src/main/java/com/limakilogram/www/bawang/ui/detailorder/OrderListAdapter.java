@@ -10,7 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.util.api.bid.GetMyBidResponseModel;
+import com.limakilogram.www.bawang.util.api.order.GetMyOrderResponseModel;
+
+import java.util.List;
 
 /**
  * Created by martinluter on 8/22/15.
@@ -18,6 +23,7 @@ import com.limakilogram.www.bawang.R;
 public class OrderListAdapter extends ArrayAdapter<OrderModel> {
     private static String TAG = "OrderListAdapter";
     public OrderModel order_data[] = null;
+
     int layoutResourceId;
     private Context context;
 
@@ -34,11 +40,11 @@ public class OrderListAdapter extends ArrayAdapter<OrderModel> {
         OrderModelHolder holder = null;
 
         if (row == null) {
-            LayoutInflater inflaters = ((Activity) context).getLayoutInflater();
+            LayoutInflater inflaters = LayoutInflater.from(context);
             row = inflaters.inflate(layoutResourceId, parent, false);
 
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            LayoutInflater inflater = (LayoutInflater) getContext()
+//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             holder = new OrderModelHolder();
 
@@ -57,9 +63,14 @@ public class OrderListAdapter extends ArrayAdapter<OrderModel> {
             holder = (OrderModelHolder) row.getTag();
         }
 
-        OrderModel orderData = order_data[position];
-        holder.txtTitle1.setText(orderData.title1);
-        holder.txtTitle2.setText(orderData.title2);
+        try{
+            OrderModel orderData = order_data[position];
+            holder.txtTitle1.setText(orderData.title1);
+            holder.txtTitle2.setText(orderData.title2);
+        }
+        catch (Exception e){
+            Crashlytics.logException(e);
+        }
 
         return row;
     }

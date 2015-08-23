@@ -8,24 +8,40 @@
     android:paddingBottom="8dp"
     android:gravity="center_vertical">
 
-    <!--<de.hdodenhof.circleimageview.CircleImageView-->
-        <!--android:id="@+id/avatar"-->
-        <!--android:layout_width="@dimen/list_item_avatar_size"-->
-        <!--android:layout_height="@dimen/list_item_avatar_size"-->
-        <!--android:layout_marginRight="6dp"-->
-        <!--android:layout_marginLeft="4dp"-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:layout_weight="0"-->
-        <!--/>-->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/list_item_avatar_size"
+        android:layout_height="@dimen/list_item_avatar_size"
+        android:layout_marginRight="6dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight="0"
+        />
 
-    <TextView
-        android:id="@android:id/text1"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:padding="1dp"
-        android:layout_weight="1"
-        />
+        android:gravity="center_horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:id="@android:id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:padding="1dp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:padding="1dp"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@android:id/text2"

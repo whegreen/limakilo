@@ -1,21 +1,41 @@
 package com.limakilogram.www.bawang.ui.detailorder;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.util.api.APICallManager;
+import com.limakilogram.www.bawang.util.api.bid.GetMyBidResponseModel;
+import com.limakilogram.www.bawang.util.api.order.GetMyOrderResponseModel;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by walesadanto on 22/8/15.
  */
 public class OrderListActivity extends AppCompatActivity {
+
+    public static final String EXTRA_HISTORY = "history";
+
+    public Context context;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        String history = intent.getStringExtra(EXTRA_HISTORY);
 
         setContentView(R.layout.activity_detail_order);
 
@@ -25,22 +45,54 @@ public class OrderListActivity extends AppCompatActivity {
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("Riwayat Order");
 
-        ListView lv = (ListView) findViewById(R.id.list_order);
+        final ListView lv = (ListView) findViewById(R.id.list_order);
 
-        OrderModel order_data[] = new OrderModel[]
-                {
-                        new OrderModel("Tanggal Order: ", "Keterangan Order: "),
-                        new OrderModel("Tanggal Order: ", "Keterangan Order: "),
-                        new OrderModel("Tanggal Order: ", "Keterangan Order: "),
-                };
+        context = getApplicationContext();
+
+        if (history.equals("order")){
+            collapsingToolbar.setTitle("Riwayat Paket");
+            APICallManager.getInstance().getMyOrders(new Callback<GetMyOrderResponseModel>() {
+                @Override
+                public void success(GetMyOrderResponseModel getMyOrderResponseModel, Response response) {
+                    Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
+
+                    OrderModel order_data[];
+                    order_data = convertToOrderModel(getMyOrderResponseModel.getData(), 0);
+                    OrderListAdapter adapter = new OrderListAdapter(context,
+                            R.layout.list_item_order, order_data);//
+                    lv.setAdapter(adapter);
+
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getBaseContext(), "failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            collapsingToolbar.setTitle("Riwayat Grosir");
+            APICallManager.getInstance().getMyBids(new Callback<GetMyBidResponseModel>() {
+                @Override
+                public void success(GetMyBidResponseModel getMyBidResponseModel, Response response) {
+                    Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
+
+                    OrderModel order_data[];
+                    order_data = convertToOrderModel(getMyBidResponseModel.getData());
+                    OrderListAdapter adapter = new OrderListAdapter(context,
+                            R.layout.list_item_order, order_data);//
+                    lv.setAdapter(adapter);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getBaseContext(), "failed : "+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
 
 
-        OrderListAdapter adapter = new OrderListAdapter(this,
-                R.layout.list_item_order, order_data);
-
-        lv.setAdapter(adapter);
     }
 
     @Override
@@ -51,6 +103,27 @@ public class OrderListActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public OrderModel[] convertToOrderModel(List<GetMyBidResponseModel.GetMyBidResponseData> orderData){
+        OrderModel order_data[] = new OrderModel[orderData.size()];
+        int i = 0;
+        for (GetMyBidResponseModel.GetMyBidResponseData element : orderData) {
+            order_data[i] = new OrderModel(orderData.get(0).getOrderId()+" x "+orderData.get(0).getStatus(),
+                    orderData.get(0).getDate());
+        }
+
+        return order_data;
+    }
+
+    public OrderModel[] convertToOrderModel(List<GetMyOrderResponseModel.GetMyOrderResponseData> orderData, int dummy){
+        OrderModel order_data[] = new OrderModel[orderData.size()];
+        int i = 0;
+        for (GetMyOrderResponseModel.GetMyOrderResponseData element : orderData) {
+            order_data[i] = new OrderModel(orderData.get(0).getQuantity()+" x "+orderData.get(0).getPrice(),
+                    orderData.get(0).getDate());
+        }
+        return order_data;
     }
 
 }
