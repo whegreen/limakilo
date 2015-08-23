@@ -53,7 +53,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
                 +" "+ mStocks.get(position).getCategory());
         holder.mTextView2.setText(mStocks.get(position).getPrice());
         holder.mTextView3.setText(mStocks.get(position).getFirstName()+" "+mStocks.get(position).getLastName());
-        holder.mTextView3.setText(mStocks.get(position).getStock());
+//        holder.mTextView4.setText(mStocks.get(position).getStock());
 
         holder.mBoundAvatar = mStocks.get(position).getAvaUrl();
         holder.mBoundUserId = mStocks.get(position).getStock();
@@ -103,7 +103,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         public final TextView mTextView;
         public final TextView mTextView2;
         public final TextView mTextView3;
-        public final TextView mTextView4;
+//        public final TextView mTextView4;
 
         public StockItemChatViewHolder(View itemView) {
             super(itemView);
@@ -113,7 +113,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
             mTextView = (TextView) itemView.findViewById(android.R.id.text1);
             mTextView2 = (TextView) itemView.findViewById(android.R.id.text2);
             mTextView3 = (TextView) itemView.findViewById(R.id.text3);
-            mTextView4 = (TextView) itemView.findViewById(R.id.text4);
+//            mTextView4 = (TextView) itemView.findViewById(R.id.text4);
 
         }
     }

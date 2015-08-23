@@ -65,6 +65,13 @@
         <dex dex="/Users/walesadanto/limakilogram/app/build/intermediates/pre-dexed/debug/classes-a37a46b7749c00df2fb88aed13babda244185df9.jar" />
     </item>
     <item
+        jar="/Users/walesadanto/limakilogram/app/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="ac6948cce36f694f3eb3d73a135e298dc4b3527a">
+        <dex dex="/Users/walesadanto/limakilogram/app/build/intermediates/pre-dexed/debug/classes-ef945de498f6f582e9d08f999e6da2fd1e9c2efc.jar" />
+    </item>
+    <item
         jar="/Users/walesadanto/Documents/adt-bundle-mac-x86_64-20140702/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
         jumboMode="false"
         revision="22.0.0"
