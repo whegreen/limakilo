@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/rounded_white"
-                android:text="Lanjut ke pembayaran"
+                android:text="Lanjut Pembayaran"
                 android:textSize="12sp" />
 
             <RelativeLayout
