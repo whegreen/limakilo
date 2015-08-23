@@ -25,7 +25,7 @@
         android:gravity="center"
         android:paddingTop="15dp"
         android:layout_marginBottom="50dp"
-        android:text="'Beli sembako eceran fresh dari petani!'"
+        android:text="'Harga kami tak sejahat ibu tiri'"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#ffffffff" />
