@@ -56,7 +56,10 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
 //        holder.mTextView4.setText(mStocks.get(position).getStock());
 
         holder.mBoundAvatar = mStocks.get(position).getAvaUrl();
-        holder.mBoundUserId = mStocks.get(position).getStock();
+        holder.mBoundStockId = mStocks.get(position).getId();
+        holder.commodityPrice = mStocks.get(position).getPrice();
+        holder.commodityName = mStocks.get(position).getCommodity()+" "+mStocks.get(position).getCategory();;
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +68,8 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
                 Intent intent = new Intent(context, ConfirmOrderActivity.class);
                 intent.putExtra(ConfirmOrderActivity.EXTRA_NAME, holder.commodityName);
 //                intent.putExtra(ConfirmOrderActivity.EXTRA_AVATAR, holder.mBoundAvatar);
-                intent.putExtra(ConfirmOrderActivity.EXTRA_PRICE, holder.mTextView2.getText());
-                intent.putExtra(ConfirmOrderActivity.EXTRA_STOCK, holder.commodityId);
+//                intent.putExtra(ConfirmOrderActivity.EXTRA_QTY, holder.mTextView2.getText());
+                intent.putExtra(ConfirmOrderActivity.EXTRA_STOCK, holder.mBoundStockId);
                 intent.putExtra(ConfirmOrderActivity.EXTRA_PRICE, holder.commodityPrice);
 
                 context.startActivity(intent);
@@ -96,7 +99,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         public String commodityId;
         public String commodityPrice;
         public String mBoundAvatar;
-        public int mBoundUserId;
+        public int mBoundStockId;
 
         public final View mView;
         public final ImageView mImageView;
@@ -113,7 +116,6 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
             mTextView = (TextView) itemView.findViewById(android.R.id.text1);
             mTextView2 = (TextView) itemView.findViewById(android.R.id.text2);
             mTextView3 = (TextView) itemView.findViewById(R.id.text3);
-//            mTextView4 = (TextView) itemView.findViewById(R.id.text4);
 
         }
     }

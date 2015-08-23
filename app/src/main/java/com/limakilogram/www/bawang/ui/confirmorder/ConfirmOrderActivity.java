@@ -26,6 +26,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     public static final String EXTRA_STOCK = "stock_id";
     public static final String EXTRA_NAME = "stock_name";
     public static final String EXTRA_PRICE = "price";
+    public static final String EXTRA_QTY = "quantity";
 
     private String stockId;
     private EditText editText;
@@ -36,8 +37,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         stockId = intent.getStringExtra(EXTRA_STOCK);
-        final String name= intent.getStringExtra(EXTRA_NAME);
-        final String price = intent.getStringExtra(EXTRA_PRICE);
+        String name= intent.getStringExtra(EXTRA_NAME);
+        String price = intent.getStringExtra(EXTRA_PRICE);
 
         setContentView(R.layout.activity_confirm_order);
 
