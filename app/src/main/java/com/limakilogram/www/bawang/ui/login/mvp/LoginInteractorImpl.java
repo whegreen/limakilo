@@ -6,4 +6,5 @@ package com.limakilogram.www.bawang.ui.login.mvp;
 public class LoginInteractorImpl implements LoginInteractor  {
 
 
+
 }

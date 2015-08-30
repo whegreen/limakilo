@@ -5,8 +5,12 @@ package com.limakilogram.www.bawang.ui.login.mvp;
  */
 public interface LoginListener {
 
+    public enum LoginType{
+        FACEBOOK, DIGIT
+    }
     public void loginSuccess();
-    public void loginCancel();
-    public void loginError();
+    public void loginSuccess(LoginType loginType);
+    public void loginCancel(LoginType loginType);
+    public void loginError(LoginType loginType);
 
 }

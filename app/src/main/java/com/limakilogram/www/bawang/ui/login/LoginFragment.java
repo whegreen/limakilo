@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.digits.sdk.android.DigitsAuthButton;
 import com.facebook.AccessToken;
@@ -18,6 +19,7 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.ui.login.mvp.LoginListener;
 import com.limakilogram.www.bawang.ui.login.mvp.LoginPresenter;
 import com.limakilogram.www.bawang.ui.login.mvp.LoginPresenterImpl;
 import com.limakilogram.www.bawang.ui.login.mvp.LoginView;
@@ -97,7 +99,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
                                 new GraphRequest(
                                         AccessToken.getCurrentAccessToken(),
-                                        "/"+userId+"/picture",
+                                        "/" + userId + "/picture",
                                         null,
                                         HttpMethod.GET,
                                         new GraphRequest.Callback() {
@@ -110,27 +112,27 @@ public class LoginFragment extends Fragment implements LoginView {
 
 
                                 APICallManager.getInstance().loginFacebook(id,
-                                    firstName, lastName, email,
-                                    new Callback<LoginResponseModel>() {
-                                        @Override
-                                        public void success(LoginResponseModel loginResponseModel, Response response) {
-                                            List list = loginResponseModel.getData();
-                                            String auth = "";
-                                            for (Object temp : list) {
-                                                auth = ((LoginResponseModel.LoginResponseData) temp).getAuth();
+                                        firstName, lastName, email,
+                                        new Callback<LoginResponseModel>() {
+                                            @Override
+                                            public void success(LoginResponseModel loginResponseModel, Response response) {
+                                                List list = loginResponseModel.getData();
+                                                String auth = "";
+                                                for (Object temp : list) {
+                                                    auth = ((LoginResponseModel.LoginResponseData) temp).getAuth();
+                                                }
+                                                if (auth != null) {
+                                                    APICallManager.getInstance().setAuthentification(auth);
+                                                    PreferencesManager.saveAuthToken(getActivity().getBaseContext(), auth);
+                                                }
+                                                ((LoginPresenterImpl) presenter).loginSuccess();
                                             }
-                                            if (auth != null){
-                                                APICallManager.getInstance().setAuthentification(auth);
-                                                PreferencesManager.saveAuthToken(getActivity().getBaseContext(), auth);
-                                            }
-                                            ((LoginPresenterImpl) presenter).loginSuccess();
-                                        }
 
-                                        @Override
-                                        public void failure(RetrofitError error) {
-                                            ((LoginPresenterImpl) presenter).loginCancel();
-                                        }
-                                    });
+                                            @Override
+                                            public void failure(RetrofitError error) {
+                                                ((LoginPresenterImpl) presenter).loginCancel(LoginListener.LoginType.FACEBOOK);
+                                            }
+                                        });
 
                             }
 
@@ -142,19 +144,26 @@ public class LoginFragment extends Fragment implements LoginView {
             @Override
             public void onCancel() {
                 // App code
-                ((LoginPresenterImpl) presenter).loginCancel();
+                ((LoginPresenterImpl) presenter).loginCancel(LoginListener.LoginType.FACEBOOK);
             }
 
             @Override
             public void onError(FacebookException exception) {
                 // App code
-                ((LoginPresenterImpl) presenter).loginError();
+                ((LoginPresenterImpl) presenter).loginError(LoginListener.LoginType.FACEBOOK);
             }
         });
 
         DigitsAuthButton digitsButton = (DigitsAuthButton) view.findViewById(R.id.auth_button);
         digitsButton.setCallback(((LoginActivity) getActivity()).getTwitterAuthCallback());
 
+        TextView textView = (TextView) view.findViewById(R.id.btn_login_later);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMainActivity();
+            }
+        });
         return view;
     }
 
@@ -174,51 +183,6 @@ public class LoginFragment extends Fragment implements LoginView {
                 startActivity(mainIntent);
             }
         }, 300L);
-
-    }
-
-    @Override
-    public void showLoginLoading() {
-
-    }
-
-    @Override
-    public void hideLoginLoading() {
-
-    }
-
-    @Override
-    public void showCancelDialog() {
-
-    }
-
-    @Override
-    public void hideCancelDialog() {
-
-    }
-
-    @Override
-    public void showErrorDialog() {
-
-    }
-
-    @Override
-    public void hideErrorDialog() {
-
-    }
-
-    @Override
-    public void showEmailLoginForm() {
-
-    }
-
-    @Override
-    public void showEmailLoginWrongPassword() {
-
-    }
-
-    @Override
-    public void showEmailLoginWrongEmail() {
 
     }
 
