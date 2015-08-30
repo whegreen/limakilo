@@ -22,7 +22,7 @@ public class APICallManager {
 
     private static APICallManager instance;
     private RestAdapter restAdapter;
-    private String endPoint = "http://10.107.157.165:3000";
+    private String endPoint = "http://limakilo.elasticbeanstalk.com:3000";
 //    public static Boolean usingMock = true;
 
     private String authentification;
