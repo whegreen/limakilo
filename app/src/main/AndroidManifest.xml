@@ -2,10 +2,12 @@
     package="com.limakilogram.www.bawang">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
 
     <application android:allowBackup="true" android:label="@string/app_name"
         android:icon="@drawable/logo" android:theme="@style/AppTheme"
-        android:name="android.support.multidex.MultiDexApplication">
+        android:name=".BawangApplication">
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

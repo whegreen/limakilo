@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.util.api.bid.GetMyBidResponseModel;
 import com.limakilogram.www.bawang.util.api.order.GetMyOrderResponseModel;
@@ -69,7 +68,7 @@ public class OrderListAdapter extends ArrayAdapter<OrderModel> {
             holder.txtTitle2.setText(orderData.title2);
         }
         catch (Exception e){
-            Crashlytics.logException(e);
+//            Crashlytics.logException(e);
         }
 
         return row;

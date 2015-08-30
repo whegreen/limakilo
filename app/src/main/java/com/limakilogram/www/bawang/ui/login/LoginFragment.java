@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.digits.sdk.android.DigitsAuthButton;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -150,6 +151,9 @@ public class LoginFragment extends Fragment implements LoginView {
                 ((LoginPresenterImpl) presenter).loginError();
             }
         });
+
+        DigitsAuthButton digitsButton = (DigitsAuthButton) view.findViewById(R.id.auth_button);
+        digitsButton.setCallback(((LoginActivity) getActivity()).getTwitterAuthCallback());
 
         return view;
     }

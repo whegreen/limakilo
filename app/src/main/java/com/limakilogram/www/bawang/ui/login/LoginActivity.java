@@ -2,22 +2,54 @@ package com.limakilogram.www.bawang.ui.login;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.digits.sdk.android.AuthCallback;
+import com.digits.sdk.android.Digits;
+import com.digits.sdk.android.DigitsException;
+import com.digits.sdk.android.DigitsSession;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.limakilogram.www.bawang.R;
+
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 import io.fabric.sdk.android.Fabric;
 
 public class LoginActivity extends FragmentActivity {
 
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "QzDqgpPWp2eicthl2PjsC6Naw";
+    private static final String TWITTER_SECRET = "MfjqRGnHLG9TxR6BT3Raeqqn0chCvYe0i0JU86EHMBd1I5QaaA";
+
+    private String TAG = "LoginActivity";
     private CallbackManager callbackManager;
+
+    private AuthCallback twitterAuthCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
-        Fabric.with(this, new Crashlytics());
+
+//        twitter and crashlytic stuffs
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Crashlytics(), new TwitterCore(authConfig), new Digits());
+
+        twitterAuthCallback = new AuthCallback() {
+            @Override
+            public void success(DigitsSession session, String phoneNumber) {
+                // Do something with the session
+                Crashlytics.log(Log.INFO, TAG, "digit callback success");
+            }
+
+            @Override
+            public void failure(DigitsException exception) {
+                // Do something on failure
+                Crashlytics.log(Log.INFO, TAG, exception.toString());
+
+            }
+        };
 
         //facebook stuffs
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -38,6 +70,10 @@ public class LoginActivity extends FragmentActivity {
                 callbackManager = CallbackManager.Factory.create();
             }
         }
+    }
+
+    public AuthCallback getTwitterAuthCallback() {
+        return twitterAuthCallback;
     }
 
     public CallbackManager getCallbackManager() {
