@@ -40,7 +40,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
         String name= intent.getStringExtra(EXTRA_NAME);
         String price = intent.getStringExtra(EXTRA_PRICE);
 
-        setContentView(R.layout.activity_confirm_order);
+        setContentView(R.layout.activity_history_order);
 
         TextView view1 = (TextView) findViewById(R.id.confirm_text_1);
         TextView view3 = (TextView) findViewById(R.id.confirm_text_3);
@@ -66,7 +66,6 @@ public class HistoryOrderActivity extends AppCompatActivity {
                 postOrder();
             }
         });
-
     }
 
     @Override
