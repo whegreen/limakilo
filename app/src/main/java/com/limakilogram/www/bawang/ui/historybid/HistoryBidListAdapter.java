@@ -1,8 +1,6 @@
-package com.limakilogram.www.bawang.ui.detailorder;
+package com.limakilogram.www.bawang.ui.historybid;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +9,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.limakilogram.www.bawang.R;
-import com.limakilogram.www.bawang.util.api.bid.GetMyBidResponseModel;
-import com.limakilogram.www.bawang.util.api.order.GetMyOrderResponseModel;
-
-import java.util.List;
 
 /**
  * Created by martinluter on 8/22/15.
  */
-public class OrderListAdapter extends ArrayAdapter<OrderModel> {
-    private static String TAG = "OrderListAdapter";
-    public OrderModel order_data[] = null;
+public class HistoryBidListAdapter extends ArrayAdapter<HistoryBidModel> {
+    private static String TAG = "HistoryBidListAdapter";
+    public HistoryBidModel order_data[] = null;
 
     int layoutResourceId;
     private Context context;
 
-    public OrderListAdapter(Context context, int layoutResourceId, OrderModel[] order_data) {
+    public HistoryBidListAdapter(Context context, int layoutResourceId, HistoryBidModel[] order_data) {
         super(context, layoutResourceId, order_data);
         this.order_data = order_data;
         this.context = context;
@@ -63,7 +57,7 @@ public class OrderListAdapter extends ArrayAdapter<OrderModel> {
         }
 
         try{
-            OrderModel orderData = order_data[position];
+            HistoryBidModel orderData = order_data[position];
             holder.txtTitle1.setText(orderData.title1);
             holder.txtTitle2.setText(orderData.title2);
         }

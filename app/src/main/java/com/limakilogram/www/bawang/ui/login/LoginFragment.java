@@ -4,12 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+import com.digits.sdk.android.AuthCallback;
 import com.digits.sdk.android.DigitsAuthButton;
+import com.digits.sdk.android.DigitsException;
+import com.digits.sdk.android.DigitsSession;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -125,7 +130,7 @@ public class LoginFragment extends Fragment implements LoginView {
                                                     APICallManager.getInstance().setAuthentification(auth);
                                                     PreferencesManager.saveAuthToken(getActivity().getBaseContext(), auth);
                                                 }
-                                                ((LoginPresenterImpl) presenter).loginSuccess();
+                                                ((LoginPresenterImpl) presenter).loginSuccess(LoginListener.LoginType.FACEBOOK);
                                             }
 
                                             @Override
@@ -155,6 +160,42 @@ public class LoginFragment extends Fragment implements LoginView {
         });
 
         DigitsAuthButton digitsButton = (DigitsAuthButton) view.findViewById(R.id.auth_button);
+
+        ((LoginActivity) getActivity()).setTwitterAuthCallback(new AuthCallback() {
+            @Override
+            public void success(DigitsSession digitsSession, String s) {
+                Crashlytics.log(Log.INFO, "digit login", s);
+//                presenter.doDigitLogin();
+//                APICallManager.getInstance().loginFacebook(id,
+//                        firstName, lastName, email,
+//                        new Callback<LoginResponseModel>() {
+//                            @Override
+//                            public void success(LoginResponseModel loginResponseModel, Response response) {
+//                                List list = loginResponseModel.getData();
+//                                String auth = "";
+//                                for (Object temp : list) {
+//                                    auth = ((LoginResponseModel.LoginResponseData) temp).getAuth();
+//                                }
+//                                if (auth != null) {
+//                                    APICallManager.getInstance().setAuthentification(auth);
+//                                    PreferencesManager.saveAuthToken(getActivity().getBaseContext(), auth);
+//                                }
+//                                ((LoginPresenterImpl) presenter).loginSuccess(LoginListener.LoginType.FACEBOOK);
+//                            }
+//
+//                            @Override
+//                            public void failure(RetrofitError error) {
+//                                ((LoginPresenterImpl) presenter).loginCancel(LoginListener.LoginType.FACEBOOK);
+//                            }
+//                        });
+            }
+
+            @Override
+            public void failure(DigitsException e) {
+                ((LoginPresenterImpl) presenter).loginCancel(LoginListener.LoginType.DIGIT);
+            }
+        });
+
         digitsButton.setCallback(((LoginActivity) getActivity()).getTwitterAuthCallback());
 
         TextView textView = (TextView) view.findViewById(R.id.btn_login_later);

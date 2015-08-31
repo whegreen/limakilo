@@ -19,9 +19,7 @@ package com.limakilogram.www.bawang.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,12 +31,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderActivity;
-import com.limakilogram.www.bawang.ui.detailorder.OrderListActivity;
+import com.limakilogram.www.bawang.ui.historybid.HistoryBidListActivity;
 import com.limakilogram.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import com.limakilogram.www.bawang.ui.main.limakilofragment.LimakiloFragment;
 
@@ -162,17 +159,17 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.nav_home:
-                                Intent intent1 = new Intent(context, OrderListActivity.class);
+                                Intent intent1 = new Intent(context, HistoryBidListActivity.class);
                                 intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent1.putExtra(OrderListActivity.EXTRA_HISTORY, "order");
+                                intent1.putExtra(HistoryBidListActivity.EXTRA_HISTORY, "order");
 
                                 context.startActivity(intent1);
                                 break;
                             case R.id.nav_messages:
 
-                                Intent intent2 = new Intent(context, OrderListActivity.class);
+                                Intent intent2 = new Intent(context, ConfirmOrderActivity.class);
                                 intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent2.putExtra(OrderListActivity.EXTRA_HISTORY, "bid");
+//                                intent2.putExtra(HistoryBidListActivity.EXTRA_HISTORY, "bid");
                                 context.startActivity(intent2);
                                 break;
 

@@ -5,6 +5,10 @@ package com.limakilogram.www.bawang.ui.login.mvp;
  */
 public interface LoginView {
 
+    public enum LoginState{
+        IDLE, SUCCESS, FAILURE, CANCEL
+    }
+
     public void openMainActivity();
 
 }

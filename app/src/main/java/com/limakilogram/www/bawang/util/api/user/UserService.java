@@ -22,4 +22,10 @@ public interface UserService {
                        @Field("email") String email,
                        Callback<LoginResponseModel> callback);
 
+    @FormUrlEncoded
+    @POST("/login/digit")
+    void loginDigit(@Field("digit_id") String digitId,
+                       @Field("phone") String phone,
+                       Callback<LoginResponseModel> callback);
+
 }

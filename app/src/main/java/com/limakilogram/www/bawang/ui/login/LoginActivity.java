@@ -36,21 +36,6 @@ public class LoginActivity extends FragmentActivity {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Crashlytics(), new TwitterCore(authConfig), new Digits());
 
-        twitterAuthCallback = new AuthCallback() {
-            @Override
-            public void success(DigitsSession session, String phoneNumber) {
-                // Do something with the session
-                Crashlytics.log(Log.INFO, TAG, "digit callback success");
-            }
-
-            @Override
-            public void failure(DigitsException exception) {
-                // Do something on failure
-                Crashlytics.log(Log.INFO, TAG, exception.toString());
-
-            }
-        };
-
         //facebook stuffs
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -74,6 +59,10 @@ public class LoginActivity extends FragmentActivity {
 
     public AuthCallback getTwitterAuthCallback() {
         return twitterAuthCallback;
+    }
+
+    public void setTwitterAuthCallback(AuthCallback twitterAuthCallback) {
+        this.twitterAuthCallback = twitterAuthCallback;
     }
 
     public CallbackManager getCallbackManager() {

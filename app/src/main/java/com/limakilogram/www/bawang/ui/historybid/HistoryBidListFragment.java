@@ -1,4 +1,4 @@
-package com.limakilogram.www.bawang.ui.detailorder;
+package com.limakilogram.www.bawang.ui.historybid;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,18 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.limakilogram.www.bawang.R;
-import com.limakilogram.www.bawang.ui.detailorder.mvp.DetailOrderPresenter;
-import com.limakilogram.www.bawang.ui.detailorder.mvp.DetailOrderPresenterImpl;
-import com.limakilogram.www.bawang.ui.detailorder.mvp.DetailOrderView;
+import com.limakilogram.www.bawang.ui.historybid.mvp.HistoryBidPresenter;
+import com.limakilogram.www.bawang.ui.historybid.mvp.HistoryBidPresenterImpl;
+import com.limakilogram.www.bawang.ui.historybid.mvp.HistoryBidView;
 
 /**
  * Created by walesadanto on 22/8/15.
  */
-public class OrderListFragment extends Fragment implements DetailOrderView{
+public class HistoryBidListFragment extends Fragment implements HistoryBidView {
 
-    public DetailOrderPresenter presenter;
+    public HistoryBidPresenter presenter;
 
-    public OrderListFragment() {
+    public HistoryBidListFragment() {
         super();
     }
 
@@ -44,7 +44,7 @@ public class OrderListFragment extends Fragment implements DetailOrderView{
 
         setHasOptionsMenu(true);
 
-        presenter = new DetailOrderPresenterImpl(this);
+        presenter = new HistoryBidPresenterImpl(this);
 
     }
 

@@ -22,7 +22,7 @@ public class APICallManager {
 
     private static APICallManager instance;
     private RestAdapter restAdapter;
-    private String endPoint = "http://limakilo.elasticbeanstalk.com:3000";
+    private String endPoint = "http://api.limakilo.id";
 //    public static Boolean usingMock = true;
 
     private String authentification;
@@ -55,7 +55,8 @@ public class APICallManager {
     }
 
     public String getAuthentification() {
-        return authentification;
+        return "NkxLsPb3";
+//        return authentification;
     }
 
     public void setAuthentification(String authentification) {

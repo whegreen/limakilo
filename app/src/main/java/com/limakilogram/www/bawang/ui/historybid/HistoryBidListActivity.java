@@ -1,4 +1,4 @@
-package com.limakilogram.www.bawang.ui.detailorder;
+package com.limakilogram.www.bawang.ui.historybid;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +24,7 @@ import retrofit.client.Response;
 /**
  * Created by walesadanto on 22/8/15.
  */
-public class OrderListActivity extends AppCompatActivity {
+public class HistoryBidListActivity extends AppCompatActivity {
 
     public static final String EXTRA_HISTORY = "history";
 
@@ -57,9 +57,9 @@ public class OrderListActivity extends AppCompatActivity {
                 public void success(GetMyOrderResponseModel getMyOrderResponseModel, Response response) {
                     Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
 
-                    OrderModel order_data[];
+                    HistoryBidModel order_data[];
                     order_data = convertToOrderModel(getMyOrderResponseModel.getData(), 0);
-                    OrderListAdapter adapter = new OrderListAdapter(context,
+                    HistoryBidListAdapter adapter = new HistoryBidListAdapter(context,
                             R.layout.list_item_order, order_data);//
                     lv.setAdapter(adapter);
 
@@ -77,9 +77,9 @@ public class OrderListActivity extends AppCompatActivity {
                 public void success(GetMyBidResponseModel getMyBidResponseModel, Response response) {
                     Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
 
-                    OrderModel order_data[];
+                    HistoryBidModel order_data[];
                     order_data = convertToOrderModel(getMyBidResponseModel.getData());
-                    OrderListAdapter adapter = new OrderListAdapter(context,
+                    HistoryBidListAdapter adapter = new HistoryBidListAdapter(context,
                             R.layout.list_item_order, order_data);//
                     lv.setAdapter(adapter);
                 }
@@ -105,22 +105,22 @@ public class OrderListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public OrderModel[] convertToOrderModel(List<GetMyBidResponseModel.GetMyBidResponseData> orderData){
-        OrderModel order_data[] = new OrderModel[orderData.size()];
+    public HistoryBidModel[] convertToOrderModel(List<GetMyBidResponseModel.GetMyBidResponseData> orderData){
+        HistoryBidModel order_data[] = new HistoryBidModel[orderData.size()];
         int i = 0;
         for (GetMyBidResponseModel.GetMyBidResponseData element : orderData) {
-            order_data[i] = new OrderModel(orderData.get(0).getOrderId()+" x "+orderData.get(0).getStatus(),
+            order_data[i] = new HistoryBidModel(orderData.get(0).getOrderId()+" x "+orderData.get(0).getStatus(),
                     orderData.get(0).getDate());
         }
 
         return order_data;
     }
 
-    public OrderModel[] convertToOrderModel(List<GetMyOrderResponseModel.GetMyOrderResponseData> orderData, int dummy){
-        OrderModel order_data[] = new OrderModel[orderData.size()];
+    public HistoryBidModel[] convertToOrderModel(List<GetMyOrderResponseModel.GetMyOrderResponseData> orderData, int dummy){
+        HistoryBidModel order_data[] = new HistoryBidModel[orderData.size()];
         int i = 0;
         for (GetMyOrderResponseModel.GetMyOrderResponseData element : orderData) {
-            order_data[i] = new OrderModel(orderData.get(0).getQuantity()+" x "+orderData.get(0).getPrice(),
+            order_data[i] = new HistoryBidModel(orderData.get(0).getQuantity()+" x "+orderData.get(0).getPrice(),
                     orderData.get(0).getDate());
         }
         return order_data;
