@@ -4,7 +4,7 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="172dp"
-android:background="?attr/colorPrimaryDark"
+android:background="@drawable/onion1"
 android:orientation="vertical"
 android:paddingTop="25dp"
 android:theme="@style/ThemeOverlay.AppCompat.Dark">

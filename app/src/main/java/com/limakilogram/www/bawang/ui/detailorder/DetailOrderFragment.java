@@ -32,11 +32,9 @@ public class DetailOrderFragment extends Fragment implements DetailOrderView, AP
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_detail_order, container, false);
-
         String orderId = "";
+        presenter = new DetailOrderPresenterImpl(this, this);
         presenter.refreshDetailOrder(orderId);
-
-
         return view;
     }
 

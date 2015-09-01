@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.ui.detailorder.DetailOrderActivity;
 import com.limakilogram.www.bawang.ui.historyorder.HistoryOrderActivity;
 import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
 
@@ -65,26 +66,21 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, HistoryOrderActivity.class);
+                Intent intent = new Intent(context, DetailOrderActivity.class);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_NAME, holder.commodityName);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_AVATAR, holder.mBoundAvatar);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_QTY, holder.mTextView2.getText());
 //                intent.putExtra(HistoryOrderActivity.EXTRA_STOCK, holder.mBoundStockId);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_PRICE, holder.commodityPrice);
-
                 context.startActivity(intent);
-
-
             }
         });
 
 
         Glide.with(holder.mImageView.getContext())
-//                .load(mStocks.get(position).getAvaUrl())
-                .load(R.drawable.onion1)
+                .load(R.drawable.onion2)
                 .fitCenter()
                 .into(holder.mImageView);
-
     }
 
     @Override
@@ -118,7 +114,6 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             mTextView = (TextView) itemView.findViewById(android.R.id.text1);
             mTextView2 = (TextView) itemView.findViewById(android.R.id.text2);
             mTextView3 = (TextView) itemView.findViewById(R.id.text3);
-
         }
     }
 }

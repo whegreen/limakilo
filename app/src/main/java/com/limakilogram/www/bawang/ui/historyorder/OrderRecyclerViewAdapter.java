@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderActivity;
 import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
 
 import java.util.List;
@@ -64,13 +65,12 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, HistoryOrderActivity.class);
+                Intent intent = new Intent(context, ConfirmOrderActivity.class);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_NAME, holder.commodityName);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_AVATAR, holder.mBoundAvatar);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_QTY, holder.mTextView2.getText());
 //                intent.putExtra(HistoryOrderActivity.EXTRA_STOCK, holder.mBoundStockId);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_PRICE, holder.commodityPrice);
-
                 context.startActivity(intent);
 
 

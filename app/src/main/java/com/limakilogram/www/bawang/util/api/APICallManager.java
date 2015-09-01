@@ -1,13 +1,12 @@
 package com.limakilogram.www.bawang.util.api;
 
-import com.limakilogram.www.bawang.util.api.bid.BidService;
-import com.limakilogram.www.bawang.util.api.bid.GetMyBidResponseModel;
-import com.limakilogram.www.bawang.util.api.commodity.CommodityService;
-import com.limakilogram.www.bawang.util.api.commodity.GetCommodityCategoriesResponseModel;
 import com.limakilogram.www.bawang.util.api.order.GetMyOrderResponseModel;
 import com.limakilogram.www.bawang.util.api.order.GetOrderResponseData;
+import com.limakilogram.www.bawang.util.api.order.GetOrderResponseModel;
 import com.limakilogram.www.bawang.util.api.order.OrderService;
+import com.limakilogram.www.bawang.util.api.order.PostOrderConfirmResponseModel;
 import com.limakilogram.www.bawang.util.api.order.PostOrderResponseModel;
+import com.limakilogram.www.bawang.util.api.stock.GetStockDetailResponseModel;
 import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
 import com.limakilogram.www.bawang.util.api.stock.StockService;
 import com.limakilogram.www.bawang.util.api.user.LoginResponseModel;
@@ -79,46 +78,43 @@ public class APICallManager {
         return true;
     }
 
+    public boolean getStocks(String stockId, Callback<GetStockDetailResponseModel> callback) {
+        StockService stockService = restAdapter.create(StockService.class);
+        stockService.getStockDetail(getAuthentification(), stockId, callback);
+        return true;
+    }
+
     // ORDERS
-    public boolean postOrder5kg(String stockId, String quantity, Callback<PostOrderResponseModel> callback){
+    public boolean postOrders(String orderId, String orderQuantity, String orderAddress, String orderPrice,
+                              Callback<PostOrderResponseModel> callback){
         OrderService orderService = restAdapter.create(OrderService.class);
-        orderService.postOrder(getAuthentification(), stockId, quantity, "0", "5kg", callback);
+        orderService.postOrders(getAuthentification(), orderId, orderQuantity, orderAddress, orderPrice, callback);
         return true;
     }
 
-    public boolean postOrderGrosir(String quantity, String price, Callback<PostOrderResponseModel> callback){
+    public boolean postOrders(String orderId, String orderPaymentAmount, String orderName,
+                              Callback<PostOrderConfirmResponseModel> callback){
         OrderService orderService = restAdapter.create(OrderService.class);
-        orderService.postOrder(getAuthentification(), "1", quantity, price, "Grosir", callback);
+        orderService.confirmOrder(getAuthentification(), orderId, orderPaymentAmount, orderName, callback);
         return true;
     }
 
-    public boolean getMyOrders(Callback<GetMyOrderResponseModel> callback){
+    public boolean getOrders(Callback<GetOrderResponseModel> callback){
         OrderService orderService = restAdapter.create(OrderService.class);
-        orderService.getMyOrder(getAuthentification(), callback);
+        orderService.getOrders(getAuthentification(), callback);
         return true;
     }
 
-    public boolean getOrder(String orderId, Callback<GetOrderResponseData> callback){
+    public boolean getOrders(String orderId, Callback<GetOrderResponseModel> callback){
         OrderService orderService = restAdapter.create(OrderService.class);
-        orderService.getOrder(getAuthentification(), orderId, callback);
-        return true;
-    }
-
-    // COMMODITIES
-
-    public boolean getCommoditiesCategory(Callback<GetCommodityCategoriesResponseModel> callback){
-        CommodityService commodityService = restAdapter.create(CommodityService.class);
-        commodityService.getCategory(getAuthentification(), callback);
+        orderService.getOrderDetail(getAuthentification(), orderId, callback);
         return true;
     }
 
 
-    // BIDS
 
-    public boolean getMyBids(Callback<GetMyBidResponseModel> callback){
-        BidService bidService = restAdapter.create(BidService.class);
-        bidService.getMyBid(getAuthentification(), callback);
-        return true;
-    }
+
+
+
 
 }

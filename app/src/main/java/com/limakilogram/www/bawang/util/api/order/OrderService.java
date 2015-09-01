@@ -18,20 +18,28 @@ public interface OrderService {
 
     @FormUrlEncoded
     @POST("/orders")
-    void postOrder(@Header("authentification") String authentification,
-                       @Field("stock_id") String stockId,
-                       @Field("quantity") String quantity,
-                       @Field("price") String price,
-                       @Field("type") String type,
-                       Callback<PostOrderResponseModel> callback);
+    void postOrders(@Header("authentification") String authentification,
+                    @Field("stock_id") String stockId,
+                    @Field("order_quantity") String orderQuantity,
+                    @Field("order_address") String orderAddress,
+                    @Field("order_price") String orderPrice,
+                    Callback<PostOrderResponseModel> callback);
 
-    @GET("/myorders")
-    void getMyOrder(@Header("authentification") String authentification,
-                  Callback<GetMyOrderResponseModel> callback);
+    @FormUrlEncoded
+    @POST("/orders/{order_id}/confirm")
+    void confirmOrder(@Header("authentification") String authentification,
+                   @Field("order_id") String orderId,
+                   @Field("order_payment_amount") String orderPaymentAmount,
+                   @Field("order_name") String orderName,
+                   Callback<PostOrderConfirmResponseModel> callback);
+
 
     @GET("/orders/{id}")
-    void getOrder(@Header("authentification") String authentification,
+    void getOrderDetail(@Header("authentification") String authentification,
                   @Path("id") String orderId,
-                  Callback<GetOrderResponseData> callback);
+                  Callback<GetOrderResponseModel> callback);
 
+    @GET("/orders")
+    void getOrders(@Header("authentification") String authentification,
+                   Callback<GetOrderResponseModel> callback);
 }

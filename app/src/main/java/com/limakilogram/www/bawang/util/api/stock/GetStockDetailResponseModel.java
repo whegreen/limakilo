@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetStockResponseModel {
+public class GetStockDetailResponseModel {
     private List<GetStockResponseData> data = new ArrayList<GetStockResponseData>();
 
     public List<GetStockResponseData> getData() {
@@ -57,6 +57,15 @@ public class GetStockResponseModel {
         @SerializedName("seller_city")
         @Expose
         private String sellerCity;
+        @SerializedName("seller_bank_name")
+        @Expose
+        private String sellerBankName;
+        @SerializedName("seller_bank_account")
+        @Expose
+        private String sellerBankAccount;
+        @SerializedName("seller_bank_account_name")
+        @Expose
+        private String sellerBankAccountName;
 
         /**
          *
@@ -273,5 +282,60 @@ public class GetStockResponseModel {
         public void setSellerCity(String sellerCity) {
             this.sellerCity = sellerCity;
         }
+
+        /**
+         *
+         * @return
+         * The sellerBankName
+         */
+        public String getSellerBankName() {
+            return sellerBankName;
+        }
+
+        /**
+         *
+         * @param sellerBankName
+         * The seller_bank_name
+         */
+        public void setSellerBankName(String sellerBankName) {
+            this.sellerBankName = sellerBankName;
+        }
+
+        /**
+         *
+         * @return
+         * The sellerBankAccount
+         */
+        public String getSellerBankAccount() {
+            return sellerBankAccount;
+        }
+
+        /**
+         *
+         * @param sellerBankAccount
+         * The seller_bank_account
+         */
+        public void setSellerBankAccount(String sellerBankAccount) {
+            this.sellerBankAccount = sellerBankAccount;
+        }
+
+        /**
+         *
+         * @return
+         * The sellerBankAccountName
+         */
+        public String getSellerBankAccountName() {
+            return sellerBankAccountName;
+        }
+
+        /**
+         *
+         * @param sellerBankAccountName
+         * The seller_bank_account_name
+         */
+        public void setSellerBankAccountName(String sellerBankAccountName) {
+            this.sellerBankAccountName = sellerBankAccountName;
+        }
+
     }
 }

@@ -9,17 +9,17 @@ import java.util.List;
 /**
  * Created by walesadanto on 23/8/15.
  */
-public class PostOrderResponseModel {
-    private List<PostOrderResponseData> data = new ArrayList<PostOrderResponseData>();
+public class PostOrderConfirmResponseModel {
+    private List<PostOrderConfirmResponseData> data = new ArrayList<PostOrderConfirmResponseData>();
 
-    public List<PostOrderResponseData> getData() {
+    public List<PostOrderConfirmResponseData> getData() {
         return data;
     }
 
-    public void setData(List<PostOrderResponseData> data) {
+    public void setData(List<PostOrderConfirmResponseData> data) {
         this.data = data;
     }
-    public class PostOrderResponseData{
+    public class PostOrderConfirmResponseData {
         @SerializedName("order_id")
         @Expose
         private Integer orderId;
@@ -148,4 +148,5 @@ public class PostOrderResponseModel {
         }
 
     }
+
 }
