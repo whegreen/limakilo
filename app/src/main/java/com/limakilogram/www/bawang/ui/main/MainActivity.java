@@ -30,12 +30,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderActivity;
 import com.limakilogram.www.bawang.ui.historybid.HistoryBidListActivity;
+import com.limakilogram.www.bawang.ui.historyorder.HistoryOrderActivity;
+import com.limakilogram.www.bawang.ui.historyorder.mvp.HistoryOrderPresenter;
 import com.limakilogram.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import com.limakilogram.www.bawang.ui.main.limakilofragment.LimakiloFragment;
 
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setDisplayShowTitleEnabled(false);
+        ab.setDisplayShowTitleEnabled(true);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -159,10 +162,9 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.nav_home:
-                                Intent intent1 = new Intent(context, HistoryBidListActivity.class);
+                                Intent intent1 = new Intent(context, HistoryOrderActivity.class);
                                 intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent1.putExtra(HistoryBidListActivity.EXTRA_HISTORY, "order");
-
+//                                intent1.putExtra(HistoryOrderActivity.EXTRA_HISTORY, "order");
                                 context.startActivity(intent1);
                                 break;
                             case R.id.nav_messages:
@@ -223,6 +225,14 @@ public class MainActivity extends AppCompatActivity {
         // Don't allow another search if this activity instance is already showing
         // search results. Only used pre-HC.
         return !isSearchResultView && super.onSearchRequested();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_confirm_order, menu);
+        return true;
     }
 
 }

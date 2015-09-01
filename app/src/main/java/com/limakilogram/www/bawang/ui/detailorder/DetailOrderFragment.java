@@ -1,9 +1,9 @@
-package com.limakilogram.www.bawang.ui.historybid;
+package com.limakilogram.www.bawang.ui.detailorder;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,25 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.limakilogram.www.bawang.R;
-import com.limakilogram.www.bawang.ui.historybid.mvp.HistoryBidPresenter;
-import com.limakilogram.www.bawang.ui.historybid.mvp.HistoryBidPresenterImpl;
-import com.limakilogram.www.bawang.ui.historybid.mvp.HistoryBidView;
 
 /**
- * Created by walesadanto on 22/8/15.
+ * Created by walesadanto on 30/8/15.
  */
-public class HistoryBidListFragment extends Fragment implements HistoryBidView {
-
-    public HistoryBidPresenter presenter;
-
-    public HistoryBidListFragment() {
-        super();
-    }
+public class DetailOrderFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_history_bid, container, false);
+        return inflater.inflate(R.layout.fragment_detail_order, container, false);
+
     }
 
     @Override
@@ -43,9 +35,6 @@ public class HistoryBidListFragment extends Fragment implements HistoryBidView {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
-
-        presenter = new HistoryBidPresenterImpl(this);
-
     }
 
     @Override
@@ -88,4 +77,5 @@ public class HistoryBidListFragment extends Fragment implements HistoryBidView {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

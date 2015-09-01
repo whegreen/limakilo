@@ -37,7 +37,7 @@ public class HistoryBidListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String history = intent.getStringExtra(EXTRA_HISTORY);
 
-        setContentView(R.layout.activity_detail_order);
+        setContentView(R.layout.activity_history_bid);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

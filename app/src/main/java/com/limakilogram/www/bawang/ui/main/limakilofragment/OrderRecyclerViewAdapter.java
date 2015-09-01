@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by walesadanto on 26/7/15.
  */
-public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecyclerViewAdapter.StockItemChatViewHolder> {
+public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecyclerViewAdapter.StockItemChatViewHolder> {
 
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
@@ -32,7 +32,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         return mStocks.get(position);
     }
 
-    public StockRecyclerViewAdapter(Context context, List<GetStockResponseModel.GetStockResponseData> chats){
+    public OrderRecyclerViewAdapter(Context context, List<GetStockResponseModel.GetStockResponseData> chats){
         context.getTheme().resolveAttribute(android.support.design.R.attr.selectableItemBackground, mTypedValue, true);
         mBackground = mTypedValue.resourceId;
         mStocks = chats;
@@ -66,11 +66,11 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, HistoryOrderActivity.class);
-                intent.putExtra(HistoryOrderActivity.EXTRA_NAME, holder.commodityName);
+//                intent.putExtra(HistoryOrderActivity.EXTRA_NAME, holder.commodityName);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_AVATAR, holder.mBoundAvatar);
 //                intent.putExtra(HistoryOrderActivity.EXTRA_QTY, holder.mTextView2.getText());
-                intent.putExtra(HistoryOrderActivity.EXTRA_STOCK, holder.mBoundStockId);
-                intent.putExtra(HistoryOrderActivity.EXTRA_PRICE, holder.commodityPrice);
+//                intent.putExtra(HistoryOrderActivity.EXTRA_STOCK, holder.mBoundStockId);
+//                intent.putExtra(HistoryOrderActivity.EXTRA_PRICE, holder.commodityPrice);
 
                 context.startActivity(intent);
 
