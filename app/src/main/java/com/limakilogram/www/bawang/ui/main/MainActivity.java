@@ -32,7 +32,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.appevents.AppEventsLogger;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderActivity;
@@ -118,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
 //            String title = getString(R.string.contacts_list_search_results_title, searchQuery);
 //            setTitle(title);
 //        }
+
+        ImageView avatar = (ImageView) findViewById(R.id.avatar_navheader);
+        Glide.with(getBaseContext())
+                .load(R.drawable.avatar_onion)
+                .fitCenter()
+                .into(avatar);
 
     }
 

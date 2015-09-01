@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,18 +12,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.ui.detailorder.mvp.DetailOrderPresenterImpl;
+import com.limakilogram.www.bawang.ui.detailorder.mvp.DetailOrderView;
+import com.limakilogram.www.bawang.util.api.APICallListener;
 
 /**
  * Created by walesadanto on 30/8/15.
  */
-public class DetailOrderFragment extends Fragment {
+public class DetailOrderFragment extends Fragment implements DetailOrderView, APICallListener {
+
+    private View view;
+    private DetailOrderPresenterImpl presenter;
+    private MaterialDialog dialogProgress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_detail_order, container, false);
 
+        view = inflater.inflate(R.layout.fragment_detail_order, container, false);
+
+        String orderId = "";
+        presenter.refreshDetailOrder(orderId);
+
+
+        return view;
     }
 
     @Override
@@ -78,4 +93,26 @@ public class DetailOrderFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onAPICallSucceed() {
+        Snackbar.make(view, "API call succeed", Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAPICallFailed() {
+        Snackbar.make(view, "API call failed", Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showDialogProgress() {
+        dialogProgress = new MaterialDialog.Builder(getActivity())
+                .title("contacting server")
+                .content("Please wait ...")
+                .progress(true, 0)
+                .show();
+    }
+
+    public void hideDialogProgress(){
+        dialogProgress.hide();
+    }
 }

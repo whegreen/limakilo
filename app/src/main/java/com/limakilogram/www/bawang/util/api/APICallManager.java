@@ -5,6 +5,7 @@ import com.limakilogram.www.bawang.util.api.bid.GetMyBidResponseModel;
 import com.limakilogram.www.bawang.util.api.commodity.CommodityService;
 import com.limakilogram.www.bawang.util.api.commodity.GetCommodityCategoriesResponseModel;
 import com.limakilogram.www.bawang.util.api.order.GetMyOrderResponseModel;
+import com.limakilogram.www.bawang.util.api.order.GetOrderResponseData;
 import com.limakilogram.www.bawang.util.api.order.OrderService;
 import com.limakilogram.www.bawang.util.api.order.PostOrderResponseModel;
 import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
@@ -94,6 +95,12 @@ public class APICallManager {
     public boolean getMyOrders(Callback<GetMyOrderResponseModel> callback){
         OrderService orderService = restAdapter.create(OrderService.class);
         orderService.getMyOrder(getAuthentification(), callback);
+        return true;
+    }
+
+    public boolean getOrder(String orderId, Callback<GetOrderResponseData> callback){
+        OrderService orderService = restAdapter.create(OrderService.class);
+        orderService.getOrder(getAuthentification(), orderId, callback);
         return true;
     }
 

@@ -78,8 +78,10 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             }
         });
 
+
         Glide.with(holder.mImageView.getContext())
-                .load(mStocks.get(position).getAvaUrl())
+//                .load(mStocks.get(position).getAvaUrl())
+                .load(R.drawable.onion1)
                 .fitCenter()
                 .into(holder.mImageView);
 

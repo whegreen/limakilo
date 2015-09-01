@@ -60,8 +60,8 @@
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
-        android:name="com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderFragment"
-        tools:layout="@layout/fragment_confirm_order"
+        android:name="com.limakilogram.www.bawang.ui.detailorder.DetailOrderFragment"
+        tools:layout="@layout/fragment_detail_order"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

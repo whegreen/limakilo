@@ -9,6 +9,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
+import retrofit.http.Path;
 
 /**
  * Created by walesadanto on 23/8/15.
@@ -27,5 +28,10 @@ public interface OrderService {
     @GET("/myorders")
     void getMyOrder(@Header("authentification") String authentification,
                   Callback<GetMyOrderResponseModel> callback);
+
+    @GET("/orders/{id}")
+    void getOrder(@Header("authentification") String authentification,
+                  @Path("id") String orderId,
+                  Callback<GetOrderResponseData> callback);
 
 }

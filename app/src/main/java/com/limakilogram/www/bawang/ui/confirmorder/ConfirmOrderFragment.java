@@ -13,11 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.ui.confirmorder.mvp.ConfirmOrderView;
 
 /**
  * Created by walesadanto on 30/8/15.
  */
-public class ConfirmOrderFragment extends Fragment {
+public class ConfirmOrderFragment extends Fragment implements ConfirmOrderView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
