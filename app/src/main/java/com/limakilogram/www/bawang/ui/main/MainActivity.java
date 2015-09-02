@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -177,10 +178,12 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.nav_messages:
 
-                                Intent intent2 = new Intent(context, ConfirmOrderActivity.class);
-                                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                intent2.putExtra(HistoryBidListActivity.EXTRA_HISTORY, "bid");
-                                context.startActivity(intent2);
+//                                Intent intent2 = new Intent(context, ConfirmOrderActivity.class);
+//                                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                                intent2.putExtra(HistoryBidListActivity.EXTRA_HISTORY, "bid");
+//                                context.startActivity(intent2);
+                                Snackbar.make(findViewById(R.id.drawer_layout), "this feature will be available soon",
+                                        Snackbar.LENGTH_LONG).show();
                                 break;
 
                         }
