@@ -21,7 +21,7 @@ import java.util.Random;
 /**
  * Created by walesadanto on 26/7/15.
  */
-public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecyclerViewAdapter.StockItemChatViewHolder> {
+public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecyclerViewAdapter.HistoryOrderViewHolder> {
 
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
@@ -38,15 +38,15 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
     }
 
     @Override
-    public StockItemChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HistoryOrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.stock_list_item, parent, false);
         view.setBackgroundResource(mBackground);
-        return new StockItemChatViewHolder(view);
+        return new HistoryOrderViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final StockItemChatViewHolder holder, int position) {
+    public void onBindViewHolder(final HistoryOrderViewHolder holder, int position) {
 
         holder.mTextView.setText(mStocks.get(position).getStockCommodity()
                 +" "+ mStocks.get(position).getStockCategory());
@@ -111,7 +111,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
     }
 
 
-    public static class StockItemChatViewHolder extends RecyclerView.ViewHolder{
+    public static class HistoryOrderViewHolder extends RecyclerView.ViewHolder{
 
         // element to be passed in intent later
         public String mBoundStockId;
@@ -134,7 +134,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         public final TextView mTextView4;
         public final TextView mTextView5;
 
-        public StockItemChatViewHolder(View itemView) {
+        public HistoryOrderViewHolder(View itemView) {
             super(itemView);
             // todo : do some mapping data here
             mView = itemView;
