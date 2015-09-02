@@ -41,7 +41,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
     @Override
     public OrderItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item, parent, false);
+                .inflate(R.layout.stock_list_item, parent, false);
         view.setBackgroundResource(mBackground);
         return new OrderItemViewHolder(view);
     }
@@ -49,16 +49,16 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
     @Override
     public void onBindViewHolder(final OrderItemViewHolder holder, int position) {
 
-        holder.mTextView.setText(mStocks.get(position).getCommodity()
-                +" "+ mStocks.get(position).getCategory());
-        holder.mTextView2.setText(mStocks.get(position).getPrice());
-        holder.mTextView3.setText(mStocks.get(position).getFirstName()+" "+mStocks.get(position).getLastName());
-//        holder.mTextView4.setText(mStocks.get(position).getStock());
-
-        holder.mBoundAvatar = mStocks.get(position).getAvaUrl();
-        holder.mBoundStockId = mStocks.get(position).getId();
-        holder.commodityPrice = mStocks.get(position).getPrice();
-        holder.commodityName = mStocks.get(position).getCommodity()+" "+mStocks.get(position).getCategory();;
+//        holder.mTextView.setText(mStocks.get(position).getCommodity()
+//                +" "+ mStocks.get(position).getCategory());
+//        holder.mTextView2.setText(mStocks.get(position).getPrice());
+//        holder.mTextView3.setText(mStocks.get(position).getFirstName()+" "+mStocks.get(position).getLastName());
+////        holder.mTextView4.setText(mStocks.get(position).getStock());
+//
+//        holder.mBoundAvatar = mStocks.get(position).getAvaUrl();
+//        holder.mBoundStockId = mStocks.get(position).getId();
+//        holder.commodityPrice = mStocks.get(position).getPrice();
+//        holder.commodityName = mStocks.get(position).getCommodity()+" "+mStocks.get(position).getCategory();;
 
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +78,8 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
         });
 
         Glide.with(holder.mImageView.getContext())
-                .load(mStocks.get(position).getAvaUrl())
+//                .load(mStocks.get(position).getAvaUrl())
+                .load(R.drawable.onion3)
                 .fitCenter()
                 .into(holder.mImageView);
 

@@ -1,18 +1,14 @@
 package com.limakilogram.www.bawang.ui.main.limakilofragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.main.limakilofragment.mvp.LimakiloFragmentPresenter;
@@ -38,6 +34,7 @@ public class LimakiloFragment extends Fragment implements APICallListener, Limak
 
     List<GetStockResponseModel.GetStockResponseData> stockList =
             new ArrayList<GetStockResponseModel.GetStockResponseData>();
+
     private LimakiloFragmentPresenter presenter;
     RecyclerView recyclerView;
 
@@ -46,18 +43,18 @@ public class LimakiloFragment extends Fragment implements APICallListener, Limak
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_limakilo_list, container, false);
 
-        setupChatRecyclerView();
-        retrieveChatList();
+        setupStockRecyclerView();
+        retrieveStockList();
 
         return recyclerView;
     }
 
-    public void setupChatRecyclerView(){
+    public void setupStockRecyclerView(){
         recyclerView.setLayoutManager(new LinearLayoutManager((recyclerView.getContext())));
-        recyclerView.setAdapter(new OrderRecyclerViewAdapter(getActivity(), stockList));
+        recyclerView.setAdapter(new StockRecyclerViewAdapter(getActivity(), stockList));
     }
 
-    public void retrieveChatList(){
+    public void retrieveStockList(){
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
 
         APICallManager.getInstance().getStocks(new Callback<GetStockResponseModel>() {
@@ -66,24 +63,19 @@ public class LimakiloFragment extends Fragment implements APICallListener, Limak
 
                 stockList = getStockResponseModel.getData();
 
-//                for (Iterator<GetStockResponseModel.GetStockResponseData> i = stockList.iterator(); i.hasNext();){
-//                    if (i.next().getAvaUrl() == null) i.remove();
-//                }
-
                 Collections.sort(stockList, new Comparator<GetStockResponseModel.GetStockResponseData>() {
                     @Override
                     public int compare(GetStockResponseModel.GetStockResponseData lhs, GetStockResponseModel.GetStockResponseData rhs) {
-                        return lhs.getCategory().compareTo(rhs.getCategory());
+                        return lhs.getSellerName().compareTo(rhs.getSellerName());
                     }
                 });
 
-                setupChatRecyclerView();
+                setupStockRecyclerView();
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(getActivity(), "failed to get data", Toast.LENGTH_SHORT).show();
-
+                Snackbar.make(recyclerView, "failed to get data", Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -99,31 +91,4 @@ public class LimakiloFragment extends Fragment implements APICallListener, Limak
 
     }
 
-    public void showSpinner(){
-        AlertDialog.Builder builder;
-        AlertDialog alertDialog;
-
-        Context mContext = getActivity().getApplicationContext();
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.spinner_order,null);
-
-        String array_spinner[];
-        array_spinner=new String[5];
-
-        array_spinner[0]="1";
-        array_spinner[1]="2";
-        array_spinner[2]="3";
-        array_spinner[3]="4";
-        array_spinner[4]="5";
-
-        Spinner s = (Spinner) layout.findViewById(R.id.Spinner01);
-
-        ArrayAdapter adapter = new ArrayAdapter(getActivity().getBaseContext() ,android.R.layout.simple_spinner_item, array_spinner);
-
-        s.setAdapter(adapter);
-
-        builder = new AlertDialog.Builder(mContext);
-        builder.setView(layout);
-        alertDialog = builder.create();
-    }
 }

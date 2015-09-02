@@ -52,44 +52,44 @@ public class HistoryBidListActivity extends AppCompatActivity {
 
         if (history.equals("order")){
             collapsingToolbar.setTitle("Riwayat Paket");
-            APICallManager.getInstance().getMyOrders(new Callback<GetMyOrderResponseModel>() {
-                @Override
-                public void success(GetMyOrderResponseModel getMyOrderResponseModel, Response response) {
-                    Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
-
-                    HistoryBidModel order_data[];
-                    order_data = convertToOrderModel(getMyOrderResponseModel.getData(), 0);
-                    HistoryBidListAdapter adapter = new HistoryBidListAdapter(context,
-                            R.layout.list_item_order, order_data);//
-                    lv.setAdapter(adapter);
-
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    Toast.makeText(getBaseContext(), "failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }else{
-            collapsingToolbar.setTitle("Riwayat Grosir");
-            APICallManager.getInstance().getMyBids(new Callback<GetMyBidResponseModel>() {
-                @Override
-                public void success(GetMyBidResponseModel getMyBidResponseModel, Response response) {
-                    Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
-
-                    HistoryBidModel order_data[];
-                    order_data = convertToOrderModel(getMyBidResponseModel.getData());
-                    HistoryBidListAdapter adapter = new HistoryBidListAdapter(context,
-                            R.layout.list_item_order, order_data);//
-                    lv.setAdapter(adapter);
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    Toast.makeText(getBaseContext(), "failed : "+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
+//            APICallManager.getInstance().getMyOrders(new Callback<GetMyOrderResponseModel>() {
+//                @Override
+//                public void success(GetMyOrderResponseModel getMyOrderResponseModel, Response response) {
+//                    Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
+//
+//                    HistoryBidModel order_data[];
+//                    order_data = convertToOrderModel(getMyOrderResponseModel.getData(), 0);
+//                    HistoryBidListAdapter adapter = new HistoryBidListAdapter(context,
+//                            R.layout.list_item_order, order_data);//
+//                    lv.setAdapter(adapter);
+//
+//                }
+//
+//                @Override
+//                public void failure(RetrofitError error) {
+//                    Toast.makeText(getBaseContext(), "failed", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }else{
+//            collapsingToolbar.setTitle("Riwayat Grosir");
+//            APICallManager.getInstance().getMyBids(new Callback<GetMyBidResponseModel>() {
+//                @Override
+//                public void success(GetMyBidResponseModel getMyBidResponseModel, Response response) {
+//                    Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
+//
+//                    HistoryBidModel order_data[];
+//                    order_data = convertToOrderModel(getMyBidResponseModel.getData());
+//                    HistoryBidListAdapter adapter = new HistoryBidListAdapter(context,
+//                            R.layout.list_item_order, order_data);//
+//                    lv.setAdapter(adapter);
+//                }
+//
+//                @Override
+//                public void failure(RetrofitError error) {
+//                    Toast.makeText(getBaseContext(), "failed : "+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+//
+//                }
+//            });
         }
 
 

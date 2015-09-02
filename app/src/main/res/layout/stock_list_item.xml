@@ -120,6 +120,35 @@
                     android:textColor="?attr/colorAccent" />
 
                 <TextView
+                    android:id="@+id/harga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="0"
+                    android:gravity="end"
+                    android:text="10000"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="?attr/colorAccent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="1dp"
+                    android:text="Paket:               "
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="?attr/colorAccent" />
+
+                <TextView
                     android:id="@android:id/text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,6 +159,67 @@
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textColor="?attr/colorAccent" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="1dp"
+                    android:text="Reputation:           "
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="?attr/colorAccent" />
+
+                <TextView
+                    android:id="@+id/reputation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="0"
+                    android:gravity="end"
+                    android:text="10000"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="?attr/colorAccent" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="1dp"
+                    android:text="City:           "
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="?attr/colorAccent" />
+
+                <TextView
+                    android:id="@+id/city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="0"
+                    android:gravity="end"
+                    android:text="10000"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="?attr/colorAccent" />
+            </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 

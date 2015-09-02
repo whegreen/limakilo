@@ -73,17 +73,17 @@ public class GrosirFragment extends Fragment implements APICallListener, GrosirF
         String quantity = qty;
         String price = prc;
 
-        APICallManager.getInstance().postOrderGrosir(quantity, price, new Callback<PostOrderResponseModel>() {
-            @Override
-            public void success(PostOrderResponseModel postOrderResponseModel, Response response) {
-                Toast.makeText(getActivity().getBaseContext(), "success", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(getActivity().getBaseContext(), "failed"+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        APICallManager.getInstance().postOrderGrosir(quantity, price, new Callback<PostOrderResponseModel>() {
+//            @Override
+//            public void success(PostOrderResponseModel postOrderResponseModel, Response response) {
+//                Toast.makeText(getActivity().getBaseContext(), "success", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                Toast.makeText(getActivity().getBaseContext(), "failed"+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     public int getRadioChoosen(){

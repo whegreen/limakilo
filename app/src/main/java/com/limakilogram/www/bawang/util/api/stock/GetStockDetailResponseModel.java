@@ -10,17 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetStockDetailResponseModel {
-    private List<GetStockResponseData> data = new ArrayList<GetStockResponseData>();
-
-    public List<GetStockResponseData> getData() {
-        return data;
-    }
-
-    public void setData(List<GetStockResponseData> data) {
-        this.data = data;
-    }
-
-    public class GetStockResponseData {
         @SerializedName("stock_id")
         @Expose
         private Integer stockId;
@@ -337,5 +326,4 @@ public class GetStockDetailResponseModel {
             this.sellerBankAccountName = sellerBankAccountName;
         }
 
-    }
 }

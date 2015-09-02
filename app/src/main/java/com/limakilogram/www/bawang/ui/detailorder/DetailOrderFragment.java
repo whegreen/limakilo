@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,10 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
+import com.crashlytics.android.Crashlytics;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.detailorder.mvp.DetailOrderPresenterImpl;
 import com.limakilogram.www.bawang.ui.detailorder.mvp.DetailOrderView;
 import com.limakilogram.www.bawang.util.api.APICallListener;
+import com.limakilogram.www.bawang.util.api.APICallManager;
+import com.limakilogram.www.bawang.util.api.stock.GetStockDetailResponseModel;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by walesadanto on 30/8/15.
@@ -32,15 +41,22 @@ public class DetailOrderFragment extends Fragment implements DetailOrderView, AP
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_detail_order, container, false);
-        String orderId = "";
-        presenter = new DetailOrderPresenterImpl(this, this);
-        presenter.refreshDetailOrder(orderId);
+
+        try{
+            String stockId = ((DetailOrderActivity)getActivity()).getModel().getStockId().toString();
+            retrieveDetailOrder(stockId);
+
+        }catch (Exception e){
+            Crashlytics.log(Log.ERROR, "api call", e.toString());
+        }
+
         return view;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
     }
 
     @Override
@@ -58,6 +74,7 @@ public class DetailOrderFragment extends Fragment implements DetailOrderView, AP
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override
@@ -108,6 +125,20 @@ public class DetailOrderFragment extends Fragment implements DetailOrderView, AP
                 .content("Please wait ...")
                 .progress(true, 0)
                 .show();
+    }
+
+    public void retrieveDetailOrder(String stockId){
+        APICallManager.getInstance().getStocks(stockId, new Callback<GetStockDetailResponseModel>() {
+            @Override
+            public void success(GetStockDetailResponseModel getStockDetailResponseModel, Response response) {
+                Snackbar.make(view, "API call succeed", Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Snackbar.make(view, "API call error", Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void hideDialogProgress(){

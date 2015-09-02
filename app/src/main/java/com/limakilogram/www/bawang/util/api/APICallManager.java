@@ -22,7 +22,7 @@ public class APICallManager {
 
     private static APICallManager instance;
     private RestAdapter restAdapter;
-    private String endPoint = "http://api.limakilo.id";
+    private String endPoint = "http://limakilo.id";
 //    public static Boolean usingMock = true;
 
     private String authentification;

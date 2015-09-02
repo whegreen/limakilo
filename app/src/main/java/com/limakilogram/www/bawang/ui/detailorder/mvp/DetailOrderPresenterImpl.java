@@ -33,17 +33,5 @@ public class DetailOrderPresenterImpl implements DetailOrderPresenter {
 
     @Override
     public void refreshDetailOrder(String orderId) {
-        APICallManager.getInstance().getOrder(orderId, new Callback<GetOrderResponseData>() {
-            @Override
-            public void success(Result<GetOrderResponseData> result) {
-//                result
-                apiCallListener.onAPICallSucceed();
-            }
-
-            @Override
-            public void failure(TwitterException e) {
-                apiCallListener.onAPICallFailed();
-            }
-        });
     }
 }

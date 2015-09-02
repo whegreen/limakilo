@@ -1,13 +1,30 @@
 package com.limakilogram.www.bawang.ui.detailorder;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.limakilogram.www.bawang.R;
+import com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderActivity;
+import com.limakilogram.www.bawang.util.api.APICallManager;
+import com.limakilogram.www.bawang.util.api.order.PostOrderResponseModel;
+import com.limakilogram.www.bawang.util.api.stock.GetStockDetailResponseModel;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by walesadanto on 30/8/15.
@@ -16,18 +33,81 @@ public class DetailOrderActivity extends AppCompatActivity {
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
+    public static final String STOCKID = "stock_id";
+    public static final String STOCKNAME = "stock_name";
+    public static final String STOCKQUANTITY = "stock_quantity";
+    public static final String STOCKPRICE = "stock_price";
+    public static final String SELLERID = "seller_id";
+    public static final String SELLERNAME = "seller_name";
+    public static final String SELLERADDRESS = "seller_address";
+    public static final String SELLERAVAURL = "seller_avatar_url";
+    public static final String SELLERREPUTATION = "seller_reputation";
+    public static final String SELLERCITY = "seller_city";
+
+    private GetStockDetailResponseModel model;
+
+    private MaterialDialog confirmDialog;
+    ImageView backdrop;
+    private int orderQuantity = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_order);
 
+        model = new GetStockDetailResponseModel();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras == null) {
+            //
+        } else {
+            model.setStockId(Integer.parseInt(extras.getString(STOCKID)));
+            model.setStockName(extras.getString(STOCKNAME));
+            model.setStockQuantity(Integer.parseInt(extras.getString(STOCKQUANTITY)));
+            model.setStockPrice(extras.getString(STOCKPRICE));
+            model.setSellerId(Integer.parseInt(extras.getString(SELLERID)));
+            model.setSellerName(extras.getString(SELLERNAME));
+            model.setSellerAvatarUrl(extras.getString(SELLERAVAURL));
+            model.setSellerAddress(extras.getString(SELLERADDRESS));
+            model.setSellerReputation(extras.getString(SELLERREPUTATION));
+            model.setSellerCity(extras.getString(SELLERCITY));
+        }
+
+        setContentView(R.layout.activity_detail_order);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String itemTitle = "item title";
+        String activityTitle = model.getStockName()+" | Rp."+model.getStockPrice()+"/kg";
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(itemTitle);
+        collapsingToolbarLayout.setTitle(activityTitle);
+
+        backdrop = (ImageView) findViewById(R.id.backdrop);
+
+        confirmDialog = new MaterialDialog.Builder(this)
+                .title("Confirm Order")
+                .content("amount")
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input("jumlah order", "5", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        // Do something
+                        setOrderQuantity(Integer.parseInt(input.toString()));
+                        makeOrder();
+                        confirmDialog.hide();
+                    }
+                }).build();
+
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                confirmDialog.show();
+            }
+        });
+
+        Glide.with(this)
+                .load(Integer.parseInt(model.getSellerAvatarUrl()))
+                .fitCenter()
+                .into(backdrop);
+
     }
 
     @Override
@@ -50,5 +130,48 @@ public class DetailOrderActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public GetStockDetailResponseModel getModel() {
+        return model;
+    }
+
+    public void makeOrder(){
+        APICallManager.getInstance().postOrders(model.getStockId().toString(), ((Integer)orderQuantity).toString(),
+                model.getSellerAddress()+"address", model.getStockPrice(), new Callback<PostOrderResponseModel>() {
+            @Override
+            public void success(PostOrderResponseModel postOrderResponseModel, Response response) {
+                Snackbar.make(findViewById(R.id.main_content), "api call succeed", Snackbar.LENGTH_LONG).show();
+                PostOrderResponseModel.PostOrderResponseData data = postOrderResponseModel.getData().get(0);
+                openConfirmOrderActivity(data.getOrderId().toString(), data.getOrderQuantity(), data.getOrderAmount(),
+                        data.getOrderStatus(), data.getOrderTimestamp(), data.getOrderPaymentCode());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Snackbar.make(findViewById(R.id.main_content), "api call failed", Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void setOrderQuantity(int orderQuantity) {
+        this.orderQuantity = orderQuantity;
+    }
+
+    public void openConfirmOrderActivity(String orderId, String orderQuantity, String orderAmount, String orderStatus,
+                                         String orderTimestamp, String orderPaymentCode){
+
+        Intent intent = new Intent(getBaseContext(), ConfirmOrderActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        intent.putExtra(ConfirmOrderActivity.ORDERID, orderId);
+        intent.putExtra(ConfirmOrderActivity.ORDERQUANTITY, orderQuantity);
+        intent.putExtra(ConfirmOrderActivity.ORDERAMOUNT, orderAmount);
+        intent.putExtra(ConfirmOrderActivity.ORDERSTATUS, orderStatus);
+        intent.putExtra(ConfirmOrderActivity.ORDERTIMESTAMP, orderTimestamp);
+        intent.putExtra(ConfirmOrderActivity.ORDERPAYMENTCODE, orderPaymentCode);
+        intent.putExtra(ConfirmOrderActivity.BACKDROP, model.getSellerAvatarUrl());
+
+        getBaseContext().startActivity(intent);
     }
 }

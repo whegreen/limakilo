@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.historyorder.mvp.HistoryOrderPresenter;
 import com.limakilogram.www.bawang.ui.historyorder.mvp.HistoryOrderView;
-import com.limakilogram.www.bawang.ui.main.limakilofragment.OrderRecyclerViewAdapter;
+import com.limakilogram.www.bawang.ui.main.limakilofragment.StockRecyclerViewAdapter;
 import com.limakilogram.www.bawang.util.api.APICallListener;
 import com.limakilogram.www.bawang.util.api.APICallManager;
 import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
@@ -51,7 +51,7 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
 
     public void setupChatRecyclerView(){
         recyclerView.setLayoutManager(new LinearLayoutManager((recyclerView.getContext())));
-        recyclerView.setAdapter(new OrderRecyclerViewAdapter(getActivity(), stockList));
+        recyclerView.setAdapter(new StockRecyclerViewAdapter(getActivity(), stockList));
     }
 
     public void retrieveChatList(){
@@ -70,7 +70,8 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
                 Collections.sort(stockList, new Comparator<GetStockResponseModel.GetStockResponseData>() {
                     @Override
                     public int compare(GetStockResponseModel.GetStockResponseData lhs, GetStockResponseModel.GetStockResponseData rhs) {
-                        return lhs.getCategory().compareTo(rhs.getCategory());
+//                        return lhs.getCategory().compareTo(rhs.getCategory());
+                        return 0;
                     }
                 });
                 setupChatRecyclerView();
