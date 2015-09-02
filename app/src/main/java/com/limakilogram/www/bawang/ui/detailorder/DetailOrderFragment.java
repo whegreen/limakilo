@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.detailorder.mvp.DetailOrderPresenterImpl;
@@ -143,5 +142,13 @@ public class DetailOrderFragment extends Fragment implements DetailOrderView, AP
 
     public void hideDialogProgress(){
         dialogProgress.hide();
+    }
+
+    public void showDialogAmount() {
+        dialogProgress = new MaterialDialog.Builder(getActivity())
+                .title("contacting server")
+                .content("Please wait ...")
+                .progress(true, 0)
+                .show();
     }
 }

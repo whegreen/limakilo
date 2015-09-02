@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.confirmorder.mvp.ConfirmOrderView;
 
@@ -20,10 +21,36 @@ import com.limakilogram.www.bawang.ui.confirmorder.mvp.ConfirmOrderView;
  */
 public class ConfirmOrderFragment extends Fragment implements ConfirmOrderView {
 
+    private MaterialDialog confirmDialog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_confirm_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_confirm_order, container, false);
+
+        confirmDialog = new MaterialDialog.Builder(getActivity())
+                .title("Confirm Order")
+                .content("Proses pembelian bawang anda akan diproses. \nMari bantu petani bawang indonesia")
+                .positiveText("Lanjut")
+                .negativeText("Batal")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        ((ConfirmOrderActivity)getActivity()).confirmOrder("80000", "walesa danto");
+                        confirmDialog.hide();
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        dialog.hide();
+                    }
+                })
+                .build();
+
+        return view;
+
+
+
 
     }
 

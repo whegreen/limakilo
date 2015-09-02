@@ -50,6 +50,8 @@ public class DetailOrderActivity extends AppCompatActivity {
     ImageView backdrop;
     private int orderQuantity = 0;
 
+    private MaterialDialog dialogProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,17 +86,23 @@ public class DetailOrderActivity extends AppCompatActivity {
 
         confirmDialog = new MaterialDialog.Builder(this)
                 .title("Confirm Order")
-                .content("amount")
-                .inputType(InputType.TYPE_CLASS_NUMBER)
-                .input("jumlah order", "5", new MaterialDialog.InputCallback() {
+                .content("Proses pembelian bawang anda akan diproses. \nMari bantu petani bawang indonesia")
+                .positiveText("Lanjut")
+                .negativeText("Batal")
+                .callback(new MaterialDialog.ButtonCallback() {
                     @Override
-                    public void onInput(MaterialDialog dialog, CharSequence input) {
-                        // Do something
-                        setOrderQuantity(Integer.parseInt(input.toString()));
+                    public void onPositive(MaterialDialog dialog) {
+                        setOrderQuantity(1);
                         makeOrder();
                         confirmDialog.hide();
                     }
-                }).build();
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        dialog.hide();
+                    }
+                })
+                .build();
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +169,8 @@ public class DetailOrderActivity extends AppCompatActivity {
     public void openConfirmOrderActivity(String orderId, String orderQuantity, String orderAmount, String orderStatus,
                                          String orderTimestamp, String orderPaymentCode){
 
+        showDialogProgress();
+
         Intent intent = new Intent(getBaseContext(), ConfirmOrderActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -174,4 +184,13 @@ public class DetailOrderActivity extends AppCompatActivity {
 
         getBaseContext().startActivity(intent);
     }
+
+    public void showDialogProgress() {
+        dialogProgress = new MaterialDialog.Builder(this)
+                .title("contacting server")
+                .content("Please wait ...")
+                .progress(true, 0)
+                .show();
+    }
+
 }
