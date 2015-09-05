@@ -12,8 +12,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.appyvet.rangebar.RangeBar;
 import com.crashlytics.android.Crashlytics;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.detailorder.mvp.DetailOrderPresenterImpl;
@@ -34,6 +36,8 @@ public class DetailOrderFragment extends Fragment implements DetailOrderView, AP
     private View view;
     private DetailOrderPresenterImpl presenter;
     private MaterialDialog dialogProgress;
+    private RangeBar rangebar;
+    private TextView rangebarValue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +45,20 @@ public class DetailOrderFragment extends Fragment implements DetailOrderView, AP
 
         view = inflater.inflate(R.layout.fragment_detail_order, container, false);
 
+        rangebar = (RangeBar) view.findViewById(R.id.rangebar);
+        rangebarValue = (TextView) view.findViewById(R.id.rangebar_value);
+
+        rangebar.setSeekPinByIndex(0);
+
+        rangebar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex,
+                                              int rightPinIndex,
+                                              String leftPinValue, String rightPinValue) {
+                rangebarValue.setText(rightPinValue);
+            }
+        });
+        
         try{
             String stockId = ((DetailOrderActivity)getActivity()).getModel().getStockId().toString();
             retrieveDetailOrder(stockId);

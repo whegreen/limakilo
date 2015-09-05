@@ -18,4 +18,8 @@ Bank\t\tCiti Bank\n
 Atas Nama\t\tWalesa Danto\n
 Jumlah\t\tRp125.000,-\n
     </string>
+
+    <string name="lorem_ipsum_3">
+        2 x 5kg x 17,000/Kg = <b>Rp. 170,000,-</b>
+    </string>
 </resources>

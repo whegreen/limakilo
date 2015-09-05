@@ -78,7 +78,8 @@ public class DetailOrderActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String activityTitle = model.getStockName()+" | Rp."+model.getStockPrice()+"/kg";
+//        String activityTitle = model.getStockName()+" | Rp."+model.getStockPrice()+"/kg";
+        String activityTitle = model.getStockName()+" | "+model.getSellerName();
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(activityTitle);
 
