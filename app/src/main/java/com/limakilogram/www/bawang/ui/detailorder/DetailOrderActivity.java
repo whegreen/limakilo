@@ -12,6 +12,7 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -85,9 +86,11 @@ public class DetailOrderActivity extends AppCompatActivity {
 
         backdrop = (ImageView) findViewById(R.id.backdrop);
 
+
+        boolean wrapInScrollView = true;
         confirmDialog = new MaterialDialog.Builder(this)
-                .title("Confirm Order")
-                .content("Proses pembelian bawang anda akan diproses. \nMari bantu petani bawang indonesia")
+                .title("Konfirmasi Order")
+                .customView(R.layout.dialog_confirm_order_custom_view, wrapInScrollView)
                 .positiveText("Lanjut")
                 .negativeText("Batal")
                 .callback(new MaterialDialog.ButtonCallback() {
@@ -108,7 +111,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                confirmDialog.show();
+                showConfirmDialog();
             }
         });
 
@@ -186,12 +189,32 @@ public class DetailOrderActivity extends AppCompatActivity {
         getBaseContext().startActivity(intent);
     }
 
+    public void showConfirmDialog() {
+        confirmDialog.show();
+    }
+
     public void showDialogProgress() {
         dialogProgress = new MaterialDialog.Builder(this)
                 .title("contacting server")
                 .content("Please wait ...")
                 .progress(true, 0)
                 .show();
+    }
+
+    public void hideSoftKeyboard(){
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    public void showSoftKeyboard(){
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        }
     }
 
 }

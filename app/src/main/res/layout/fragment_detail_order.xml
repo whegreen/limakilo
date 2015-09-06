@@ -1,6 +1,7 @@
 <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/nested_scroll_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -18,7 +19,6 @@
             android:orientation="vertical"
             android:layout_gravity="right|top">
 
-
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -26,7 +26,8 @@
                 app:cardElevation="@dimen/spacing_medium"
                 app:cardUseCompatPadding="true"
                 android:paddingTop="16dp"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -36,10 +37,84 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/rangebar_title"
-                        android:text="Jumlah paket yang dipesan"
+                        android:id="@+id/amount_title"
+                        android:text="Jumlah yang dibayarkan"
+                        android:textColor="?attr/colorPrimaryDark"
+                        android:paddingTop="16dp"
+                        android:paddingLeft="16dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:textColor="?attr/colorAccent"
                         android:paddingTop="16dp"
+                        android:paddingLeft="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:paddingBottom="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorAccent"
+                            android:id="@+id/order_amount"
+                            android:text="2"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorAccent"
+                            android:text=" x "/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorAccent"
+                            android:id="@+id/stock_quantity"
+                            android:text="5"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorAccent"
+                            android:text=" kg x "/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorAccent"
+                            android:id="@+id/stock_price"
+                            android:text="17,000"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorAccent"
+                            android:text="/kg = Rp. "/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorAccent"
+                            android:id="@+id/total_payment"
+                            android:text="170.000"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorAccent"
+                            android:text=",-"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rangebar_title"
+                        android:text="Jumlah paket yang dipesan"
+                        android:textColor="?attr/colorPrimaryDark"
                         android:paddingLeft="16dp"
                         />
 
@@ -78,75 +153,16 @@
                             android:layout_marginRight="16dp"/>
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/amount_title"
-                        android:text="Jumlah yang dibayarkan"
-                        android:textColor="?attr/colorAccent"
-                        android:paddingTop="16dp"
-                        android:paddingLeft="16dp"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/amount_total"
-                        android:text="@string/lorem_ipsum_3"
-                        android:textColor="?attr/colorAccent"
-                        android:paddingTop="16dp"
-                        android:paddingLeft="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:paddingBottom="16dp"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:textColor="?attr/colorAccent"
-                        android:paddingTop="16dp"
-                        android:paddingLeft="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:paddingBottom="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" x "/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="17,000"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="/kg = Rp. "/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="170.000,-"/>
-
-                    </LinearLayout>
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_green"
+                        android:id="@+id/btn_detail_penerima"
                         android:layout_marginBottom="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_gravity="right"
                         android:textColor="@android:color/white"
-                        android:text="pesan"/>
+                        android:text="lanjut"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -156,16 +172,52 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:cardElevation="@dimen/spacing_medium"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:focusable="true">
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/alamat_pengiriman_title"
+                        android:text="Detail Pengiriman"
+                        android:textColor="?attr/colorPrimaryDark"
+                        android:paddingTop="16dp"
+                        android:paddingLeft="16dp"
+                        />
+
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/text2"
+                        android:id="@+id/nama_penerima"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="16dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        >
+
+                        <EditText
+                            android:id="@+id/edit_nama_penerima"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Nama Penerima"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            />
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/nomor_telepon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -175,119 +227,52 @@
                         >
 
                         <EditText
-                            android:id="@+id/text"
+                            android:id="@+id/edit_nomor_telepon"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Alamat pengiriman"
+                            android:inputType="number"
+                            android:hint="nomor handphone"
+                            android:imeOptions="actionNext"
                             />
 
                     </android.support.design.widget.TextInputLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/alamat_penerima"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/right_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/card_title"
-                            android:text="Card Title"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/card_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/lorem_ipsum"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/card_action"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Beli"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/left_content"
                         android:orientation="vertical"
-                        android:background="@drawable/onion3">
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
+                        >
 
-                        <ImageButton
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:id="@+id/edit_alamat_penerima"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/btn_order_up"
-                            android:background="@drawable/ic_dashboard"/>
+                            android:hint="Alamat pengiriman"
+                            android:lines="4"
+                            android:imeOptions="actionDone"
+                            />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="7"/>
+                    </android.support.design.widget.TextInputLayout>
 
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/btn_order_down"
-                            android:background="@drawable/ic_dashboard"/>
-
-                    </LinearLayout>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_green"
+                        android:id="@+id/btn_pesan"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_gravity="right"
+                        android:textColor="@android:color/white"
+                        android:text="pesan"/>
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:cardElevation="@dimen/spacing_medium"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/detailOrderTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/spacing_large"
-                        android:layout_marginRight="@dimen/spacing_large"
-                        android:layout_marginTop="@dimen/spacing_large"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:text="Detail Pemesanan"/>
-
-                    <TextView
-                        android:id="@+id/detailOrderDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/spacing_large"
-                        android:text="@string/lorem_ipsum"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
 
         </LinearLayout>
 
