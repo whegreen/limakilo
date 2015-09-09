@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.limakilogram.www.bawang.R;
@@ -27,6 +28,18 @@ public class ConfirmOrderFragment extends Fragment implements ConfirmOrderView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_confirm_order, container, false);
+
+        Button btnCaraPembayaran = (Button) view.findViewById(R.id.btn_cara_pembayaran);
+        final View cardDetailOrder = view.findViewById(R.id.card_detail_order);
+        final View cardCaraPembayaran = view.findViewById(R.id.card_cara_pembayaran);
+
+        btnCaraPembayaran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardDetailOrder.setVisibility(View.GONE);
+                cardCaraPembayaran.setVisibility(View.VISIBLE);
+            }
+        });
 
         confirmDialog = new MaterialDialog.Builder(getActivity())
                 .title("Confirm Order")

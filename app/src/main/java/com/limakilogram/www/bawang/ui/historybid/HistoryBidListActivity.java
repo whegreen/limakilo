@@ -51,7 +51,7 @@ public class HistoryBidListActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         if (history.equals("order")){
-            collapsingToolbar.setTitle("Riwayat Paket");
+            collapsingToolbar.setTitle("Riwayat Pemesanan");
 //            APICallManager.getInstance().getMyOrders(new Callback<GetMyOrderResponseModel>() {
 //                @Override
 //                public void success(GetMyOrderResponseModel getMyOrderResponseModel, Response response) {

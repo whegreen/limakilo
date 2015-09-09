@@ -1,7 +1,5 @@
 package com.limakilogram.www.bawang.util.api;
 
-import com.limakilogram.www.bawang.util.api.order.GetMyOrderResponseModel;
-import com.limakilogram.www.bawang.util.api.order.GetOrderResponseData;
 import com.limakilogram.www.bawang.util.api.order.GetOrderResponseModel;
 import com.limakilogram.www.bawang.util.api.order.OrderService;
 import com.limakilogram.www.bawang.util.api.order.PostOrderConfirmResponseModel;

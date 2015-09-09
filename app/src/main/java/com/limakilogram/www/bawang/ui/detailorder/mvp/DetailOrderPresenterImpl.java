@@ -1,11 +1,6 @@
 package com.limakilogram.www.bawang.ui.detailorder.mvp;
 
 import com.limakilogram.www.bawang.util.api.APICallListener;
-import com.limakilogram.www.bawang.util.api.APICallManager;
-import com.limakilogram.www.bawang.util.api.order.GetOrderResponseData;
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
 
 /**
  * Created by walesadanto on 1/9/15.

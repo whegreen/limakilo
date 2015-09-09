@@ -92,19 +92,25 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="?attr/colorAccent"
-                            android:text="/kg = Rp. "/>
+                            android:text="/kg = "/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="?attr/colorAccent"
+                            android:textColor="?attr/colorPrimaryDark"
+                            android:text="Rp. "/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorPrimaryDark"
                             android:id="@+id/total_payment"
                             android:text="170.000"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="?attr/colorAccent"
+                            android:textColor="?attr/colorPrimaryDark"
                             android:text=",-"/>
 
                     </LinearLayout>

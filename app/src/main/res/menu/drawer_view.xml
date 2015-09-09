@@ -20,7 +20,7 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_dashboard"
-            android:title="Riwayat Paket" />
+            android:title="Riwayat Pemesanan" />
         <item
             android:id="@+id/nav_messages"
             android:icon="@drawable/ic_forum"

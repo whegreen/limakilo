@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderActivity;
-import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
+import com.limakilogram.www.bawang.util.api.order.GetOrderResponseModel;
 
 import java.util.List;
 
@@ -24,24 +24,24 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
 
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
-    private List<GetStockResponseModel.GetStockResponseData> mStocks;
+    private List<GetOrderResponseModel.GetOrderResponseData> mOrders;
 
 //    private
 
-    public GetStockResponseModel.GetStockResponseData getValueAt(int position){
-        return mStocks.get(position);
+    public GetOrderResponseModel.GetOrderResponseData getValueAt(int position){
+        return mOrders.get(position);
     }
 
-    public OrderRecyclerViewAdapter(Context context, List<GetStockResponseModel.GetStockResponseData> chats){
+    public OrderRecyclerViewAdapter(Context context, List<GetOrderResponseModel.GetOrderResponseData> chats){
         context.getTheme().resolveAttribute(android.support.design.R.attr.selectableItemBackground, mTypedValue, true);
         mBackground = mTypedValue.resourceId;
-        mStocks = chats;
+        mOrders = chats;
     }
 
     @Override
     public OrderItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.stock_list_item, parent, false);
+                .inflate(R.layout.order_list_item, parent, false);
         view.setBackgroundResource(mBackground);
         return new OrderItemViewHolder(view);
     }
@@ -49,16 +49,16 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
     @Override
     public void onBindViewHolder(final OrderItemViewHolder holder, int position) {
 
-//        holder.mTextView.setText(mStocks.get(position).getCommodity()
-//                +" "+ mStocks.get(position).getCategory());
-//        holder.mTextView2.setText(mStocks.get(position).getPrice());
-//        holder.mTextView3.setText(mStocks.get(position).getFirstName()+" "+mStocks.get(position).getLastName());
-////        holder.mTextView4.setText(mStocks.get(position).getStock());
+//        holder.mTextView.setText(mOrders.get(position).getCommodity()
+//                +" "+ mOrders.get(position).getCategory());
+//        holder.mTextView2.setText(mOrders.get(position).getPrice());
+//        holder.mTextView3.setText(mOrders.get(position).getFirstName()+" "+mOrders.get(position).getLastName());
+////        holder.mTextView4.setText(mOrders.get(position).getStock());
 //
-//        holder.mBoundAvatar = mStocks.get(position).getAvaUrl();
-//        holder.mBoundStockId = mStocks.get(position).getId();
-//        holder.commodityPrice = mStocks.get(position).getPrice();
-//        holder.commodityName = mStocks.get(position).getCommodity()+" "+mStocks.get(position).getCategory();;
+//        holder.mBoundAvatar = mOrders.get(position).getAvaUrl();
+//        holder.mBoundStockId = mOrders.get(position).getId();
+//        holder.commodityPrice = mOrders.get(position).getPrice();
+//        holder.commodityName = mOrders.get(position).getCommodity()+" "+mOrders.get(position).getCategory();;
 
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +78,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
         });
 
         Glide.with(holder.mImageView.getContext())
-//                .load(mStocks.get(position).getAvaUrl())
+//                .load(mOrders.get(position).getAvaUrl())
                 .load(R.drawable.onion3)
                 .fitCenter()
                 .into(holder.mImageView);
@@ -87,7 +87,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
 
     @Override
     public int getItemCount() {
-        return mStocks.size();
+        return mOrders.size();
     }
 
 

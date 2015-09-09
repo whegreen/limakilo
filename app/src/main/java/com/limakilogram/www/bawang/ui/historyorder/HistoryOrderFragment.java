@@ -13,9 +13,9 @@ import android.widget.Toast;
 import com.limakilogram.www.bawang.R;
 import com.limakilogram.www.bawang.ui.historyorder.mvp.HistoryOrderPresenter;
 import com.limakilogram.www.bawang.ui.historyorder.mvp.HistoryOrderView;
-import com.limakilogram.www.bawang.ui.main.limakilofragment.StockRecyclerViewAdapter;
 import com.limakilogram.www.bawang.util.api.APICallListener;
 import com.limakilogram.www.bawang.util.api.APICallManager;
+import com.limakilogram.www.bawang.util.api.order.GetOrderResponseModel;
 import com.limakilogram.www.bawang.util.api.stock.GetStockResponseModel;
 import com.limakilogram.www.bawang.util.common.PreferencesManager;
 
@@ -33,8 +33,8 @@ import retrofit.client.Response;
  */
 public class HistoryOrderFragment extends Fragment implements APICallListener, HistoryOrderView {
 
-    List<GetStockResponseModel.GetStockResponseData> stockList =
-            new ArrayList<GetStockResponseModel.GetStockResponseData>();
+    List<GetOrderResponseModel.GetOrderResponseData> orderList =
+            new ArrayList<GetOrderResponseModel.GetOrderResponseData>();
     private HistoryOrderPresenter presenter;
     RecyclerView recyclerView;
 
@@ -51,25 +51,25 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
 
     public void setupChatRecyclerView(){
         recyclerView.setLayoutManager(new LinearLayoutManager((recyclerView.getContext())));
-        recyclerView.setAdapter(new StockRecyclerViewAdapter(getActivity(), stockList));
+        recyclerView.setAdapter(new OrderRecyclerViewAdapter(getActivity(), orderList));
     }
 
     public void retrieveChatList(){
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
 
-        APICallManager.getInstance().getStocks(new Callback<GetStockResponseModel>() {
+        APICallManager.getInstance().getOrders(new Callback<GetOrderResponseModel>() {
             @Override
-            public void success(GetStockResponseModel getStockResponseModel, Response response) {
+            public void success(GetOrderResponseModel getOrderResponseModel, Response response) {
 
-                stockList = getStockResponseModel.getData();
+                orderList = getOrderResponseModel.getData();
 
-//                for (Iterator<GetStockResponseModel.GetStockResponseData> i = stockList.iterator(); i.hasNext();){
+//                for (Iterator<GetStockResponseModel.GetStockResponseData> i = orderList.iterator(); i.hasNext();){
 //                    if (i.next().getAvaUrl() == null) i.remove();
 //                }
 
-                Collections.sort(stockList, new Comparator<GetStockResponseModel.GetStockResponseData>() {
+                Collections.sort(orderList, new Comparator<GetOrderResponseModel.GetOrderResponseData>() {
                     @Override
-                    public int compare(GetStockResponseModel.GetStockResponseData lhs, GetStockResponseModel.GetStockResponseData rhs) {
+                    public int compare(GetOrderResponseModel.GetOrderResponseData lhs, GetOrderResponseModel.GetOrderResponseData rhs) {
 //                        return lhs.getCategory().compareTo(rhs.getCategory());
                         return 0;
                     }
@@ -82,7 +82,6 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
                 Toast.makeText(getActivity(), "failed to get data", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override

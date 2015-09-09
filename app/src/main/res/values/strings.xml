@@ -4,19 +4,22 @@
     <string name="menu_settings">Sample Menu</string>
     <string name="login_later"><u>login later</u></string>
 
-    <string name="lorem_ipsum">Order ID\t\t18\n
-Name\t\tWalesa Danto\n
-Address\t\tKecamatan Losari, Kab.Brebes\n
-Quantity\t\t5 x 5kg\n
-Price\t\t5 x Rp20000\n
-Date\t\tWed Sep 02 2015 11:16:29\n
-Status\t\torder_processed\n
+    <string name="lorem_ipsum"> ID Prmesanan\t\t18\n
+Tanggal Pemesaran\t\tWed Sep 02 2015 11:16:29\n
+Nama Penerima\t\tWalesa Danto\n
+Alamat Pengiriman\t\tKecamatan Losari, Kab.Brebes\n
+Jumlah\t\t5 x 5kg\n
+Harga\t\t5 x Rp20000\n
+Kode Transfer\t\t123\n
+Ongkos Kirim\t\tgratis\n
+Total Pembayaran\t\t100123\n
+Status\t\torder sedang diproses\n
     </string>
 
-        <string name="lorem_ipsum_2">No. Rekening\t\t73977749002\n
+        <string name="lorem_ipsum_2"> No. Rekening\t\t73977749002\n
 Bank\t\tCiti Bank\n
 Atas Nama\t\tWalesa Danto\n
-Jumlah\t\tRp125.000,-\n
+Jumlah Transfer\t\tRp125.000,-\n
     </string>
 
     <string name="lorem_ipsum_3">
