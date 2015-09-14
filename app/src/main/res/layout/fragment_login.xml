@@ -16,7 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/logo"
-        android:layout_marginBottom="80dp" />
+        android:layout_marginBottom="60dp"
+        android:padding="20dp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -31,7 +32,8 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.19"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"/>
 
         <com.digits.sdk.android.DigitsAuthButton
             android:id="@+id/auth_button"
@@ -48,5 +50,19 @@
             android:layout_gravity="right"
             android:textColor="@color/material_grey_100" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:id="@+id/loading_bar"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar" />
+
+    </RelativeLayout>
 
 </LinearLayout>

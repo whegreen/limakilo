@@ -20,8 +20,8 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.limakilogram.www.bawang"
-        minSdkVersion 14
+        applicationId "id.limakilo.www.bawang"
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -61,6 +61,13 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
     }
+
+    compile 'com.google.android.gms:play-services-gcm:7.5.0'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'io.supportkit:core:latest.release'
+    compile 'io.supportkit:ui:latest.release'
+
 
 
 }

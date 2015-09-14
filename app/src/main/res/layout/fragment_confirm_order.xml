@@ -6,7 +6,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:clipToPadding="false"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="com.limakilogram.www.bawang.ui.confirmorder.ConfirmOrderFragment">
+    tools:context="id.limakilo.www.bawang.ui.confirmorder.ConfirmOrderFragment">
 
 
     <FrameLayout
@@ -41,13 +41,14 @@
                     android:text="Konfirmasi Pembayaran"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
-                <TextView
-                    android:id="@+id/orderDetailDescription"
-                    android:layout_width="match_parent"
+                <include layout="@layout/dialog_confirm_order_custom_view"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/spacing_large"
-                    android:text="@string/lorem_ipsum"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="@dimen/spacing_large"
+                    android:layout_marginRight="@dimen/spacing_large">
+                </include>
 
                 <Button
                     android:layout_width="wrap_content"

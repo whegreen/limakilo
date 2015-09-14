@@ -17,8 +17,8 @@
             android:id="@+id/avatar"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="2dp"
             android:layout_weight="0" />
 
@@ -29,194 +29,126 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="1dp"
-                    android:text="Jenis:                "
-                    android:textAppearance="?attr/textAppearanceListItem" />
+                    android:layout_margin="@dimen/spacing_xsmall"
+                    android:text="Paket : "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-                <TextView
-                    android:id="@android:id/text1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="1dp"
-                    android:text="Bawang Mutu 1"
-                    android:textAppearance="?attr/textAppearanceListItem" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/paket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xsmall"
+                        android:text="18"
+                        android:textColor="?attr/colorPrimaryDark"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="1dp"
-                    android:text="Nama KUD:      "
-                    android:textAppearance="?attr/textAppearanceListItem" />
+                    android:layout_margin="@dimen/spacing_xsmall"
+                    android:text="Dijual oleh : "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-                <TextView
-                    android:id="@+id/text3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="1dp"
-                    android:text="KUD Brebes"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-            </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center_horizontal">-->
+                    <TextView
+                        android:id="@+id/seller"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xsmall"
+                        android:text="18"
+                        android:textColor="?attr/colorPrimaryDark"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true" />
 
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:padding="1dp"-->
-            <!--android:text="Harga: "-->
-            <!--android:textAppearance="?attr/textAppearanceListItem" />-->
+                </RelativeLayout>
 
-            <!--<TextView-->
-            <!--android:id="@+id/text4"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:padding="1dp"-->
-            <!--android:text="10000"-->
-            <!--android:textAppearance="?attr/textAppearanceListItem" />-->
-            <!--</LinearLayout>-->
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="1dp"
-                    android:text="Harga:               Rp."
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="?attr/colorAccent" />
-
-                <TextView
-                    android:id="@+id/harga"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="0"
-                    android:gravity="end"
-                    android:text="10000"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="?attr/colorAccent" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="1dp"
-                    android:text="Paket:               "
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="?attr/colorAccent" />
+                    android:layout_margin="@dimen/spacing_xsmall"
+                    android:text="Harga : "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-                <TextView
-                    android:id="@android:id/text2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="0"
-                    android:gravity="end"
-                    android:text="10000"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="?attr/colorAccent" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/harga"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xsmall"
+                        android:text="18"
+                        android:textColor="?attr/colorPrimaryDark"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="1dp"
-                    android:text="Reputation:           "
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="?attr/colorAccent" />
+                    android:layout_margin="@dimen/spacing_xsmall"
+                    android:text="Asal pengiriman : "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-                <TextView
-                    android:id="@+id/reputation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="0"
-                    android:gravity="end"
-                    android:text="10000"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="?attr/colorAccent" />
-            </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xsmall"
+                        android:text="18"
+                        android:textColor="?attr/colorPrimaryDark"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="1dp"
-                    android:text="City:           "
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="?attr/colorAccent" />
-
-                <TextView
-                    android:id="@+id/city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="0"
-                    android:gravity="end"
-                    android:text="10000"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="?attr/colorAccent" />
             </LinearLayout>
 
 
@@ -226,5 +158,8 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#34495e" />
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/color_accent" />
+
 </LinearLayout>
