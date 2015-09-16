@@ -15,6 +15,7 @@ public class PreferencesManager {
     public static final String NAME = "name";
     public static final String ADDRESS = "address";
     public static final String HANDPHONE = "handphone";
+    public static final String CITY = "city";
     public static final String AVATAR_URL = "avatar_url";
     public static final String COVER_URL = "cover_url";
     public static final String LAST_LOGIN_TS = "last_login_ts";

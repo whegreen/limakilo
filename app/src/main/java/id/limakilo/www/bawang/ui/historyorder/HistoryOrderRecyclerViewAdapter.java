@@ -1,7 +1,6 @@
 package id.limakilo.www.bawang.ui.historyorder;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -13,8 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import id.limakilo.www.bawang.R;
-import id.limakilo.www.bawang.ui.confirmorder.ConfirmOrderActivity;
-import id.limakilo.www.bawang.util.api.stock.GetStockResponseModel;
+import id.limakilo.www.bawang.util.api.order.GetOrderResponseModel;
 
 import java.util.List;
 
@@ -25,18 +23,18 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
 
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
-    private List<GetStockResponseModel.GetStockResponseData> mStocks;
+    private List<GetOrderResponseModel.GetOrderResponseData> historyOrder;
 
 //    private
 
-    public GetStockResponseModel.GetStockResponseData getValueAt(int position){
-        return mStocks.get(position);
+    public GetOrderResponseModel.GetOrderResponseData getValueAt(int position){
+        return historyOrder.get(position);
     }
 
-    public HistoryOrderRecyclerViewAdapter(Context context, List<GetStockResponseModel.GetStockResponseData> chats){
+    public HistoryOrderRecyclerViewAdapter(Context context, List<GetOrderResponseModel.GetOrderResponseData> historyOrder){
         context.getTheme().resolveAttribute(android.support.design.R.attr.selectableItemBackground, mTypedValue, true);
         mBackground = mTypedValue.resourceId;
-        mStocks = chats;
+        this.historyOrder = historyOrder;
     }
 
     @Override
@@ -50,36 +48,27 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
     @Override
     public void onBindViewHolder(final OrderItemViewHolder holder, int position) {
 
-//        holder.mTextView.setText(mStocks.get(position).getCommodity()
-//                +" "+ mStocks.get(position).getCategory());
-//        holder.mTextView2.setText(mStocks.get(position).getPrice());
-//        holder.mTextView3.setText(mStocks.get(position).getFirstName()+" "+mStocks.get(position).getLastName());
-////        holder.mTextView4.setText(mStocks.get(position).getStock());
-//
-//        holder.mBoundAvatar = mStocks.get(position).getAvaUrl();
-//        holder.mBoundStockId = mStocks.get(position).getId();
-//        holder.commodityPrice = mStocks.get(position).getPrice();
-//        holder.commodityName = mStocks.get(position).getCommodity()+" "+mStocks.get(position).getCategory();;
+        GetOrderResponseModel.GetOrderResponseData item = historyOrder.get(position);
+        holder.mTextView.setText("Paket "+item.getStockName()
+                +" | "+ item.getOrderQuantity()+" x "+item.getStockQuantity()+"kg");
+        holder.mTextView2.setText(item.getOrderStatus().toString());
+
+        holder.mTextView3.setText(historyOrder.get(position).getStockPrice());
+        holder.mTextView4.setText(historyOrder.get(position).getSellerName().toString());
+
+        holder.orderId = item.getOrderId().toString();
 
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, ConfirmOrderActivity.class);
-//                intent.putExtra(HistoryOrderActivity.EXTRA_NAME, holder.commodityName);
-//                intent.putExtra(HistoryOrderActivity.EXTRA_AVATAR, holder.mBoundAvatar);
-//                intent.putExtra(HistoryOrderActivity.EXTRA_QTY, holder.mTextView2.getText());
-//                intent.putExtra(HistoryOrderActivity.EXTRA_STOCK, holder.mBoundStockId);
-//                intent.putExtra(HistoryOrderActivity.EXTRA_PRICE, holder.commodityPrice);
-                context.startActivity(intent);
-
-
+                ((HistoryOrderActivity)context).retrieveOrderDetail(holder.orderId);
             }
         });
 
         Glide.with(holder.mImageView.getContext())
-//                .load(mStocks.get(position).getAvaUrl())
+//                .load(historyOrder.get(position).getAvaUrl())
                 .load(id.limakilo.www.bawang.R.drawable.onion3)
                 .fitCenter()
                 .into(holder.mImageView);
@@ -88,7 +77,7 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
 
     @Override
     public int getItemCount() {
-        return mStocks.size();
+        return historyOrder.size();
     }
 
 
@@ -97,7 +86,7 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
         // todo : put some field to be viewed here
         public String text;
         public String commodityName;
-        public String commodityId;
+        public String orderId;
         public String commodityPrice;
         public String mBoundAvatar;
         public int mBoundStockId;
@@ -106,17 +95,18 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
         public final ImageView mImageView;
         public final TextView mTextView;
         public final TextView mTextView2;
-//        public final TextView mTextView3;
-//        public final TextView mTextView4;
+        public final TextView mTextView3;
+        public final TextView mTextView4;
 
         public OrderItemViewHolder(View itemView) {
             super(itemView);
             // todo : do some mapping data here
             mView = itemView;
-            mImageView = (ImageView) itemView.findViewById(id.limakilo.www.bawang.R.id.avatar);
-            mTextView = (TextView) itemView.findViewById(android.R.id.text1);
-            mTextView2 = (TextView) itemView.findViewById(android.R.id.text2);
-//            mTextView3 = (TextView) itemView.findViewById(id.limakilo.www.bawang.R.id.text3);
+            mImageView = (ImageView) itemView.findViewById(R.id.order_list_avatar);
+            mTextView = (TextView) itemView.findViewById(R.id.order_list_paket);
+            mTextView2 = (TextView) itemView.findViewById(R.id.order_list_status);
+            mTextView3 = (TextView) itemView.findViewById(R.id.order_list_pembayaran);
+            mTextView4 = (TextView) itemView.findViewById(R.id.order_list_seller);
         }
     }
 }

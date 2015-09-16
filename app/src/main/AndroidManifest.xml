@@ -95,7 +95,7 @@
         </activity>
 
         <activity
-            android:name="id.limakilo.www.bawang.ui.detailorder.DetailOrderActivity"
+            android:name=".ui.order.OrderActivity"
             android:screenOrientation="portrait"
 
             android:label="@string/app_name" >

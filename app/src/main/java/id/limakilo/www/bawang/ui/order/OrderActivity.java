@@ -1,4 +1,4 @@
-package id.limakilo.www.bawang.ui.detailorder;
+package id.limakilo.www.bawang.ui.order;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,11 +18,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.confirmorder.ConfirmOrderActivity;
+import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.order.GetOrderDetailResponseModel;
 import id.limakilo.www.bawang.util.api.order.PostOrderResponseModel;
 import id.limakilo.www.bawang.util.api.stock.GetStockDetailResponseModel;
 
+import id.limakilo.www.bawang.util.api.user.PutUserResponseModel;
+import id.limakilo.www.bawang.util.common.PreferencesManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -30,7 +33,7 @@ import retrofit.client.Response;
 /**
  * Created by walesadanto on 30/8/15.
  */
-public class DetailOrderActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity {
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
@@ -45,21 +48,24 @@ public class DetailOrderActivity extends AppCompatActivity {
     public static final String SELLERREPUTATION = "seller_reputation";
     public static final String SELLERCITY = "seller_city";
 
-    private GetStockDetailResponseModel stockModel;
-    private GetOrderDetailResponseModel.GetOrderDetailResponseData orderModel;
+    private GetStockDetailResponseModel.GetStockDetailResponseData stockModel;
+    private PostOrderResponseModel.PostOrderResponseData orderModel;
+    private PutUserResponseModel.PutUserResponseData userModel;
 
     private MaterialDialog confirmDialog;
     ImageView backdrop;
     private int orderQuantity = 0;
 
     private MaterialDialog dialogProgress;
+    private MaterialDialog.Builder dialogFinishOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        stockModel = new GetStockDetailResponseModel();
-        orderModel = new GetOrderDetailResponseModel().new GetOrderDetailResponseData();
+        stockModel = new GetStockDetailResponseModel().new GetStockDetailResponseData();
+        orderModel = new PostOrderResponseModel().new PostOrderResponseData();
+        userModel = new PutUserResponseModel().new PutUserResponseData();
 
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
@@ -77,7 +83,7 @@ public class DetailOrderActivity extends AppCompatActivity {
             stockModel.setSellerCity(extras.getString(SELLERCITY));
         }
 
-        setContentView(R.layout.activity_detail_order);
+        setContentView(R.layout.activity_order);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -109,10 +115,23 @@ public class DetailOrderActivity extends AppCompatActivity {
                 })
                 .build();
 
+        dialogFinishOrder = new MaterialDialog.Builder(this)
+                .content("Terima kasih sudah berbelanja, mari ramaikan gerakan #yukbelanjakepetani bersama #limakilo :)")
+                .positiveText("ok")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        super.onPositive(dialog);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_NEW_TASK );
+                        getApplicationContext().startActivity(intent);
+                    }
+                });
+
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                showConfirmDialog();
+                showOrderDetail();
             }
         });
 
@@ -120,6 +139,8 @@ public class DetailOrderActivity extends AppCompatActivity {
                 .load(Integer.parseInt(stockModel.getSellerAvatarUrl()))
                 .fitCenter()
                 .into(backdrop);
+
+        retrieveUserInfo();
 
     }
 
@@ -145,7 +166,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public GetStockDetailResponseModel getStockModel() {
+    public GetStockDetailResponseModel.GetStockDetailResponseData getStockModel() {
         return stockModel;
     }
 
@@ -190,7 +211,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         getBaseContext().startActivity(intent);
     }
 
-    public void showConfirmDialog() {
+    public void showOrderDetail() {
         View customView = confirmDialog.getCustomView();
         ((TextView)customView.findViewById(R.id.dialog_id_pesanan)).setText("");
         ((TextView)customView.findViewById(R.id.dialog_harga_pesanan)).setText("");
@@ -229,11 +250,37 @@ public class DetailOrderActivity extends AppCompatActivity {
         }
     }
 
-    public GetOrderDetailResponseModel.GetOrderDetailResponseData getOrderModel() {
+    public PostOrderResponseModel.PostOrderResponseData getOrderModel() {
         return orderModel;
     }
 
-    public void setOrderModel(GetOrderDetailResponseModel.GetOrderDetailResponseData orderModel) {
+    public void setOrderModel(PostOrderResponseModel.PostOrderResponseData orderModel) {
         this.orderModel = orderModel;
+    }
+
+    public PutUserResponseModel.PutUserResponseData getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(PutUserResponseModel.PutUserResponseData userModel) {
+        this.userModel = userModel;
+    }
+
+    public void retrieveUserInfo(){
+        PreferencesManager.getAsString(this, PreferencesManager.NAME);
+        PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
+        PreferencesManager.getAsString(this, PreferencesManager.ADDRESS);
+        PreferencesManager.getAsString(this, PreferencesManager.CITY);
+    }
+
+    public void saveUserInfo(String name, String phone, String address, String city){
+        PreferencesManager.saveAsString(this, PreferencesManager.NAME, name);
+        PreferencesManager.saveAsString(this, PreferencesManager.HANDPHONE, phone);
+        PreferencesManager.saveAsString(this, PreferencesManager.ADDRESS, address);
+        PreferencesManager.saveAsString(this, PreferencesManager.CITY, city);
+    }
+
+    public void showDialogFinishOrder(){
+        dialogFinishOrder.show();
     }
 }

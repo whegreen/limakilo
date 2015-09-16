@@ -1,17 +1,17 @@
-package id.limakilo.www.bawang.ui.detailorder.mvp;
+package id.limakilo.www.bawang.ui.order.mvp;
 
 import id.limakilo.www.bawang.util.api.APICallListener;
 
 /**
  * Created by walesadanto on 1/9/15.
  */
-public class DetailOrderPresenterImpl implements DetailOrderPresenter {
+public class OrderPresenterImpl implements OrderPresenter {
 
-    DetailOrderView view;
+    OrderView view;
     APICallListener apiCallListener;
 
 
-    public DetailOrderPresenterImpl(DetailOrderView view, APICallListener listener){
+    public OrderPresenterImpl(OrderView view, APICallListener listener){
         this.view = view;
         this.apiCallListener = listener;
     }
@@ -20,9 +20,9 @@ public class DetailOrderPresenterImpl implements DetailOrderPresenter {
     @Override
     public void showLoading(boolean state) {
         if (state){
-            view.showDialogProgress();
+//            view.showDialogProgress();
         }else{
-            view.hideDialogProgress();
+//            view.hideDialogProgress();
         }
     }
 

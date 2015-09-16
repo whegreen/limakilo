@@ -6,10 +6,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.limakilo.www.bawang.util.api.RootResponseModel;
+
 /**
  * Created by walesadanto on 23/8/15.
  */
-public class PostOrderConfirmResponseModel {
+public class PostOrderConfirmResponseModel extends RootResponseModel{
     private List<PostOrderConfirmResponseData> data = new ArrayList<PostOrderConfirmResponseData>();
 
     public List<PostOrderConfirmResponseData> getData() {

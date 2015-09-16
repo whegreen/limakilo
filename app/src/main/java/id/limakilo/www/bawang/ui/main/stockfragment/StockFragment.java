@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.Crashlytics;
+
+import id.limakilo.www.bawang.R;
+import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentPresenter;
 import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentView;
 import id.limakilo.www.bawang.util.api.APICallListener;
@@ -23,6 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import io.supportkit.ui.ConversationActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -36,18 +41,28 @@ public class StockFragment extends Fragment implements APICallListener, StockFra
             new ArrayList<GetStockResponseModel.GetStockResponseData>();
 
     private StockFragmentPresenter presenter;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+
+    private View viewLoading;
+    private View viewBlankState;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        recyclerView = (RecyclerView) inflater.inflate(id.limakilo.www.bawang.R.layout.fragment_stock_list, container, false);
+        View view = inflater.inflate(id.limakilo.www.bawang.R.layout.fragment_stock_list, container, false);
+
+        viewLoading = view.findViewById(R.id.loading_bar);
+        viewBlankState= view.findViewById(R.id.blank_state);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
         setupStockRecyclerView();
         retrieveStockList();
 
-        return recyclerView;
+        return view;
     }
+
+    //tambah method untuk load selain onviewcreated
 
     public void setupStockRecyclerView(){
         recyclerView.setLayoutManager(new LinearLayoutManager((recyclerView.getContext())));
@@ -57,37 +72,94 @@ public class StockFragment extends Fragment implements APICallListener, StockFra
     public void retrieveStockList(){
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
 
+        showLoading();
+
         APICallManager.getInstance().getStocks(new Callback<GetStockResponseModel>() {
             @Override
             public void success(GetStockResponseModel getStockResponseModel, Response response) {
+                onAPICallSucceed("getStocks", getStockResponseModel);
+            }
 
-                stockList = getStockResponseModel.getData();
+            @Override
+            public void failure(RetrofitError error) {
+                onAPICallFailed("getStocks", error);
+            }
+        });
+    }
 
+    @Override
+    public void onAPICallSucceed(String caller, RootResponseModel responseModel) {
+        if (caller.equalsIgnoreCase("getStocks")) {
+            stockList = ((GetStockResponseModel) responseModel).getData();
+            if (stockList.isEmpty()){
+                showBlankState();
+            }else {
                 Collections.sort(stockList, new Comparator<GetStockResponseModel.GetStockResponseData>() {
                     @Override
                     public int compare(GetStockResponseModel.GetStockResponseData lhs, GetStockResponseModel.GetStockResponseData rhs) {
                         return lhs.getSellerName().compareTo(rhs.getSellerName());
                     }
                 });
-
-                setupStockRecyclerView();
+                showStockList();
             }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Snackbar.make(recyclerView, "failed to get data", Snackbar.LENGTH_LONG).show();
-            }
-        });
-
-    }
-
-    @Override
-    public void onAPICallSucceed(String caller, RootResponseModel responseModel) {
-
+            setupStockRecyclerView();
+        }
     }
 
     @Override
     public void onAPICallFailed(String caller, RetrofitError retrofitError) {
 
+        showErrorSnackbar();
+
+        if (caller.equalsIgnoreCase("getStocks")){
+            showBlankState();
+        }
+        else{
+
+        }
+    }
+
+    public void showStockList(){
+        try{
+            recyclerView.setVisibility(View.VISIBLE);
+            viewLoading.setVisibility(View.GONE);
+            viewBlankState.setVisibility(View.GONE);
+        }
+        catch(Exception e){
+            Crashlytics.logException(e);
+        }
+
+    }
+
+    public void showLoading(){
+        try{
+            recyclerView.setVisibility(View.GONE);
+            viewLoading.setVisibility(View.VISIBLE);
+            viewBlankState.setVisibility(View.GONE);
+        }catch(Exception e){
+            Crashlytics.logException(e);
+        }
+
+
+    }
+
+    public void showBlankState(){
+        recyclerView.setVisibility(View.GONE);
+        viewBlankState.setVisibility(View.VISIBLE);
+        viewLoading.setVisibility(View.GONE);
+    }
+
+    public void openSupportKit(){
+        ConversationActivity.show(getActivity());
+    }
+
+    public void showErrorSnackbar(){
+        Snackbar.make(recyclerView, "Server kami bermasalah...", Snackbar.LENGTH_LONG)
+                .setAction("Lapor", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openSupportKit();
+                    }
+                }).show();
     }
 }

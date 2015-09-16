@@ -25,7 +25,8 @@ public interface OrderService {
     @FormUrlEncoded
     @POST("/orders/{order_id}/confirm")
     void confirmOrder(@Header("authentification") String authentification,
-                   @Field("order_id") String orderId,
+                   @Path("order_id") String orderId,
+                   @Field("order_id") String orderId2,
                    @Field("order_payment_amount") String orderPaymentAmount,
                    @Field("order_name") String orderName,
                    Callback<PostOrderConfirmResponseModel> callback);
@@ -34,7 +35,7 @@ public interface OrderService {
     @GET("/orders/{id}")
     void getOrderDetail(@Header("authentification") String authentification,
                   @Path("id") String orderId,
-                  Callback<GetOrderResponseModel> callback);
+                  Callback<GetOrderDetailResponseModel> callback);
 
     @GET("/orders")
     void getOrders(@Header("authentification") String authentification,

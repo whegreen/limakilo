@@ -6,6 +6,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 
 /**
  * Created by walesadanto on 15/7/15.
@@ -33,6 +34,15 @@ public interface UserService {
                Callback<LoginResponseModel> callback);
 
     @GET("/users")
-    void getUsers(@Header("authentification") String authentificatio,
+    void getUsers(@Header("authentification") String authentification,
                   Callback<GetUserResponseModel> callback);
+
+    @PUT("/users")
+    void putUsers(@Header("authentification") String authentification,
+                  @Field("address") String address,
+                  @Field("phone_number") String phone,
+                  @Field("email") String email,
+                  @Field("city") String city,
+                  Callback<PutUserResponseModel> callback);
+
 }

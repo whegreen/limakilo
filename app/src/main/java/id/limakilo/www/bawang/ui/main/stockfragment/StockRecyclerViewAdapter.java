@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import id.limakilo.www.bawang.R;
-import id.limakilo.www.bawang.ui.detailorder.DetailOrderActivity;
+import id.limakilo.www.bawang.ui.order.OrderActivity;
 import id.limakilo.www.bawang.util.api.stock.GetStockResponseModel;
 
 import java.util.List;
@@ -86,18 +86,18 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, DetailOrderActivity.class);
+                Intent intent = new Intent(context, OrderActivity.class);
 
-                intent.putExtra(DetailOrderActivity.STOCKID, holder.mBoundStockId);
-                intent.putExtra(DetailOrderActivity.STOCKNAME, holder.mBoundStockName);
-                intent.putExtra(DetailOrderActivity.STOCKQUANTITY, holder.mBoundStockQuantity);
-                intent.putExtra(DetailOrderActivity.STOCKPRICE, holder.mBoundStockPrice);
-                intent.putExtra(DetailOrderActivity.SELLERID, holder.mBoundSellerId);
-                intent.putExtra(DetailOrderActivity.SELLERNAME, holder.mBoundSellerName);
-                intent.putExtra(DetailOrderActivity.SELLERAVAURL, holder.mBoundSellerAvaUrl);
-                intent.putExtra(DetailOrderActivity.SELLERADDRESS, holder.mBoundSellerAddress);
-                intent.putExtra(DetailOrderActivity.SELLERREPUTATION, holder.mBoundSellerReputation);
-                intent.putExtra(DetailOrderActivity.SELLERCITY, holder.mBoundSellerCity);
+                intent.putExtra(OrderActivity.STOCKID, holder.mBoundStockId);
+                intent.putExtra(OrderActivity.STOCKNAME, holder.mBoundStockName);
+                intent.putExtra(OrderActivity.STOCKQUANTITY, holder.mBoundStockQuantity);
+                intent.putExtra(OrderActivity.STOCKPRICE, holder.mBoundStockPrice);
+                intent.putExtra(OrderActivity.SELLERID, holder.mBoundSellerId);
+                intent.putExtra(OrderActivity.SELLERNAME, holder.mBoundSellerName);
+                intent.putExtra(OrderActivity.SELLERAVAURL, holder.mBoundSellerAvaUrl);
+                intent.putExtra(OrderActivity.SELLERADDRESS, holder.mBoundSellerAddress);
+                intent.putExtra(OrderActivity.SELLERREPUTATION, holder.mBoundSellerReputation);
+                intent.putExtra(OrderActivity.SELLERCITY, holder.mBoundSellerCity);
 
                 context.startActivity(intent);
             }

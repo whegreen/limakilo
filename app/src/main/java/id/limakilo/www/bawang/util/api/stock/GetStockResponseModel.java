@@ -9,7 +9,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetStockResponseModel {
+import id.limakilo.www.bawang.util.api.RootResponseModel;
+
+public class GetStockResponseModel extends RootResponseModel{
     private List<GetStockResponseData> data = new ArrayList<GetStockResponseData>();
 
     public List<GetStockResponseData> getData() {

@@ -3,6 +3,7 @@ package id.limakilo.www.bawang.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -142,10 +143,11 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
 
         digitsButton.setCallback(((LoginActivity) getActivity()).getTwitterAuthCallback());
 
-        TextView textView = (TextView) view.findViewById(R.id.btn_login_later);
-        textView.setOnClickListener(new View.OnClickListener() {
+        TextView loginLater = (TextView) view.findViewById(R.id.btn_login_later);
+        loginLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PreferencesManager.saveAuthToken(getActivity(), "VkwO31l0");
                 openMainActivity();
             }
         });
@@ -255,7 +257,7 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
                     saveUserData();
                 }
                 catch (Exception e){
-//                    onAPICallFailed(caller, (RetrofitError) e);
+                    onAPICallFailed(caller, (RetrofitError) e);
                 }
                 onAPICallSucceed(caller, getUserResponseModel);
             }

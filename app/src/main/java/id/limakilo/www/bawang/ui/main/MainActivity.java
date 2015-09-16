@@ -34,10 +34,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.crashlytics.android.Crashlytics;
 import com.facebook.appevents.AppEventsLogger;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
 
+import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.HistoryOrderActivity;
 import id.limakilo.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import id.limakilo.www.bawang.ui.main.stockfragment.StockFragment;
@@ -45,6 +51,9 @@ import id.limakilo.www.bawang.ui.main.stockfragment.StockFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.limakilo.www.bawang.util.api.APICallManager;
+import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
+import id.limakilo.www.bawang.util.common.PreferencesManager;
 import io.supportkit.ui.ConversationActivity;
 
 /**
@@ -54,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 //    implements } ContactsListFragment.OnContactsInteractionListener{
 
     private DrawerLayout mDrawerLayout;
+    private TextView navUsername;
+    private TextView navEmail;
 
 
     // True if this activity instance is a search result view (used on pre-HC devices that load
@@ -120,6 +131,11 @@ public class MainActivity extends AppCompatActivity {
 //            String title = getString(R.string.contacts_list_search_results_title, searchQuery);
 //            setTitle(title);
 //        }
+
+        navUsername = (TextView) findViewById(R.id.nav_username);
+        navEmail = (TextView) findViewById(R.id.nav_email);
+
+        initNavigationProfile();
 
         ImageView avatar = (ImageView) findViewById(id.limakilo.www.bawang.R.id.avatar_navheader);
         Glide.with(getBaseContext())
@@ -240,5 +256,43 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(id.limakilo.www.bawang.R.menu.menu_limakilo, menu);
         return true;
     }
+
+
+    public void initNavigationProfile(){
+        String token = PreferencesManager.getAuthToken(this);
+        final String phone = PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
+
+        APICallManager.getInstance(token).getUsers(new Callback<GetUserResponseModel>() {
+            @Override
+            public void success(Result<GetUserResponseModel> result) {
+                String firstName = null;
+                String lastName = null;
+                try{
+                    firstName = result.data.getData().get(0).getUserFirstName();
+                    lastName = result.data.getData().get(0).getUserLastName();
+                }
+                catch (Exception e){
+                    Crashlytics.logException(e);
+                }
+
+                if (firstName != null){
+                    String name = firstName;
+                    if (lastName != null){
+                        name = firstName +" "+lastName;
+                    }
+                    navUsername.setText(name);
+                }
+                if (phone != null){
+                    navEmail.setText(phone);
+                }
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+
+            }
+        });
+    }
+
 
 }

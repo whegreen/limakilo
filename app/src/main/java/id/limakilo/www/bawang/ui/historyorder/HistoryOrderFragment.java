@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderPresenter;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderView;
 import id.limakilo.www.bawang.util.api.APICallListener;
@@ -36,44 +39,56 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
             new ArrayList<GetOrderResponseModel.GetOrderResponseData>();
     private HistoryOrderPresenter presenter;
     RecyclerView recyclerView;
+    private MaterialDialog confirmDialog;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         recyclerView = (RecyclerView) inflater.inflate(id.limakilo.www.bawang.R.layout.fragment_history_order_list, container, false);
 
-        setupChatRecyclerView();
-        retrieveChatList();
+        setupOrderRecyclerView();
+        retrieveOrderList();
+
+        boolean wrapInScrollView = true;
+        confirmDialog = new MaterialDialog.Builder(getActivity())
+                .title("Konfirmasi Pembayaran")
+                .customView(R.layout.dialog_confirm_payment_custom_view, wrapInScrollView)
+                .positiveText("Transfer sudah dilakukan")
+                .negativeText("Transfer nanti")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        confirmDialog.hide();
+                    }
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        dialog.hide();
+                    }
+                })
+                .build();
 
         return recyclerView;
     }
 
-    public void setupChatRecyclerView(){
+    public void setupOrderRecyclerView(){
         recyclerView.setLayoutManager(new LinearLayoutManager((recyclerView.getContext())));
-        recyclerView.setAdapter(new OrderRecyclerViewAdapter(getActivity(), orderList));
+        recyclerView.setAdapter(new HistoryOrderRecyclerViewAdapter(getActivity(), orderList));
     }
 
-    public void retrieveChatList(){
+    public void retrieveOrderList(){
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
 
         APICallManager.getInstance().getOrders(new Callback<GetOrderResponseModel>() {
             @Override
             public void success(GetOrderResponseModel getOrderResponseModel, Response response) {
-
                 orderList = getOrderResponseModel.getData();
-
-//                for (Iterator<GetStockResponseModel.GetStockResponseData> i = orderList.iterator(); i.hasNext();){
-//                    if (i.next().getAvaUrl() == null) i.remove();
-//                }
-
                 Collections.sort(orderList, new Comparator<GetOrderResponseModel.GetOrderResponseData>() {
                     @Override
                     public int compare(GetOrderResponseModel.GetOrderResponseData lhs, GetOrderResponseModel.GetOrderResponseData rhs) {
-//                        return lhs.getCategory().compareTo(rhs.getCategory());
-                        return 0;
+                        return lhs.getOrderDate().compareTo(rhs.getOrderDate());
                     }
                 });
-                setupChatRecyclerView();
+                setupOrderRecyclerView();
             }
 
             @Override

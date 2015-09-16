@@ -6,10 +6,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.limakilo.www.bawang.util.api.RootResponseModel;
+
 /**
  * Created by walesadanto on 23/8/15.
  */
-public class GetOrderDetailResponseModel {
+public class GetOrderDetailResponseModel extends RootResponseModel{
     private List<GetOrderDetailResponseData> data = new ArrayList<GetOrderDetailResponseData>();
 
     public List<GetOrderDetailResponseData> getData() {
@@ -20,189 +22,227 @@ public class GetOrderDetailResponseModel {
         this.data = data;
     }
     public class GetOrderDetailResponseData {
+
+        @SerializedName("seller_id")
         @Expose
-        private Integer id;
-        @SerializedName("commodity_id")
+        private Integer sellerId;
+        @SerializedName("seller_name")
         @Expose
-        private Integer commodityId;
-        @SerializedName("user_id")
+        private String sellerName;
+        @SerializedName("seller_city")
         @Expose
-        private Integer userId;
+        private String sellerCity;
+        @SerializedName("order_id")
+        @Expose
+        private Integer orderId;
+        @SerializedName("order_status")
+        @Expose
+        private String orderStatus;
+        @SerializedName("order_quantity")
+        @Expose
+        private String orderQuantity;
+        @SerializedName("order_amount")
+        @Expose
+        private String orderAmount;
+        @SerializedName("order_address")
+        @Expose
+        private String orderAddress;
+        @SerializedName("order_date")
+        @Expose
+        private String orderDate;
         @SerializedName("stock_id")
         @Expose
         private Integer stockId;
+        @SerializedName("stock_name")
         @Expose
-        private String quantity;
+        private String stockName;
+        @SerializedName("stock_quantity")
         @Expose
-        private String price;
+        private Integer stockQuantity;
+        @SerializedName("stock_price")
         @Expose
-        private String status;
-        @Expose
-        private Object type;
-        @Expose
-        private String date;
+        private String stockPrice;
 
         /**
-         *
-         * @return
-         * The id
+         * @return The sellerId
          */
-        public Integer getId() {
-            return id;
+        public Integer getSellerId() {
+            return sellerId;
         }
 
         /**
-         *
-         * @param id
-         * The id
+         * @param sellerId The seller_id
          */
-        public void setId(Integer id) {
-            this.id = id;
+        public void setSellerId(Integer sellerId) {
+            this.sellerId = sellerId;
         }
 
         /**
-         *
-         * @return
-         * The commodityId
+         * @return The sellerName
          */
-        public Integer getCommodityId() {
-            return commodityId;
+        public String getSellerName() {
+            return sellerName;
         }
 
         /**
-         *
-         * @param commodityId
-         * The commodity_id
+         * @param sellerName The seller_name
          */
-        public void setCommodityId(Integer commodityId) {
-            this.commodityId = commodityId;
+        public void setSellerName(String sellerName) {
+            this.sellerName = sellerName;
         }
 
         /**
-         *
-         * @return
-         * The userId
+         * @return The sellerCity
          */
-        public Integer getUserId() {
-            return userId;
+        public String getSellerCity() {
+            return sellerCity;
         }
 
         /**
-         *
-         * @param userId
-         * The user_id
+         * @param sellerCity The seller_city
          */
-        public void setUserId(Integer userId) {
-            this.userId = userId;
+        public void setSellerCity(String sellerCity) {
+            this.sellerCity = sellerCity;
         }
 
         /**
-         *
-         * @return
-         * The stockId
+         * @return The orderId
+         */
+        public Integer getOrderId() {
+            return orderId;
+        }
+
+        /**
+         * @param orderId The order_id
+         */
+        public void setOrderId(Integer orderId) {
+            this.orderId = orderId;
+        }
+
+        /**
+         * @return The orderStatus
+         */
+        public String getOrderStatus() {
+            return orderStatus;
+        }
+
+        /**
+         * @param orderStatus The order_status
+         */
+        public void setOrderStatus(String orderStatus) {
+            this.orderStatus = orderStatus;
+        }
+
+        /**
+         * @return The orderQuantity
+         */
+        public String getOrderQuantity() {
+            return orderQuantity;
+        }
+
+        /**
+         * @param orderQuantity The order_quantity
+         */
+        public void setOrderQuantity(String orderQuantity) {
+            this.orderQuantity = orderQuantity;
+        }
+
+        /**
+         * @return The orderAmount
+         */
+        public String getOrderAmount() {
+            return orderAmount;
+        }
+
+        /**
+         * @param orderAmount The order_amount
+         */
+        public void setOrderAmount(String orderAmount) {
+            this.orderAmount = orderAmount;
+        }
+
+        /**
+         * @return The orderAddress
+         */
+        public String getOrderAddress() {
+            return orderAddress;
+        }
+
+        /**
+         * @param orderAddress The order_address
+         */
+        public void setOrderAddress(String orderAddress) {
+            this.orderAddress = orderAddress;
+        }
+
+        /**
+         * @return The orderDate
+         */
+        public String getOrderDate() {
+            return orderDate;
+        }
+
+        /**
+         * @param orderDate The order_date
+         */
+        public void setOrderDate(String orderDate) {
+            this.orderDate = orderDate;
+        }
+
+        /**
+         * @return The stockId
          */
         public Integer getStockId() {
             return stockId;
         }
 
         /**
-         *
-         * @param stockId
-         * The stock_id
+         * @param stockId The stock_id
          */
         public void setStockId(Integer stockId) {
             this.stockId = stockId;
         }
 
         /**
-         *
-         * @return
-         * The quantity
+         * @return The stockName
          */
-        public String getQuantity() {
-            return quantity;
+        public String getStockName() {
+            return stockName;
         }
 
         /**
-         *
-         * @param quantity
-         * The quantity
+         * @param stockName The stock_name
          */
-        public void setQuantity(String quantity) {
-            this.quantity = quantity;
+        public void setStockName(String stockName) {
+            this.stockName = stockName;
         }
 
         /**
-         *
-         * @return
-         * The price
+         * @return The stockQuantity
          */
-        public String getPrice() {
-            return price;
+        public Integer getStockQuantity() {
+            return stockQuantity;
         }
 
         /**
-         *
-         * @param price
-         * The price
+         * @param stockQuantity The stock_quantity
          */
-        public void setPrice(String price) {
-            this.price = price;
+        public void setStockQuantity(Integer stockQuantity) {
+            this.stockQuantity = stockQuantity;
         }
 
         /**
-         *
-         * @return
-         * The status
+         * @return The stockPrice
          */
-        public String getStatus() {
-            return status;
+        public String getStockPrice() {
+            return stockPrice;
         }
 
         /**
-         *
-         * @param status
-         * The status
+         * @param stockPrice The stock_price
          */
-        public void setStatus(String status) {
-            this.status = status;
+        public void setStockPrice(String stockPrice) {
+            this.stockPrice = stockPrice;
         }
-
-        /**
-         *
-         * @return
-         * The type
-         */
-        public Object getType() {
-            return type;
-        }
-
-        /**
-         *
-         * @param type
-         * The type
-         */
-        public void setType(Object type) {
-            this.type = type;
-        }
-
-        /**
-         *
-         * @return
-         * The date
-         */
-        public String getDate() {
-            return date;
-        }
-
-        /**
-         *
-         * @param date
-         * The date
-         */
-        public void setDate(String date) {
-            this.date = date;
-        }
-
     }
 }
