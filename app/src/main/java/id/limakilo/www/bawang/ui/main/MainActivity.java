@@ -18,6 +18,7 @@ package id.limakilo.www.bawang.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -54,6 +55,7 @@ import java.util.List;
 import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
+import id.limakilo.www.bawang.util.social.SupportkitKit;
 import io.supportkit.ui.ConversationActivity;
 
 /**
@@ -143,6 +145,9 @@ public class MainActivity extends AppCompatActivity {
                 .fitCenter()
                 .into(avatar);
 
+        SupportkitKit supportkitKit = new SupportkitKit();
+        supportkitKit.setupUser(this);
+
     }
 
     @Override
@@ -150,6 +155,12 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            case R.id.about_us:
+                String url = "http://limakilo.id";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -259,6 +270,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void initNavigationProfile(){
+
+        String handphone = PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
+        String name = PreferencesManager.getAsString(this, PreferencesManager.NAME);
+
+        if (name != null){
+            try{
+                navUsername.setText(name);
+                navEmail.setText(handphone);
+            }
+            catch (Exception e){
+                Crashlytics.logException(e);
+            }
+        }
+
         String token = PreferencesManager.getAuthToken(this);
         final String phone = PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
 

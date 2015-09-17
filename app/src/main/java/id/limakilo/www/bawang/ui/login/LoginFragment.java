@@ -147,7 +147,7 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
         loginLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PreferencesManager.saveAuthToken(getActivity(), "VkwO31l0");
+                PreferencesManager.saveAuthToken(getActivity(), APICallManager.DEMO_AUTH);
                 openMainActivity();
             }
         });
@@ -251,13 +251,14 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
             @Override
             public void success(GetUserResponseModel getUserResponseModel, Response response) {
                 try{
-                    if (getUserResponseModel.getData() != null){
+                    if (getUserResponseModel.getData() != null && !getUserResponseModel.getData().isEmpty()){
                         userModel = getUserResponseModel.getData().get(0);
                     }
                     saveUserData();
                 }
                 catch (Exception e){
-                    onAPICallFailed(caller, (RetrofitError) e);
+                    Crashlytics.logException(e);
+//                    onAPICallFailed(caller, (RetrofitError) e);
                 }
                 onAPICallSucceed(caller, getUserResponseModel);
             }
@@ -270,16 +271,17 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
     }
 
     public void registerLimakiloUser(DigitsSession digitsSession){
-        APICallManager.getInstance().loginFacebook(((Long)digitsSession.getId()).toString(),
-                digitsSession.getPhoneNumber(), digitsSession.getPhoneNumber(), digitsSession.getPhoneNumber(),
-                new Callback<LoginResponseModel>() {
+        APICallManager.getInstance().loginDigit(((Long) digitsSession.getId()).toString(),
+                digitsSession.getPhoneNumber(), new Callback<LoginResponseModel>() {
                     String caller = "registerLimakiloUser(DigitsSession digitsSession)";
+
                     @Override
                     public void success(LoginResponseModel loginResponseModel, Response response) {
                         getUserData();
                         saveUserAuthentification(loginResponseModel.getData().get(0).getAuth());
                         onAPICallSucceed(caller, loginResponseModel);
                     }
+
                     @Override
                     public void failure(RetrofitError error) {
                         onAPICallFailed(caller, error);

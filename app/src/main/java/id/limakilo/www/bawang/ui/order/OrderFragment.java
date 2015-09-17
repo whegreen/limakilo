@@ -155,9 +155,6 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                     cardDetailOrder.setVisibility(View.GONE);
                     cardInputOrder.setVisibility(View.GONE);
 
-                    ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_total_payment))
-                            .setText(totalPayment.getText().toString());
-
                     try{
                         //save user
                         saveUserInfo();
@@ -287,6 +284,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             ((OrderActivity)getActivity()).setOrderModel(data);
             cardInputOrder.setVisibility(View.GONE);
             cardResumeOrder.setVisibility(View.VISIBLE);
+
             updateOrderResume();
         }
     }
@@ -309,7 +307,9 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             PostOrderResponseModel.PostOrderResponseData order = ((OrderActivity) getActivity()).getOrderModel();
 
             String[] timestamp = order.getOrderTimestamp().toString().split("T");
-            int totalTransfer = Integer.parseInt(order.getOrderAmount())+Integer.parseInt(order.getOrderPaymentCode());
+            int totalTransfer = (Integer.parseInt(order.getOrderQuantity().toString())
+                    *Integer.parseInt(stockPrice.getText().toString()))
+                    +Integer.parseInt(order.getOrderPaymentCode());
 
             ((TextView)cardResumeOrder.findViewById(R.id.dialog_id_pesanan)).setText(order.getOrderId().toString());
             ((TextView)cardResumeOrder.findViewById(R.id.dialog_tanggal_pesanan)).setText(timestamp[0]+" "+timestamp[1].substring(0,5));
@@ -320,6 +320,9 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             ((TextView)cardResumeOrder.findViewById(R.id.dialog_ongkos_kirim)).setText("gratis");
             ((TextView)cardResumeOrder.findViewById(R.id.dialog_total)).setText(totalTransfer+"");
             ((TextView)cardResumeOrder.findViewById(R.id.dialog_status_pesanan)).setText(order.getOrderStatus().toString());
+
+            ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_total_payment))
+                    .setText(totalTransfer+"");
         }
         catch (Exception e){
             Crashlytics.logException(e);

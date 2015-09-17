@@ -30,10 +30,10 @@ public class APICallManager {
     private static APICallManager instance;
     private RestAdapter restAdapter;
     private String endPoint = "http://limakilo.id";
-    private static final String DEMO_AUTH = "EkhZMUG0";
+    public static final String DEMO_AUTH = "EkhZMUG0";
 //    public static Boolean usingMock = true;
 
-    private String authentification;
+    private static String authentification;
 
     /**
      * Returns singleton class instance
@@ -54,7 +54,7 @@ public class APICallManager {
      * Returns singleton class instance
      */
     public static APICallManager getInstance() {
-        return getInstance(DEMO_AUTH);
+        return getInstance(authentification);
     }
 
     public APICallManager() {
@@ -82,6 +82,12 @@ public class APICallManager {
                                  String email, Callback<LoginResponseModel> callback) {
         UserService userService = restAdapter.create(UserService.class);
         userService.loginFacebook(facebookId, firstName, lastName, email, callback);
+        return true;
+    }
+
+    public boolean loginDigit(String digitId, String phone, Callback<LoginResponseModel> callback) {
+        UserService userService = restAdapter.create(UserService.class);
+        userService.loginDigit(digitId, phone, callback);
         return true;
     }
 

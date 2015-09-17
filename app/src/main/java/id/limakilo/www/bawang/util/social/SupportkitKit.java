@@ -1,9 +1,12 @@
 package id.limakilo.www.bawang.util.social;
 
+import android.content.Context;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import id.limakilo.www.bawang.util.common.PreferencesManager;
 import io.supportkit.core.User;
 import io.supportkit.ui.ConversationActivity;
 import io.supportkit.ui.fragment.ConversationFragment;
@@ -19,6 +22,25 @@ public class SupportkitKit {
 
     public SupportkitKit(){
         skUser = User.getCurrentUser();
+    }
+
+
+    public void setupUser(Context context){
+        skUser = User.getCurrentUser();
+
+        String name = PreferencesManager.getAsString(context, PreferencesManager.NAME);
+        String handphone = PreferencesManager.getAsString(context, PreferencesManager.HANDPHONE);
+
+        if (name != null){
+            skUser.setFirstName(name);
+//            skUser.setLastName("Babaev");
+        }
+
+        skUser.setEmail(handphone);
+        skUser.setSignedUpAt(new Date(1420070400000l));
+
+        addCustomProperties("timeStamp", System.currentTimeMillis());
+        skUser.addProperties(customProperties);
     }
 
     public void setupUser(){

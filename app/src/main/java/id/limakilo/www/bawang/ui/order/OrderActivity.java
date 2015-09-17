@@ -26,6 +26,9 @@ import id.limakilo.www.bawang.util.api.stock.GetStockDetailResponseModel;
 
 import id.limakilo.www.bawang.util.api.user.PutUserResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
+import id.limakilo.www.bawang.util.social.SupportkitKit;
+import io.supportkit.core.Conversation;
+import io.supportkit.ui.ConversationActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -131,7 +134,23 @@ public class OrderActivity extends AppCompatActivity {
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                showOrderDetail();
+//                showOrderDetail();
+                new MaterialDialog.Builder(getBaseContext())
+                        .title("Cara Pemesanan Limakilo")
+                        .content("FAQ-nya limakilo")
+                        .positiveText("ok")
+                        .negativeText("Tanya kami")
+                        .callback(new MaterialDialog.ButtonCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                dialog.hide();
+                            }
+                            @Override
+                            public void onNegative(MaterialDialog dialog) {
+                                ConversationActivity.show(getApplicationContext());
+                            }
+                        })
+                        .build();
             }
         });
 
