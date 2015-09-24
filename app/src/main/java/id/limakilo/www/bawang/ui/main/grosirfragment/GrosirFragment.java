@@ -2,12 +2,10 @@ package id.limakilo.www.bawang.ui.main.grosirfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.main.grosirfragment.mvp.GrosirFragmentPresenter;
@@ -30,27 +28,27 @@ public class GrosirFragment extends Fragment implements APICallListener, GrosirF
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layoutView = inflater.inflate(R.layout.fragment_grosir, container, false);
 
-        layoutView.findViewById(R.id.btn_choice).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                TextView price = (TextView) v.findViewById(R.id.price);
-//                TextView quantity = (TextView) v.findViewById(R.id.quantity);
+//        layoutView.findViewById(R.id.btn_choice).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                TextView price = (TextView) v.findViewById(R.id.price);
+////                TextView quantity = (TextView) v.findViewById(R.id.quantity);
+////
+////                String prc = "0";
+////                String qty = "0";
+////
+////                if (price != null){
+////                    prc = price.getText().toString();
+////                }
+////
+////                if (quantity != null){
+////                    qty = quantity.getText().toString();
+////                }
+////                postOrder(getRadioChoosen(), qty, prc);
 //
-//                String prc = "0";
-//                String qty = "0";
-//
-//                if (price != null){
-//                    prc = price.getText().toString();
-//                }
-//
-//                if (quantity != null){
-//                    qty = quantity.getText().toString();
-//                }
-//                postOrder(getRadioChoosen(), qty, prc);
-
-                Snackbar.make(layoutView, "this feature will be available soon", Snackbar.LENGTH_LONG).show();
-            }
-        });
+//                Snackbar.make(layoutView, "this feature will be available soon", Snackbar.LENGTH_LONG).show();
+//            }
+//        });
 
         return layoutView;
     }
@@ -82,14 +80,14 @@ public class GrosirFragment extends Fragment implements APICallListener, GrosirF
 //        });
     }
 
-    public int getRadioChoosen(){
-        RadioButton radioChoosen = (RadioButton) layoutView.findViewById(R.id.radioButton);
+//    public int getRadioChoosen(){
+//        RadioButton radioChoosen = (RadioButton) layoutView.findViewById(R.id.radioButton);
 
-        if (radioChoosen != null && radioChoosen.isChecked()){
-            return 0;
-        }else{
-            return 1;
-        }
-
-    }
+//        if (radioChoosen != null && radioChoosen.isChecked()){
+//            return 0;
+//        }else{
+//            return 1;
+//        }
+//
+//    }
 }

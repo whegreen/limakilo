@@ -1,16 +1,16 @@
 package id.limakilo.www.bawang.ui.login;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
 import com.digits.sdk.android.AuthCallback;
@@ -25,6 +25,7 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.login.mvp.LoginListener;
 import id.limakilo.www.bawang.ui.login.mvp.LoginPresenter;
@@ -34,12 +35,9 @@ import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.util.api.APICallListener;
 import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.RootResponseModel;
-import id.limakilo.www.bawang.util.api.user.LoginResponseModel;
 import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
+import id.limakilo.www.bawang.util.api.user.LoginResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
-
-import java.util.List;
-
 import id.limakilo.www.bawang.util.social.SupportkitKit;
 import io.supportkit.ui.ConversationActivity;
 import retrofit.Callback;
@@ -75,8 +73,8 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
         view = inflater.inflate(R.layout.fragment_login, container, false);
         presenter = new LoginPresenterImpl(this);
 
-        if (AccessToken.getCurrentAccessToken() != null){
-            ((LoginPresenterImpl)presenter).loginSuccess();
+        if (AccessToken.getCurrentAccessToken() != null) {
+            ((LoginPresenterImpl) presenter).loginSuccess();
             return view;
         }
 
@@ -128,6 +126,10 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
         });
 
         final DigitsAuthButton digitsButton = (DigitsAuthButton) view.findViewById(R.id.auth_button);
+        digitsButton.setBackgroundColor(getResources().getColor(R.color.color_primary_dark));
+        digitsButton.setTextSize(12);
+        digitsButton.setText("LOGIN USING PHONE NUMBER");
+        digitsButton.setTypeface(null, Typeface.BOLD);
         ((LoginActivity) getActivity()).setTwitterAuthCallback(new AuthCallback() {
             @Override
             public void success(DigitsSession digitsSession, String s) {
@@ -143,7 +145,11 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
 
         digitsButton.setCallback(((LoginActivity) getActivity()).getTwitterAuthCallback());
 
-        TextView loginLater = (TextView) view.findViewById(R.id.btn_login_later);
+        Button loginLater = (Button) view.findViewById(R.id.btn_login_later);
+        loginLater.setBackgroundColor(getResources().getColor(R.color.color_primary_dark));
+        loginLater.setTextSize(12);
+        loginLater.setText("LOGIN LATER");
+        loginLater.setTypeface(null, Typeface.BOLD);
         loginLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,7 +166,7 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ((LoginActivity)getActivity()).getCallbackManager().onActivityResult(requestCode, resultCode, data);
+        ((LoginActivity) getActivity()).getCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 
     public void openMainActivity() {
@@ -183,10 +189,9 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
     public void showLoggingIn() {
         loadingBar.setVisibility(View.VISIBLE);
         String auth = PreferencesManager.getAuthToken(getContext());
-        if (auth != null && auth.equalsIgnoreCase("")){
+        if (auth != null && auth.equalsIgnoreCase("")) {
             showSuccess();
-        }
-        else {
+        } else {
             showIdle();
         }
     }
@@ -216,19 +221,19 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
     }
 
 
-    public void saveUserAuthentification(String auth){
+    public void saveUserAuthentification(String auth) {
         PreferencesManager.saveAsString(getContext(), PreferencesManager.AUTH_TOKEN, auth);
 
     }
 
-    public void saveUserData(){
+    public void saveUserData() {
 
         PreferencesManager.saveAsString(getContext(), PreferencesManager.USER_ID, userModel.getUserId().toString());
         PreferencesManager.saveAsString(getContext(), PreferencesManager.HANDPHONE, userModel.getUserPhone());
         PreferencesManager.saveAsString(getContext(), PreferencesManager.LAST_LOGIN_TS, String.valueOf(System.currentTimeMillis()));
 
         if (userModel.getUserFirstName() != null)
-            PreferencesManager.saveAsString(getContext(), PreferencesManager.NAME, userModel.getUserFirstName()+" "+userModel.getUserLastName());
+            PreferencesManager.saveAsString(getContext(), PreferencesManager.NAME, userModel.getUserFirstName() + " " + userModel.getUserLastName());
 
         if (userModel.getUserAddress() != null)
             PreferencesManager.saveAsString(getContext(), PreferencesManager.ADDRESS, userModel.getUserAddress());
@@ -244,19 +249,18 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
         supportkitKit.setupUser();
     }
 
-    public void getUserData(){
+    public void getUserData() {
         APICallManager.getInstance().getUsers(new Callback<GetUserResponseModel>() {
             String caller = "getUserData()";
 
             @Override
             public void success(GetUserResponseModel getUserResponseModel, Response response) {
-                try{
-                    if (getUserResponseModel.getData() != null && !getUserResponseModel.getData().isEmpty()){
+                try {
+                    if (getUserResponseModel.getData() != null && !getUserResponseModel.getData().isEmpty()) {
                         userModel = getUserResponseModel.getData().get(0);
                     }
                     saveUserData();
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     Crashlytics.logException(e);
 //                    onAPICallFailed(caller, (RetrofitError) e);
                 }
@@ -270,7 +274,7 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
         });
     }
 
-    public void registerLimakiloUser(DigitsSession digitsSession){
+    public void registerLimakiloUser(DigitsSession digitsSession) {
         APICallManager.getInstance().loginDigit(((Long) digitsSession.getId()).toString(),
                 digitsSession.getPhoneNumber(), new Callback<LoginResponseModel>() {
                     String caller = "registerLimakiloUser(DigitsSession digitsSession)";
@@ -296,7 +300,7 @@ public class LoginFragment extends Fragment implements LoginView, APICallListene
 
     @Override
     public void onAPICallFailed(String caller, RetrofitError error) {
-        if (caller.equalsIgnoreCase(LoginStateInfo.DIGIT.toString())){
+        if (caller.equalsIgnoreCase(LoginStateInfo.DIGIT.toString())) {
             stateInfo = LoginStateInfo.DIGIT;
         }
         showFailure(error);

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,10 +15,10 @@
   -->
 
 <LinearLayout
-    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recyclerview"
@@ -27,11 +26,12 @@
         android:layout_height="match_parent" />
 
     <RelativeLayout
+        android:id="@+id/loading_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:id="@+id/loading_bar"
-        android:clickable="true">
+        android:clickable="true"
+        android:visibility="gone">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,18 +39,19 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/blank_state"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:id="@+id/blank_state"
-        android:clickable="true">
+        android:clickable="true"
+        android:visibility="gone">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Petani Laris Manis!!\nTunggu pre-order selanjutnya"
-            android:textColor="@color/color_primary"
             android:layout_centerInParent="true"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="Petani Laris Manis!!\nTunggu pre-order selanjutnya"
+            android:textColor="@color/color_primary" />
 
     </RelativeLayout>
 

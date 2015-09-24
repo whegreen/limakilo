@@ -9,11 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import java.util.List;
+
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.util.api.bid.GetMyBidResponseModel;
 import id.limakilo.www.bawang.util.api.order.GetMyOrderResponseModel;
-
-import java.util.List;
 
 /**
  * Created by walesadanto on 22/8/15.
@@ -44,49 +44,9 @@ public class HistoryBidListActivity extends AppCompatActivity {
 
         context = getApplicationContext();
 
-        if (history.equals("order")){
+        if (history.equals("order")) {
             collapsingToolbar.setTitle("Riwayat Pemesanan");
-//            APICallManager.getInstance().getMyOrders(new Callback<GetMyOrderResponseModel>() {
-//                @Override
-//                public void success(GetMyOrderResponseModel getMyOrderResponseModel, Response response) {
-//                    Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
-//
-//                    HistoryBidModel order_data[];
-//                    order_data = convertToOrderModel(getMyOrderResponseModel.getData(), 0);
-//                    HistoryBidListAdapter adapter = new HistoryBidListAdapter(context,
-//                            R.layout.list_item_order, order_data);//
-//                    lv.setAdapter(adapter);
-//
-//                }
-//
-//                @Override
-//                public void failure(RetrofitError error) {
-//                    Toast.makeText(getBaseContext(), "failed", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        }else{
-//            collapsingToolbar.setTitle("Riwayat Grosir");
-//            APICallManager.getInstance().getMyBids(new Callback<GetMyBidResponseModel>() {
-//                @Override
-//                public void success(GetMyBidResponseModel getMyBidResponseModel, Response response) {
-//                    Toast.makeText(getBaseContext(), "success", Toast.LENGTH_SHORT).show();
-//
-//                    HistoryBidModel order_data[];
-//                    order_data = convertToOrderModel(getMyBidResponseModel.getData());
-//                    HistoryBidListAdapter adapter = new HistoryBidListAdapter(context,
-//                            R.layout.list_item_order, order_data);//
-//                    lv.setAdapter(adapter);
-//                }
-//
-//                @Override
-//                public void failure(RetrofitError error) {
-//                    Toast.makeText(getBaseContext(), "failed : "+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
-//
-//                }
-//            });
         }
-
-
     }
 
     @Override
@@ -99,22 +59,22 @@ public class HistoryBidListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public HistoryBidModel[] convertToOrderModel(List<GetMyBidResponseModel.GetMyBidResponseData> orderData){
+    public HistoryBidModel[] convertToOrderModel(List<GetMyBidResponseModel.GetMyBidResponseData> orderData) {
         HistoryBidModel order_data[] = new HistoryBidModel[orderData.size()];
         int i = 0;
         for (GetMyBidResponseModel.GetMyBidResponseData element : orderData) {
-            order_data[i] = new HistoryBidModel(orderData.get(0).getOrderId()+" x "+orderData.get(0).getStatus(),
+            order_data[i] = new HistoryBidModel(orderData.get(0).getOrderId() + " x " + orderData.get(0).getStatus(),
                     orderData.get(0).getDate());
         }
 
         return order_data;
     }
 
-    public HistoryBidModel[] convertToOrderModel(List<GetMyOrderResponseModel.GetMyOrderResponseData> orderData, int dummy){
+    public HistoryBidModel[] convertToOrderModel(List<GetMyOrderResponseModel.GetMyOrderResponseData> orderData, int dummy) {
         HistoryBidModel order_data[] = new HistoryBidModel[orderData.size()];
         int i = 0;
         for (GetMyOrderResponseModel.GetMyOrderResponseData element : orderData) {
-            order_data[i] = new HistoryBidModel(orderData.get(0).getQuantity()+" x "+orderData.get(0).getPrice(),
+            order_data[i] = new HistoryBidModel(orderData.get(0).getQuantity() + " x " + orderData.get(0).getPrice(),
                     orderData.get(0).getDate());
         }
         return order_data;

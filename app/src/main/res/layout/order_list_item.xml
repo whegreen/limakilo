@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -18,9 +19,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="2dp"
-            android:layout_weight="0" />
+            android:layout_marginTop="2dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -31,6 +30,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -38,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_xsmall"
                     android:text="Paket : "
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -48,12 +49,12 @@
                         android:id="@+id/order_list_paket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_margin="@dimen/spacing_xsmall"
                         android:text="18"
-                        android:textColor="?attr/colorPrimaryDark"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true" />
+                        android:textColor="?attr/colorPrimaryDark" />
 
                 </RelativeLayout>
 
@@ -62,6 +63,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -69,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_xsmall"
                     android:text="Dijual oleh : "
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -79,12 +82,12 @@
                         android:id="@+id/order_list_seller"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_margin="@dimen/spacing_xsmall"
                         android:text="18"
-                        android:textColor="?attr/colorPrimaryDark"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true" />
+                        android:textColor="?attr/colorPrimaryDark" />
 
                 </RelativeLayout>
 
@@ -93,6 +96,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -100,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_xsmall"
                     android:text="Pembayaran : "
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -110,12 +115,12 @@
                         android:id="@+id/order_list_pembayaran"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_margin="@dimen/spacing_xsmall"
                         android:text="18"
-                        android:textColor="?attr/colorPrimaryDark"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true" />
+                        android:textColor="?attr/colorPrimaryDark" />
 
                 </RelativeLayout>
 
@@ -124,6 +129,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -131,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_xsmall"
                     android:text="Status pesanan : "
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -141,12 +148,12 @@
                         android:id="@+id/order_list_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_margin="@dimen/spacing_xsmall"
                         android:text="18"
-                        android:textColor="?attr/colorPrimaryDark"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true" />
+                        android:textColor="?attr/colorPrimaryDark" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -158,8 +165,8 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="1dp"
         android:layout_marginBottom="3dp"
-        android:background="@color/color_accent" />
+        android:layout_marginTop="1dp"
+        android:background="@color/color_primary_dark" />
 
 </LinearLayout>

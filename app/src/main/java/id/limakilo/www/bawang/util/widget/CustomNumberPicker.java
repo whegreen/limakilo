@@ -34,7 +34,7 @@ public class CustomNumberPicker extends NumberPicker{
             this.setMinValue(attrs.getAttributeIntValue(null, "min", 0));
             this.setMaxValue(attrs.getAttributeIntValue(null, "max", 0));
 //            setDividerColor(this, getResources().getColor(attrs.getAttributeIntValue(null, "dividerColor", 0)));
-            setDividerColor(this, getResources().getColor(R.color.color_accent));
+            setDividerColor(this, getResources().getColor(R.color.color_primary));
         }
 
     private void setDividerColor(NumberPicker picker, int color) {

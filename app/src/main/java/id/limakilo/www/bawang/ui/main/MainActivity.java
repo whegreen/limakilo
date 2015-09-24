@@ -44,14 +44,13 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.HistoryOrderActivity;
 import id.limakilo.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import id.limakilo.www.bawang.ui.main.stockfragment.StockFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
@@ -202,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                                 context.startActivity(intent1);
                                 break;
                             case id.limakilo.www.bawang.R.id.nav_messages:
-                                Snackbar.make(findViewById(id.limakilo.www.bawang.R.id.drawer_layout), "this feature will be available soon",
+                                Snackbar.make(findViewById(id.limakilo.www.bawang.R.id.drawer_layout), "This feature will be available soon.",
                                         Snackbar.LENGTH_LONG).show();
                                 break;
                             case id.limakilo.www.bawang.R.id.nav_feedback:

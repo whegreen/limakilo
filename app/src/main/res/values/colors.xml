@@ -6,6 +6,7 @@
 
     <color name="color_primary">#B94F76</color>
     <color name="color_primary_dark">#782F45</color>
+    <color name="white_secondary">#f2eff3</color>
     <color name="color_accent">#B3D994</color>
 
     <color name="SupportKit_accent">@color/color_primary</color>

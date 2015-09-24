@@ -4,33 +4,39 @@
     android:versionName="@string/app_version">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
-    <permission android:name="id.limakilo.www.bawang.permission.C2D_MESSAGE"
+    <permission
+        android:name="id.limakilo.www.bawang.permission.C2D_MESSAGE"
 
         android:protectionLevel="signature" />
     <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
 
-    <application android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@drawable/limakilo" android:theme="@style/AppTheme"
-        android:name="id.limakilo.www.bawang.BawangApplication">
+    <application
+        android:name="id.limakilo.www.bawang.BawangApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/limakilo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="id.limakilo.www.bawang.gcm" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".service.gcm.GCMListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
@@ -39,7 +45,7 @@
             android:name=".service.gcm.GCMInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
 
@@ -50,9 +56,9 @@
 
         <activity
             android:name="id.limakilo.www.bawang.ui.login.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -63,34 +69,29 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
 
         <activity
             android:name="id.limakilo.www.bawang.ui.main.MainActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
 
         </activity>
 
         <activity
             android:name="id.limakilo.www.bawang.ui.historybid.HistoryBidListActivity"
-            android:screenOrientation="portrait"
-
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name="id.limakilo.www.bawang.ui.historyorder.HistoryOrderActivity"
-            android:screenOrientation="portrait"
-
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name="id.limakilo.www.bawang.ui.confirmorder.ConfirmOrderActivity"
-            android:screenOrientation="portrait"
-
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.limakilo.www.bawang.ui.main.MainActivity" />
@@ -98,9 +99,8 @@
 
         <activity
             android:name=".ui.order.OrderActivity"
-            android:screenOrientation="portrait"
-
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.limakilo.www.bawang.ui.main.MainActivity" />

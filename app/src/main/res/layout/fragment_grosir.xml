@@ -1,105 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:background="@drawable/background_soon"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="60dp"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_centerInParent="true"
+        android:text="This feature will be available soon."
+        android:textColor="@color/color_primary_dark"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Bawang: "
-            />
+    <!--<RelativeLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true">-->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:orientation="horizontal">
-            <RadioGroup
-                android:id="@+id/radioSex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+    <!--<LinearLayout-->
+    <!--android:id="@+id/layout1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal">-->
 
-                    <RadioButton
-                        android:id="@+id/radioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="Mutu 1" />
+    <!--<TextView-->
+    <!--android:id="@+id/textView3"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:text="Bawang: " />-->
 
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:checked="false"
-                        android:text="Mutu 2" />
-            </RadioGroup>
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="25dp"-->
+    <!--android:orientation="horizontal">-->
 
-        </LinearLayout>
-    </LinearLayout>
+    <!--<RadioGroup-->
+    <!--android:id="@+id/radioSex"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content">-->
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:orientation="horizontal">
+    <!--<RadioButton-->
+    <!--android:id="@+id/radioButton"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:checked="true"-->
+    <!--android:text="Mutu 1" />-->
 
-        <TextView
-            android:id="@+id/quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kg. Pesanan: "
-            />
+    <!--<RadioButton-->
+    <!--android:id="@+id/radioButton2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:checked="false"-->
+    <!--android:text="Mutu 2" />-->
+    <!--</RadioGroup>-->
 
-        <EditText
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            />
-    </LinearLayout>
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Harga: "
-            />
+    <!--<TextView-->
+    <!--android:id="@+id/quantity"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Kg. Pesanan: " />-->
 
-        <EditText
-            android:id="@+id/price"
-            android:layout_marginLeft="40dp"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            />
-    </LinearLayout>
+    <!--<EditText-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="number" />-->
+    <!--</LinearLayout>-->
 
-    <Button
-        android:layout_marginLeft="125dp"
-        android:id="@+id/btn_choice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/rounded_green"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="Cari Toko"
-        android:textColor="#E9E9E9"
-        android:textSize="14sp" />
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="60dp"-->
+    <!--android:orientation="horizontal">-->
 
-</LinearLayout>
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Harga: " />-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/price"-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="40dp"-->
+    <!--android:inputType="number" />-->
+    <!--</LinearLayout>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/btn_choice"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="125dp"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--android:background="@drawable/rounded_red"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:text="Cari Toko"-->
+    <!--android:textColor="#E9E9E9"-->
+    <!--android:textSize="14sp" />-->
+    <!--</RelativeLayout>-->
+</RelativeLayout>
