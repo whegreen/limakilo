@@ -4,4 +4,32 @@
     <color name="window_background">#FFF5F5F5</color>
     <color name="holo_blue">#FF33B5E5</color>
 
+    <color name="color_primary">#B94F76</color>
+    <color name="color_primary_dark">#782F45</color>
+    <color name="color_accent">#B3D994</color>
+
+    <color name="SupportKit_accent">@color/color_primary</color>
+    <color name="SupportKit_accentDark">@color/color_primary_dark</color>
+    <color name="SupportKit_accentLight">@color/color_accent</color>
+
+    <color name="SupportKit_backgroundInput">#ffffff</color>
+
+    <color name="SupportKit_btnSendHollow">#c0c0c0</color>
+    <color name="SupportKit_btnSendHollowBorder">#303030</color>
+
+    <color name="SupportKit_header">#989898</color>
+
+    <color name="SupportKit_messageDate">@color/SupportKit_header</color>
+    <color name="SupportKit_messageShadow">#7f999999</color>
+
+    <color name="SupportKit_remoteMessageAuthor">@color/SupportKit_header</color>
+    <color name="SupportKit_remoteMessageBackground">#ffffff</color>
+    <color name="SupportKit_remoteMessageBorder">#d9d9d9</color>
+    <color name="SupportKit_remoteMessageText">#000000</color>
+
+    <color name="SupportKit_userMessageBackground">@color/color_primary</color>
+    <color name="SupportKit_userMessageBorder">@color/color_primary_dark</color>
+    <color name="SupportKit_userMessageFailedBackground">@color/color_accent</color>
+    <color name="SupportKit_userMessageText">#ffffff</color>
+
 </resources>

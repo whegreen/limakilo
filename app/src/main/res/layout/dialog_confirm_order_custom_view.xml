@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="ID Pesanan"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dialog_id_pesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="18"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Tangal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/dialog_tanggal_pesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="Wed Sep 02 2015 11:16:29"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Nama Penerima"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/dialog_nama_penerima"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="Walesa Danto"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Jumlah Pesanan"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/dialog_jumlah_pesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="1 x 5kg"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Harga Pesanan"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/dialog_harga_pesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="Rp. 20.000/kg"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Kode Pembayaran"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/dialog_kode_transfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="254"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Ongkos kirim"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/dialog_ongkos_kirim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="gratis"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Total "
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/dialog_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="Rp. 100.254,-"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Status"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/dialog_status_pesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="pesanan belum diproses"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

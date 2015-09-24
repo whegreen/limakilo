@@ -9,39 +9,60 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.walesadanto.www.billme.login.LoginFragment">
+    tools:context="com.walesadanto.www.billme.login.LoginFragment"
+    android:weightSum="1">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@drawable/logo" />
-
-    <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:paddingTop="15dp"
-        android:layout_marginBottom="50dp"
-        android:text="'Harga kami tak sekejam ibu tiri'"
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#ffffffff" />
+        android:background="@drawable/logo"
+        android:layout_marginBottom="60dp"
+        android:padding="20dp"/>
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="67dp" />
+        android:layout_height="wrap_content">
 
-    <com.digits.sdk.android.DigitsAuthButton
-        android:id="@+id/auth_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_login_later"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.19"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"/>
+
+        <com.digits.sdk.android.DigitsAuthButton
+            android:id="@+id/auth_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/login_later"
+            android:id="@+id/btn_login_later"
+            android:layout_gravity="right"
+            android:textColor="@color/material_grey_100" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:id="@+id/loading_bar"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar" />
+
+    </RelativeLayout>
 
 </LinearLayout>

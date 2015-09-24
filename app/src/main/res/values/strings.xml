@@ -1,5 +1,36 @@
 <resources>
-    <string name="app_name">5 kilogram</string>
+    <string name="app_name">limakilo</string>
+    <string name="app_version">0.2.0</string>
+    <string name="app_release_version">1</string>
     <string name="facebook_app_id">135514710123752</string>
-    <string name="menu_settings">Sample Menu</string>
+    <string name="menu_settings">Tentang Kami</string>
+    <string name="login_later"><u>login later</u></string>
+
+    <string name="gcm_defaultSenderId">1095409058135</string>
+
+    <string name="SupportKit_activityConversation">Tanya Kami</string>
+    <string name="SupportKit_startOfConversation">Salam limakilo, sila tanyakan apapun kepada kami jika aplikasi kami menyulitkan anda untuk terhubung ke petani.</string>
+    <string name="SupportKit_welcome">Mari dukung gerakan #yukbelikepetani! :)</string>
+    <string name="SupportKit_messageHint">tulis pertanyan...</string>
+
+    <string name="city_prompt">Pilih kota</string>
+
+    <string-array name="city_arrays">
+        <item>Jakarta</item>
+        <item>Bandung</item>
+    </string-array>
+
+    <string name="lorem_ipsum">ID Pesanan\t\t18\nTanggal Pemesaran\t\tWed Sep 02 2015 11:16:29\nNama Penerima\t\tWalesa Danto\n
+Alamat Pengiriman\t\tKecamatan Losari, Kab.Brebes\nJumlah\t\t5 x 5kg\nHarga\t\t5 x Rp20000\nKode Transfer\t\t123\nOngkos Kirim\t\tgratis\nTotal Pembayaran\t\t100123\nStatus\t\torder sedang diproses\n
+    </string>
+
+        <string name="lorem_ipsum_2"> No. Rekening\t\t73977749002\n
+Bank\t\tCiti Bank\n
+Atas Nama\t\tWalesa Danto\n
+Jumlah Transfer\t\tRp125.000,-\n
+    </string>
+
+    <string name="lorem_ipsum_3">
+        2 x 5kg x 17,000/Kg = <b>Rp. 170,000,-</b>
+    </string>
 </resources>

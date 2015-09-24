@@ -17,35 +17,35 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Bawang: "
-            android:textColor="#E74C3C" />
+            />
 
-        <RadioGroup
-            android:id="@+id/radioSex"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:orientation="horizontal">
+            <RadioGroup
+                android:id="@+id/radioSex"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Mutu 1" />
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Mutu 1" />
 
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:checked="false"
-                    android:text="Mutu 2" />
-            </LinearLayout>
-        </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:checked="false"
+                        android:text="Mutu 2" />
+            </RadioGroup>
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -59,13 +59,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kg. Pesanan: "
-            android:textColor="#E74C3C" />
+            />
 
         <EditText
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:textColor="#E74C3C" />
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Harga: "
-            android:textColor="#E74C3C" />
+            />
 
         <EditText
             android:id="@+id/price"
@@ -86,7 +86,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:textColor="#E74C3C" />
+            />
     </LinearLayout>
 
     <Button
@@ -95,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@drawable/rounded_red"
+        android:background="@drawable/rounded_green"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="Cari Toko"

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Total transfer"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dialog_total_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="18"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_xsmall"
+            android:text="Pemilik rekening"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dialog_nama_rekening"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="Lisa Ayu Wulandar"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="Bank"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dialog_bank_rekening"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_xsmall"
+                    android:text="Mandiri"
+                    android:textColor="?attr/colorPrimaryDark"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_xsmall"
+                android:text="Nomor rekening"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dialog_nomor_rekening"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_xsmall"
+                    android:text="19333 4934 3223 84"
+                    android:textColor="?attr/colorPrimaryDark"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:textColor="?attr/colorPrimary"
+                android:text="Pastikan Rekening dan jumlah transfer yang anda masukkan sudah benar. Proses pembelian bawang anda kami proses maksimal dalam waktu 24 jam."/>
+        </LinearLayout>
+
+
+</LinearLayout>
