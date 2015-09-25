@@ -5,12 +5,18 @@ package id.limakilo.www.bawang.ui.login.mvp;
  */
 public interface LoginListener {
 
-    public enum LoginType{
-        FACEBOOK, DIGIT
+    public enum ListenerCaller{
+        FACEBOOK, DIGIT, LATER
     }
-    public void loginSuccess();
-    public void loginSuccess(LoginType loginType);
-    public void loginCancel(LoginType loginType);
-    public void loginError(LoginType loginType);
+
+    public enum ListenerAction{
+        FACEBOOK_AUTHORIZATION
+    }
+
+    public enum ListenerResult{
+        SUCCESS, FAILURE, CANCEL
+    }
+
+    public void onCallback(ListenerCaller listenerType, ListenerResult listenerResult, Object result);
 
 }

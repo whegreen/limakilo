@@ -22,6 +22,7 @@ public class GetOrderResponseModel extends RootResponseModel{
         this.data = data;
     }
     public class GetOrderResponseData {
+
         @SerializedName("seller_id")
         @Expose
         private Integer sellerId;
@@ -42,10 +43,16 @@ public class GetOrderResponseModel extends RootResponseModel{
         private String orderQuantity;
         @SerializedName("order_amount")
         @Expose
-        private String orderAmount;
+        private Integer orderAmount;
         @SerializedName("order_address")
         @Expose
         private String orderAddress;
+        @SerializedName("order_payment_code")
+        @Expose
+        private String orderPaymentCode;
+        @SerializedName("order_shipment_eta")
+        @Expose
+        private Object orderShipmentEta;
         @SerializedName("order_date")
         @Expose
         private String orderDate;
@@ -61,187 +68,318 @@ public class GetOrderResponseModel extends RootResponseModel{
         @SerializedName("stock_price")
         @Expose
         private String stockPrice;
+        @SerializedName("stock_quota")
+        @Expose
+        private Integer stockQuota;
+        @SerializedName("stock_ordered")
+        @Expose
+        private Integer stockOrdered;
 
         /**
-         * @return The sellerId
+         *
+         * @return
+         * The sellerId
          */
         public Integer getSellerId() {
             return sellerId;
         }
 
         /**
-         * @param sellerId The seller_id
+         *
+         * @param sellerId
+         * The seller_id
          */
         public void setSellerId(Integer sellerId) {
             this.sellerId = sellerId;
         }
 
         /**
-         * @return The sellerName
+         *
+         * @return
+         * The sellerName
          */
         public String getSellerName() {
             return sellerName;
         }
 
         /**
-         * @param sellerName The seller_name
+         *
+         * @param sellerName
+         * The seller_name
          */
         public void setSellerName(String sellerName) {
             this.sellerName = sellerName;
         }
 
         /**
-         * @return The sellerCity
+         *
+         * @return
+         * The sellerCity
          */
         public String getSellerCity() {
             return sellerCity;
         }
 
         /**
-         * @param sellerCity The seller_city
+         *
+         * @param sellerCity
+         * The seller_city
          */
         public void setSellerCity(String sellerCity) {
             this.sellerCity = sellerCity;
         }
 
         /**
-         * @return The orderId
+         *
+         * @return
+         * The orderId
          */
         public Integer getOrderId() {
             return orderId;
         }
 
         /**
-         * @param orderId The order_id
+         *
+         * @param orderId
+         * The order_id
          */
         public void setOrderId(Integer orderId) {
             this.orderId = orderId;
         }
 
         /**
-         * @return The orderStatus
+         *
+         * @return
+         * The orderStatus
          */
         public String getOrderStatus() {
             return orderStatus;
         }
 
         /**
-         * @param orderStatus The order_status
+         *
+         * @param orderStatus
+         * The order_status
          */
         public void setOrderStatus(String orderStatus) {
             this.orderStatus = orderStatus;
         }
 
         /**
-         * @return The orderQuantity
+         *
+         * @return
+         * The orderQuantity
          */
         public String getOrderQuantity() {
             return orderQuantity;
         }
 
         /**
-         * @param orderQuantity The order_quantity
+         *
+         * @param orderQuantity
+         * The order_quantity
          */
         public void setOrderQuantity(String orderQuantity) {
             this.orderQuantity = orderQuantity;
         }
 
         /**
-         * @return The orderAmount
+         *
+         * @return
+         * The orderAmount
          */
-        public String getOrderAmount() {
+        public Integer getOrderAmount() {
             return orderAmount;
         }
 
         /**
-         * @param orderAmount The order_amount
+         *
+         * @param orderAmount
+         * The order_amount
          */
-        public void setOrderAmount(String orderAmount) {
+        public void setOrderAmount(Integer orderAmount) {
             this.orderAmount = orderAmount;
         }
 
         /**
-         * @return The orderAddress
+         *
+         * @return
+         * The orderAddress
          */
         public String getOrderAddress() {
             return orderAddress;
         }
 
         /**
-         * @param orderAddress The order_address
+         *
+         * @param orderAddress
+         * The order_address
          */
         public void setOrderAddress(String orderAddress) {
             this.orderAddress = orderAddress;
         }
 
         /**
-         * @return The orderDate
+         *
+         * @return
+         * The orderPaymentCode
+         */
+        public String getOrderPaymentCode() {
+            return orderPaymentCode;
+        }
+
+        /**
+         *
+         * @param orderPaymentCode
+         * The order_payment_code
+         */
+        public void setOrderPaymentCode(String orderPaymentCode) {
+            this.orderPaymentCode = orderPaymentCode;
+        }
+
+        /**
+         *
+         * @return
+         * The orderShipmentEta
+         */
+        public Object getOrderShipmentEta() {
+            return orderShipmentEta;
+        }
+
+        /**
+         *
+         * @param orderShipmentEta
+         * The order_shipment_eta
+         */
+        public void setOrderShipmentEta(Object orderShipmentEta) {
+            this.orderShipmentEta = orderShipmentEta;
+        }
+
+        /**
+         *
+         * @return
+         * The orderDate
          */
         public String getOrderDate() {
             return orderDate;
         }
 
         /**
-         * @param orderDate The order_date
+         *
+         * @param orderDate
+         * The order_date
          */
         public void setOrderDate(String orderDate) {
             this.orderDate = orderDate;
         }
 
         /**
-         * @return The stockId
+         *
+         * @return
+         * The stockId
          */
         public Integer getStockId() {
             return stockId;
         }
 
         /**
-         * @param stockId The stock_id
+         *
+         * @param stockId
+         * The stock_id
          */
         public void setStockId(Integer stockId) {
             this.stockId = stockId;
         }
 
         /**
-         * @return The stockName
+         *
+         * @return
+         * The stockName
          */
         public String getStockName() {
             return stockName;
         }
 
         /**
-         * @param stockName The stock_name
+         *
+         * @param stockName
+         * The stock_name
          */
         public void setStockName(String stockName) {
             this.stockName = stockName;
         }
 
         /**
-         * @return The stockQuantity
+         *
+         * @return
+         * The stockQuantity
          */
         public Integer getStockQuantity() {
             return stockQuantity;
         }
 
         /**
-         * @param stockQuantity The stock_quantity
+         *
+         * @param stockQuantity
+         * The stock_quantity
          */
         public void setStockQuantity(Integer stockQuantity) {
             this.stockQuantity = stockQuantity;
         }
 
         /**
-         * @return The stockPrice
+         *
+         * @return
+         * The stockPrice
          */
         public String getStockPrice() {
             return stockPrice;
         }
 
         /**
-         * @param stockPrice The stock_price
+         *
+         * @param stockPrice
+         * The stock_price
          */
         public void setStockPrice(String stockPrice) {
             this.stockPrice = stockPrice;
         }
+
+        /**
+         *
+         * @return
+         * The stockQuota
+         */
+        public Integer getStockQuota() {
+            return stockQuota;
+        }
+
+        /**
+         *
+         * @param stockQuota
+         * The stock_quota
+         */
+        public void setStockQuota(Integer stockQuota) {
+            this.stockQuota = stockQuota;
+        }
+
+        /**
+         *
+         * @return
+         * The stockOrdered
+         */
+        public Integer getStockOrdered() {
+            return stockOrdered;
+        }
+
+        /**
+         *
+         * @param stockOrdered
+         * The stock_ordered
+         */
+        public void setStockOrdered(Integer stockOrdered) {
+            this.stockOrdered = stockOrdered;
+        }
+
     }
 }

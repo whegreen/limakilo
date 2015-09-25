@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="id.limakilo.www.bawang.ui.confirmorder.ConfirmOrderFragment">
+    tools:context="id.limakilo.www.bawang.ui.order.OrderFragment">
 
     <FrameLayout
         android:layout_width="match_parent"

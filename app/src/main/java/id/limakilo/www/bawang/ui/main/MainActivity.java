@@ -44,6 +44,8 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.HistoryOrderActivity;
 import id.limakilo.www.bawang.ui.main.grosirfragment.GrosirFragment;
@@ -64,10 +66,14 @@ import io.supportkit.ui.ConversationActivity;
 public class MainActivity extends AppCompatActivity {
 //    implements } ContactsListFragment.OnContactsInteractionListener{
 
-    private DrawerLayout mDrawerLayout;
-    private TextView navUsername;
-    private TextView navEmail;
-
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @Bind(R.id.nav_view) NavigationView navigationView;
+    @Bind(R.id.viewpager) ViewPager viewPager;
+    @Bind(R.id.tabs) TabLayout tabLayout;
+    @Bind(R.id.nav_username) TextView navUsername;
+    @Bind(R.id.nav_email) TextView navEmail;
+    @Bind(R.id.avatar_navheader) ImageView avatar;
 
     // True if this activity instance is a search result view (used on pre-HC devices that load
     // search results in a separate instance of the activity rather than loading results in-line
@@ -79,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(id.limakilo.www.bawang.R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(id.limakilo.www.bawang.R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
         final ActionBar ab = getSupportActionBar();
@@ -87,14 +93,10 @@ public class MainActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowTitleEnabled(true);
 
-        mDrawerLayout = (DrawerLayout) findViewById(id.limakilo.www.bawang.R.id.drawer_layout);
-
-        NavigationView navigationView = (NavigationView) findViewById(id.limakilo.www.bawang.R.id.nav_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
 
-        ViewPager viewPager = (ViewPager) findViewById(id.limakilo.www.bawang.R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);
         }
@@ -134,12 +136,8 @@ public class MainActivity extends AppCompatActivity {
 //            setTitle(title);
 //        }
 
-        navUsername = (TextView) findViewById(R.id.nav_username);
-        navEmail = (TextView) findViewById(R.id.nav_email);
-
         initNavigationProfile();
 
-        ImageView avatar = (ImageView) findViewById(id.limakilo.www.bawang.R.id.avatar_navheader);
         Glide.with(getBaseContext())
                 .load(id.limakilo.www.bawang.R.drawable.avatar_onion)
                 .fitCenter()
@@ -213,16 +211,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-//    @Override
-//    public void onContactSelected(Uri contactUri) {
-//        Toast.makeText(this, "oncontactseleceted", Toast.LENGTH_SHORT).show();
-//    }
-//
-//    @Override
-//    public void onSelectionCleared() {
-//        Toast.makeText(this, "onselecetioncleared", Toast.LENGTH_SHORT).show();
-//    }
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import butterknife.ButterKnife;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderPresenter;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderView;
@@ -41,10 +42,10 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
     RecyclerView recyclerView;
     private MaterialDialog confirmDialog;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         recyclerView = (RecyclerView) inflater.inflate(id.limakilo.www.bawang.R.layout.fragment_history_order_list, container, false);
+        ButterKnife.bind(this, recyclerView);
 
         setupOrderRecyclerView();
         retrieveOrderList();
@@ -75,9 +76,13 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
         recyclerView.setAdapter(new HistoryOrderRecyclerViewAdapter(getActivity(), orderList));
     }
 
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
     public void retrieveOrderList(){
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
-
         APICallManager.getInstance().getOrders(new Callback<GetOrderResponseModel>() {
             @Override
             public void success(GetOrderResponseModel getOrderResponseModel, Response response) {

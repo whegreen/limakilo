@@ -26,7 +26,6 @@ public interface OrderService {
     @POST("/orders/{order_id}/confirm")
     void confirmOrder(@Header("authentification") String authentification,
                    @Path("order_id") String orderId,
-                   @Field("order_id") String orderId2,
                    @Field("order_payment_amount") String orderPaymentAmount,
                    @Field("order_name") String orderName,
                    Callback<PostOrderConfirmResponseModel> callback);

@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.walesadanto.www.billme.login.LoginFragment"
+    tools:context="id.limakilo.www.bawang.ui.login.LoginFragment"
     android:weightSum="1">
 
     <ImageView
@@ -36,7 +36,7 @@
             android:visibility="gone"/>
 
         <com.digits.sdk.android.DigitsAuthButton
-            android:id="@+id/auth_button"
+            android:id="@+id/btn_digit_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp" />

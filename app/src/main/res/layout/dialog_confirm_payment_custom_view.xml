@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_xsmall"
-                android:text="Lisa Ayu Wulandar"
+                android:text="Lisa Ayu Wulandari"
                 android:textColor="?attr/colorPrimaryDark"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:layout_alignParentEnd="true"

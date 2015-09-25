@@ -127,7 +127,7 @@ public class APICallManager {
     public boolean postOrders(String orderId, String orderPaymentAmount, String orderName,
                               Callback<PostOrderConfirmResponseModel> callback){
         OrderService orderService = restAdapter.create(OrderService.class);
-        orderService.confirmOrder(getAuthentification(), orderId, orderId, orderPaymentAmount, orderName, callback);
+        orderService.confirmOrder(getAuthentification(), orderId, orderPaymentAmount, orderName, callback);
         return true;
     }
 

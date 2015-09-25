@@ -37,6 +37,7 @@ public interface UserService {
     void getUsers(@Header("authentification") String authentification,
                   Callback<GetUserResponseModel> callback);
 
+    @FormUrlEncoded
     @PUT("/users")
     void putUsers(@Header("authentification") String authentification,
                   @Field("address") String address,

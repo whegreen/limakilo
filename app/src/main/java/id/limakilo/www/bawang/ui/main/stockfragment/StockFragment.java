@@ -12,21 +12,21 @@ import android.view.ViewGroup;
 
 import com.crashlytics.android.Crashlytics;
 
-import id.limakilo.www.bawang.R;
-import id.limakilo.www.bawang.ui.main.MainActivity;
-import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentPresenter;
-import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentView;
-import id.limakilo.www.bawang.util.api.APICallListener;
-import id.limakilo.www.bawang.util.api.APICallManager;
-import id.limakilo.www.bawang.util.api.RootResponseModel;
-import id.limakilo.www.bawang.util.api.stock.GetStockResponseModel;
-import id.limakilo.www.bawang.util.common.PreferencesManager;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import id.limakilo.www.bawang.R;
+import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentPresenter;
+import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentView;
+import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentListener;
+import id.limakilo.www.bawang.util.api.APICallManager;
+import id.limakilo.www.bawang.util.api.RootResponseModel;
+import id.limakilo.www.bawang.util.api.stock.GetStockResponseModel;
+import id.limakilo.www.bawang.util.common.PreferencesManager;
 import io.supportkit.ui.ConversationActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -35,31 +35,30 @@ import retrofit.client.Response;
 /**
  * Created by walesadanto on 22/8/15.
  */
-public class StockFragment extends Fragment implements APICallListener, StockFragmentView {
+public class StockFragment extends Fragment implements StockFragmentView , StockFragmentListener {
 
     List<GetStockResponseModel.GetStockResponseData> stockList =
             new ArrayList<GetStockResponseModel.GetStockResponseData>();
 
     private StockFragmentPresenter presenter;
-    private RecyclerView recyclerView;
 
-    private View viewLoading;
-    private View viewBlankState;
+    @Bind(R.id.loading_bar) View viewLoading;
+    @Bind(R.id.blank_state) View viewBlankState;
+    @Bind(R.id.recyclerview) RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(id.limakilo.www.bawang.R.layout.fragment_stock_list, container, false);
-
-        viewLoading = view.findViewById(R.id.loading_bar);
-        viewBlankState= view.findViewById(R.id.blank_state);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-
+        ButterKnife.bind(this, view);
         setupStockRecyclerView();
-        retrieveStockList();
-
+        apiCallGetStocks();
         return view;
+    }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     //tambah method untuk load selain onviewcreated
@@ -69,7 +68,7 @@ public class StockFragment extends Fragment implements APICallListener, StockFra
         recyclerView.setAdapter(new StockRecyclerViewAdapter(getActivity(), stockList));
     }
 
-    public void retrieveStockList(){
+    public void apiCallGetStocks(){
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
 
         showLoading();
@@ -161,5 +160,15 @@ public class StockFragment extends Fragment implements APICallListener, StockFra
                         openSupportKit();
                     }
                 }).show();
+    }
+
+    @Override
+    public void showViewState(State state, StateInfo info) {
+
+    }
+
+    @Override
+    public void onListenerCallback(Listener listenerType, ListenerResult listenerResult, Object result) {
+
     }
 }

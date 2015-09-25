@@ -37,22 +37,10 @@ public class SupportkitKit {
         }
 
         skUser.setEmail(handphone);
-        skUser.setSignedUpAt(new Date(1420070400000l));
+        skUser.setSignedUpAt(new Date(System.currentTimeMillis()));
 
-        addCustomProperties("timeStamp", System.currentTimeMillis());
-        skUser.addProperties(customProperties);
-    }
-
-    public void setupUser(){
-        skUser = User.getCurrentUser();
-
-        skUser.setFirstName("Artour");
-        skUser.setLastName("Babaev");
-        skUser.setEmail("2ez@4rtz.com");
-        skUser.setSignedUpAt(new Date(1420070400000l));
-
-        addCustomProperties("timeStamp", System.currentTimeMillis());
-        skUser.addProperties(customProperties);
+//        addCustomProperties("timeStamp", System.currentTimeMillis());
+//        skUser.addProperties(customProperties);
     }
 
     public void addCustomProperties(String key, String value){

@@ -11,12 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import id.limakilo.www.bawang.R;
-import id.limakilo.www.bawang.ui.order.OrderActivity;
-import id.limakilo.www.bawang.util.api.stock.GetStockResponseModel;
 
 import java.util.List;
 import java.util.Random;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import id.limakilo.www.bawang.R;
+import id.limakilo.www.bawang.ui.order.OrderActivity;
+import id.limakilo.www.bawang.util.api.stock.GetStockResponseModel;
 
 /**
  * Created by walesadanto on 26/7/15.
@@ -47,25 +51,8 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
 
     @Override
     public void onBindViewHolder(final StockViewHolder holder, int position) {
-
-        holder.mTextView.setText(mStocks.get(position).getStockName() + " | ("+mStocks.get(position).getStockQuantity().toString()+" kg)");
-        holder.mTextView2.setText(mStocks.get(position).getSellerName());
-        holder.mTextView3.setText(mStocks.get(position).getStockPrice());
-//        holder.mTextView4.setText(mStocks.get(position).getSellerReputation());
-        holder.mTextView5.setText(mStocks.get(position).getSellerCity());
-
-        holder.mBoundStockId = mStocks.get(position).getStockId().toString();
-        holder.mBoundStockName = mStocks.get(position).getStockName();
-        holder.mBoundStockQuantity = mStocks.get(position).getStockQuantity().toString();
-        holder.mBoundStockPrice = mStocks.get(position).getStockPrice();
-        holder.mBoundSellerId = mStocks.get(position).getSellerId().toString();
-        holder.mBoundSellerName = mStocks.get(position).getSellerName();
-        holder.mBoundSellerAvaUrl = mStocks.get(position).getSellerAvatarUrl();
-        holder.mBoundSellerAddress = mStocks.get(position).getSellerAddress();
-        holder.mBoundSellerReputation = mStocks.get(position).getSellerReputation();
-        holder.mBoundSellerCity = mStocks.get(position).getSellerCity();
-
-
+        GetStockResponseModel.GetStockResponseData stock = mStocks.get(position);
+        holder.bindData(stock);
         int[] randomAva = {R.drawable.onion2,
                 R.drawable.onion3,
                 R.drawable.onion4,
@@ -74,7 +61,6 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
 
         Random rand = new Random();
         int  n = rand.nextInt(5);
-
         holder.mBoundSellerAvaUrl = ((Integer)randomAva[n]).toString();
 
         Glide.with(holder.mImageView.getContext())
@@ -82,26 +68,6 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         .fitCenter()
         .into(holder.mImageView);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, OrderActivity.class);
-
-                intent.putExtra(OrderActivity.STOCKID, holder.mBoundStockId);
-                intent.putExtra(OrderActivity.STOCKNAME, holder.mBoundStockName);
-                intent.putExtra(OrderActivity.STOCKQUANTITY, holder.mBoundStockQuantity);
-                intent.putExtra(OrderActivity.STOCKPRICE, holder.mBoundStockPrice);
-                intent.putExtra(OrderActivity.SELLERID, holder.mBoundSellerId);
-                intent.putExtra(OrderActivity.SELLERNAME, holder.mBoundSellerName);
-                intent.putExtra(OrderActivity.SELLERAVAURL, holder.mBoundSellerAvaUrl);
-                intent.putExtra(OrderActivity.SELLERADDRESS, holder.mBoundSellerAddress);
-                intent.putExtra(OrderActivity.SELLERREPUTATION, holder.mBoundSellerReputation);
-                intent.putExtra(OrderActivity.SELLERCITY, holder.mBoundSellerCity);
-
-                context.startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -109,40 +75,68 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         return mStocks.size();
     }
 
-
     public static class StockViewHolder extends RecyclerView.ViewHolder{
 
         // element to be passed in intent later
-        public String mBoundStockId;
-        public String mBoundStockName;
-        public String mBoundStockQuantity;
-        public String mBoundStockPrice;
-        public String mBoundSellerId;
-        public String mBoundSellerName;
-        public String mBoundSellerAvaUrl;
-        public String mBoundSellerAddress;
-        public String mBoundSellerReputation;
-        public String mBoundSellerCity;
+        private String mBoundStockId;
+        private String mBoundStockName;
+        private String mBoundStockQuantity;
+        private String mBoundStockPrice;
+        private String mBoundSellerId;
+        private String mBoundSellerName;
+        private String mBoundSellerAvaUrl;
+        private String mBoundSellerAddress;
+        private String mBoundSellerReputation;
+        private String mBoundSellerCity;
 
         // ui element
-        public final View mView;
-        public final ImageView mImageView;
-        public final TextView mTextView;
-        public final TextView mTextView2;
-        public final TextView mTextView3;
-//        public final TextView mTextView4;
-        public final TextView mTextView5;
+        @Bind(R.id.avatar) ImageView mImageView;
+        @Bind(R.id.paket) TextView mTextView;
+        @Bind(R.id.seller) TextView mTextView2;
+        @Bind(R.id.harga) TextView mTextView3;
+        @Bind(R.id.city) TextView mTextView5;
+
+        @OnClick(R.id.stock_item_view_holder)
+        public void OnStockItemClick(View view){
+            Context context = view.getContext();
+            Intent intent = new Intent(context, OrderActivity.class);
+
+            intent.putExtra(OrderActivity.STOCKID, mBoundStockId);
+            intent.putExtra(OrderActivity.STOCKNAME, mBoundStockName);
+            intent.putExtra(OrderActivity.STOCKQUANTITY, mBoundStockQuantity);
+            intent.putExtra(OrderActivity.STOCKPRICE, mBoundStockPrice);
+            intent.putExtra(OrderActivity.SELLERID, mBoundSellerId);
+            intent.putExtra(OrderActivity.SELLERNAME, mBoundSellerName);
+            intent.putExtra(OrderActivity.SELLERAVAURL, mBoundSellerAvaUrl);
+            intent.putExtra(OrderActivity.SELLERADDRESS, mBoundSellerAddress);
+            intent.putExtra(OrderActivity.SELLERREPUTATION, mBoundSellerReputation);
+            intent.putExtra(OrderActivity.SELLERCITY, mBoundSellerCity);
+
+            context.startActivity(intent);
+        }
+
+        public void bindData(GetStockResponseModel.GetStockResponseData stock){
+            mTextView.setText(stock.getStockName() + " | ("+stock.getStockQuantity().toString()+" kg)");
+            mTextView2.setText(stock.getSellerName());
+            mTextView3.setText(stock.getStockPrice());
+//        mTextView4.setText(stock.getSellerReputation());
+            mTextView5.setText(stock.getSellerCity());
+
+            mBoundStockId = stock.getStockId().toString();
+            mBoundStockName = stock.getStockName();
+            mBoundStockQuantity = stock.getStockQuantity().toString();
+            mBoundStockPrice = stock.getStockPrice();
+            mBoundSellerId = stock.getSellerId().toString();
+            mBoundSellerName = stock.getSellerName();
+            mBoundSellerAvaUrl = stock.getSellerAvatarUrl();
+            mBoundSellerAddress = stock.getSellerAddress();
+            mBoundSellerReputation = stock.getSellerReputation();
+            mBoundSellerCity = stock.getSellerCity();
+        }
 
         public StockViewHolder(View itemView) {
             super(itemView);
-            // todo : do some mapping data here
-            mView = itemView;
-            mImageView = (ImageView) itemView.findViewById(R.id.avatar);
-            mTextView = (TextView) itemView.findViewById(R.id.paket);
-            mTextView2 = (TextView) itemView.findViewById(R.id.seller);
-            mTextView3 = (TextView) itemView.findViewById(R.id.harga);
-//            mTextView4 = (TextView) itemView.findViewById(R.id.reputation);
-            mTextView5 = (TextView) itemView.findViewById(R.id.city);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
