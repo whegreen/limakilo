@@ -11,10 +11,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.util.api.order.GetOrderResponseModel;
-
-import java.util.List;
 
 /**
  * Created by walesadanto on 26/7/15.
@@ -24,8 +27,6 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
     private List<GetOrderResponseModel.GetOrderResponseData> historyOrder;
-
-//    private
 
     public GetOrderResponseModel.GetOrderResponseData getValueAt(int position){
         return historyOrder.get(position);
@@ -49,29 +50,7 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
     public void onBindViewHolder(final OrderItemViewHolder holder, int position) {
 
         GetOrderResponseModel.GetOrderResponseData item = historyOrder.get(position);
-        holder.mTextView.setText("Paket "+item.getStockName()
-                +" | "+ item.getOrderQuantity()+" x "+item.getStockQuantity()+"kg");
-        holder.mTextView2.setText(item.getOrderStatus().toString());
-
-        holder.mTextView3.setText(historyOrder.get(position).getStockPrice());
-        holder.mTextView4.setText(historyOrder.get(position).getSellerName().toString());
-
-        holder.orderId = item.getOrderId().toString();
-
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                ((HistoryOrderActivity)context).retrieveOrderDetail(holder.orderId);
-            }
-        });
-
-        Glide.with(holder.mImageView.getContext())
-//                .load(historyOrder.get(position).getAvaUrl())
-                .load(id.limakilo.www.bawang.R.drawable.onion3)
-                .fitCenter()
-                .into(holder.mImageView);
+        holder.bindData(item);
 
     }
 
@@ -80,10 +59,7 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
         return historyOrder.size();
     }
 
-
     public static class OrderItemViewHolder extends RecyclerView.ViewHolder{
-
-        // todo : put some field to be viewed here
         public String text;
         public String commodityName;
         public String orderId;
@@ -91,22 +67,41 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
         public String mBoundAvatar;
         public int mBoundStockId;
 
-        public final View mView;
-        public final ImageView mImageView;
-        public final TextView mTextView;
-        public final TextView mTextView2;
-        public final TextView mTextView3;
-        public final TextView mTextView4;
+        @Bind(R.id.order_list_avatar) ImageView mImageView;
+        @Bind(R.id.order_list_paket) TextView mTextView;
+        @Bind(R.id.order_list_status)TextView mTextView2;
+        @Bind(R.id.order_list_pembayaran)TextView mTextView3;
+        @Bind(R.id.order_list_seller)TextView mTextView4;
+        @Bind(R.id.order_item_view_holder) View mView;
+
+        @OnClick(R.id.order_item_view_holder)
+
+        public void OnOrderItemClick(View view){
+            Context context = view.getContext();
+            ((HistoryOrderActivity)context).retrieveOrderDetail(orderId);
+        }
 
         public OrderItemViewHolder(View itemView) {
             super(itemView);
-            // todo : do some mapping data here
-            mView = itemView;
-            mImageView = (ImageView) itemView.findViewById(R.id.order_list_avatar);
-            mTextView = (TextView) itemView.findViewById(R.id.order_list_paket);
-            mTextView2 = (TextView) itemView.findViewById(R.id.order_list_status);
-            mTextView3 = (TextView) itemView.findViewById(R.id.order_list_pembayaran);
-            mTextView4 = (TextView) itemView.findViewById(R.id.order_list_seller);
+            ButterKnife.bind(this, itemView);
         }
+
+        public void bindData(GetOrderResponseModel.GetOrderResponseData item){
+            mTextView.setText("Paket "+item.getStockName()
+                    +" | "+ item.getOrderQuantity()+" x "+item.getStockQuantity()+"kg");
+            mTextView2.setText(item.getOrderStatus().toString());
+
+            mTextView3.setText(item.getStockPrice());
+            mTextView4.setText(item.getSellerName().toString());
+
+            orderId = item.getOrderId().toString();
+
+            Glide.with(mImageView.getContext())
+//                .load(historyOrder.get(position).getAvaUrl())
+                    .load(id.limakilo.www.bawang.R.drawable.onion3)
+                    .fitCenter()
+                    .into(mImageView);
+        }
+
     }
 }

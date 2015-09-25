@@ -2,7 +2,6 @@ package id.limakilo.www.bawang.ui.historyorder;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import id.limakilo.www.bawang.R;
@@ -21,12 +25,6 @@ import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.RootResponseModel;
 import id.limakilo.www.bawang.util.api.order.GetOrderResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -41,6 +39,8 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
     private HistoryOrderPresenter presenter;
     RecyclerView recyclerView;
     private MaterialDialog confirmDialog;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
