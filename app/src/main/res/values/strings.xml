@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">limakilo</string>
-    <string name="app_version">0.2.0</string>
-    <string name="app_release_version">1</string>
+    <string name="app_version">0.3.0</string>
+    <string name="app_release_version">3</string>
     <string name="facebook_app_id">135514710123752</string>
     <string name="menu_settings">Tentang Kami</string>
     <string name="login_later"><u>login later</u></string>

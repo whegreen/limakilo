@@ -3,6 +3,7 @@ package id.limakilo.www.bawang.ui.order;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,6 @@ import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.order.PostOrderResponseModel;
 import id.limakilo.www.bawang.util.api.stock.GetStockDetailResponseModel;
-
 import id.limakilo.www.bawang.util.api.user.PutUserResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
 import io.supportkit.ui.ConversationActivity;
@@ -65,6 +65,7 @@ public class OrderActivity extends AppCompatActivity {
     @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.backdrop) ImageView backdrop;
     @Bind(R.id.fab) FloatingActionButton fab;
+    @Bind(R.id.loading_bar) View loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,9 +127,19 @@ public class OrderActivity extends AppCompatActivity {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         super.onPositive(dialog);
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_NEW_TASK );
-                        getApplicationContext().startActivity(intent);
+                        showLoadingView();
+
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                getApplicationContext().startActivity(intent);
+                                hideLoadingView();
+                                handler.removeCallbacks(this);
+                                OrderActivity.this.finish();
+                            }
+                        }, 300L);
                     }
                 });
 
@@ -289,5 +300,13 @@ public class OrderActivity extends AppCompatActivity {
 
     public void setOrderFragment(OrderFragment orderFragment) {
         this.orderFragment = orderFragment;
+    }
+
+    public void showLoadingView(){
+        loadingView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideLoadingView(){
+        loadingView.setVisibility(View.GONE);
     }
 }

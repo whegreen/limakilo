@@ -9,4 +9,12 @@ public interface OrderView {
         ORDER, PAYMENT
     }
 
+    public enum ViewState {
+        IDLE, ORDER, PAYMENT, SUCCESS, FAILURE, CANCEL, LOADING, ERROR
+    }
+
+    public void showState(ViewState state);
+
+
+
 }

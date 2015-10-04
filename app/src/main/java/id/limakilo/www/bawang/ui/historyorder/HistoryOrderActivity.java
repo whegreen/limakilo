@@ -109,23 +109,23 @@ public class HistoryOrderActivity extends AppCompatActivity implements APICallLi
 
     public void retrieveOrderDetail(String orderId){
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(this));
+        final APICallManager.APIRoute route = APICallManager.APIRoute.GETORDER;
         APICallManager.getInstance().getOrders(orderId, new retrofit.Callback<GetOrderDetailResponseModel>() {
-            String caller = "getOrder";
             @Override
             public void success(GetOrderDetailResponseModel getOrderDetailResponseModel, Response response) {
-                onAPICallSucceed(caller, getOrderDetailResponseModel);
+                onAPICallSucceed(route, getOrderDetailResponseModel);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                onAPICallFailed(caller, error);
+                onAPICallFailed(route, error);
             }
         });
     }
 
     @Override
-    public void onAPICallSucceed(String caller, RootResponseModel responseModel) {
-        if (caller.equalsIgnoreCase("getOrder")){
+    public void onAPICallSucceed(APICallManager.APIRoute endPoint, RootResponseModel responseModel) {
+        if (endPoint == APICallManager.APIRoute.GETORDER){
             orderModel = ((GetOrderDetailResponseModel)responseModel).getData().get(0);
             showDetailOrderDialog();
         }else{
@@ -135,7 +135,8 @@ public class HistoryOrderActivity extends AppCompatActivity implements APICallLi
     }
 
     @Override
-    public void onAPICallFailed(String caller, RetrofitError retrofitError) {
+    public void onAPICallFailed(APICallManager.APIRoute endPoint, RetrofitError retrofitError) {
 
     }
+
 }

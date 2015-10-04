@@ -16,21 +16,26 @@ import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
 import id.limakilo.www.bawang.util.api.user.LoginResponseModel;
 import id.limakilo.www.bawang.util.api.user.PutUserResponseModel;
 import id.limakilo.www.bawang.util.api.user.UserService;
-
-import id.limakilo.www.bawang.util.common.PreferencesManager;
 import retrofit.Callback;
 import retrofit.RestAdapter;
-import retrofit.client.OkClient;
 
 /**
  * Created by walesadanto on 2/7/15.
  */
 public class APICallManager {
 
+    public enum APIRoute {
+        LOGINDIGIT, LOGINFACEBOOK,
+        GETUSERS, GETUSER, POSTUSER, CONFIRMORDER,
+        GETORDERS, GETORDER, POSTORDER,
+        GETSTOCKS, GETSTOCK, POSTSTOCK, PUTUSER,
+    }
+
     private static APICallManager instance;
     private RestAdapter restAdapter;
     private String endPoint = "http://limakilo.id";
     public static final String DEMO_AUTH = "EkhZMUG0";
+    public APIRoute apiRoute;
 //    public static Boolean usingMock = true;
 
     private static String authentification;
@@ -78,12 +83,12 @@ public class APICallManager {
     }
 
     // USERS
-    public boolean loginFacebook(String facebookId, String firstName, String lastName,
-                                 String email, Callback<LoginResponseModel> callback) {
-        UserService userService = restAdapter.create(UserService.class);
-        userService.loginFacebook(facebookId, firstName, lastName, email, callback);
-        return true;
-    }
+//    public boolean loginFacebook(String facebookId, String firstName, String lastName,
+//                                 String email, Callback<LoginResponseModel> callback) {
+//        UserService userService = restAdapter.create(UserService.class);
+//        userService.loginFacebook(facebookId, firstName, lastName, email, callback);
+//        return true;
+//    }
 
     public boolean loginDigit(String digitId, String phone, Callback<LoginResponseModel> callback) {
         UserService userService = restAdapter.create(UserService.class);

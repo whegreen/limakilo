@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import id.limakilo.www.bawang.R;
+import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentPresenter;
 import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentView;
 import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentListener;
@@ -72,23 +73,25 @@ public class StockFragment extends Fragment implements StockFragmentView , Stock
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
 
         showLoading();
-
+        final APICallManager.APIRoute route = APICallManager.APIRoute.GETSTOCKS;
         APICallManager.getInstance().getStocks(new Callback<GetStockResponseModel>() {
             @Override
             public void success(GetStockResponseModel getStockResponseModel, Response response) {
-                onAPICallSucceed("getStocks", getStockResponseModel);
+                onAPICallSucceed(route, getStockResponseModel);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                onAPICallFailed("getStocks", error);
+                onAPICallFailed(route, error);
             }
         });
     }
 
+
     @Override
-    public void onAPICallSucceed(String caller, RootResponseModel responseModel) {
-        if (caller.equalsIgnoreCase("getStocks")) {
+    public void onAPICallSucceed(APICallManager.APIRoute endPoint, RootResponseModel responseModel) {
+
+            if (endPoint == APICallManager.APIRoute.GETSTOCKS) {
             stockList = ((GetStockResponseModel) responseModel).getData();
             if (stockList.isEmpty()){
                 showBlankState();
@@ -100,17 +103,19 @@ public class StockFragment extends Fragment implements StockFragmentView , Stock
                     }
                 });
                 showStockList();
+                ((MainActivity)getActivity()).showDialogWebview();
             }
             setupStockRecyclerView();
         }
     }
 
     @Override
-    public void onAPICallFailed(String caller, RetrofitError retrofitError) {
+    public void onAPICallFailed(APICallManager.APIRoute endPoint, RetrofitError retrofitError) {
 
-        showErrorSnackbar();
 
-        if (caller.equalsIgnoreCase("getStocks")){
+            showErrorSnackbar();
+
+        if (endPoint == APICallManager.APIRoute.GETSTOCKS){
             showBlankState();
         }
         else{
@@ -162,13 +167,20 @@ public class StockFragment extends Fragment implements StockFragmentView , Stock
                 }).show();
     }
 
-    @Override
-    public void showViewState(State state, StateInfo info) {
-
-    }
 
     @Override
     public void onListenerCallback(Listener listenerType, ListenerResult listenerResult, Object result) {
 
+    }
+
+    @Override
+    public void showState(ViewState state) {
+        switch (state){
+            case LOADING:
+                ((MainActivity)getActivity()).showLoadingBar();
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -5,18 +5,9 @@ package id.limakilo.www.bawang.ui.main.stockfragment.mvp;
  */
 public interface StockFragmentView{
 
-    public enum State{
-        IDLE, SUCCESS, FAILURE, CANCEL, LOADING, ERROR
+    public enum ViewState {
+        IDLE, LOAD_DATA, SUCCESS, FAILURE, CANCEL, LOADING, ERROR
     }
-
-    public enum StateInfo{
-        API, NO_ACTION
-    }
-
-    public enum StateAction{
-
-    }
-
-    public void showViewState(State state, StateInfo info);
+    public void showState(ViewState state);
 
 }

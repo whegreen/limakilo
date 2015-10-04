@@ -13,6 +13,7 @@ public class StockFragmentInteractorImpl implements StockFragmentInteractor {
             case FACEBOOK:
 
                 break;
+
             default:
                 break;
         }

@@ -59,6 +59,21 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
     public CardOrderResumeViewHolder cardOrderResumeViewHolder;
 
     @Bind(R.id.nested_scroll_view) NestedScrollView scrollView;
+    @Bind(R.id.loading_bar) View loadingView;
+
+    @Override
+    public void showState(ViewState state) {
+        switch (state){
+            case LOADING:
+                loadingView.setVisibility(View.VISIBLE);
+                break;
+            case IDLE:
+                loadingView.setVisibility(View.GONE);
+                break;
+            default:
+                break;
+        }
+    }
 
     public static class CardInputOrderViewHolder implements NumberPicker.OnValueChangeListener {
         @Bind(R.id.card_input_order) View cardInputOrder;
@@ -71,10 +86,12 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
 
         @OnClick(R.id.btn_detail_penerima)
         public void OnBtnDetailPenerimaClick(View view){
-            OrderActivity orderActivity = (OrderActivity) view.getContext();
-            orderActivity.getOrderFragment().cardInputShipmentViewHolder.loadUserInfo(view.getContext());
-            orderActivity.getOrderFragment().cardInputShipmentViewHolder.cardDetailOrder.setVisibility(View.VISIBLE);
             cardInputOrder.setVisibility(View.GONE);
+            OrderActivity orderActivity = (OrderActivity) view.getContext();
+            orderActivity.getOrderFragment().presenter.presentState(ViewState.LOADING);
+            orderActivity.getOrderFragment().cardInputShipmentViewHolder.loadUserInfo(view.getContext());
+            orderActivity.getOrderFragment().presenter.presentState(ViewState.IDLE);
+            orderActivity.getOrderFragment().cardInputShipmentViewHolder.cardDetailOrder.setVisibility(View.VISIBLE);
             orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaPenerima.requestFocus();
             if (!orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaPenerima.getText().toString().isEmpty())
                 ((OrderActivity)view.getContext()).showSoftKeyboard();
@@ -115,13 +132,13 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
 
         @OnClick(R.id.btn_pesan)
         public void OnBtnPesanClick(View view){
-
             OrderActivity orderActivity = (OrderActivity) view.getContext();
             if (checkBlankOrderForm(namaPenerima) &&
                     checkBlankOrderForm(nomorHandphone) && checkBlankOrderForm(alamatPengiriman)){
                 GetOrderDetailResponseModel.GetOrderDetailResponseData model = new GetOrderDetailResponseModel().new GetOrderDetailResponseData();
                 cardDetailOrder.setVisibility(View.GONE);
                 orderActivity.getOrderFragment().cardInputOrderViewHolder.cardInputOrder.setVisibility(View.GONE);
+                orderActivity.getOrderFragment().presenter.presentState(ViewState.LOADING);
                 try{
                     //save user
                     saveUserInfo((OrderActivity) view.getContext());
@@ -129,6 +146,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                     saveOrderInfo((OrderActivity) view.getContext());
                 }
                 catch (Exception e){
+                    orderActivity.getOrderFragment().presenter.presentState(ViewState.IDLE);
                     Crashlytics.logException(e);
                 }
             }
@@ -204,22 +222,21 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
 
         public void updateUserInfo(final OrderActivity orderActivity) {
             final OrderFragment orderFragment = orderActivity.getOrderFragment();
+            final APICallManager.APIRoute route = APICallManager.APIRoute.PUTUSER;
             APICallManager.getInstance(PreferencesManager.getAuthToken(orderActivity)).putUsers(
                     namaPenerima.getText().toString(),
                     nomorHandphone.getText().toString(),
                     orderActivity.getUserModel().getUserEmail(),
                     kotaPenerima.getSelectedItem().toString(),
                     new retrofit.Callback<PutUserResponseModel>() {
-                        String caller = "putUsers";
-
                         @Override
                         public void success(PutUserResponseModel putUserResponseModel, Response response) {
-                            orderFragment.onAPICallSucceed(caller, putUserResponseModel);
+                            orderFragment.onAPICallSucceed(route, putUserResponseModel);
                         }
 
                         @Override
                         public void failure(RetrofitError error) {
-                            orderFragment.onAPICallFailed(caller, error);
+                            orderFragment.onAPICallFailed(route, error);
                         }
                     }
             );
@@ -231,25 +248,26 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             makeOrder(orderActivity);
         }
 
+        final APICallManager.APIRoute route = APICallManager.APIRoute.POSTORDER;
         public void makeOrder(final OrderActivity orderActivity){
+            orderActivity.getOrderFragment().presenter.presentState(ViewState.IDLE);
             APICallManager.getInstance(PreferencesManager.getAuthToken(orderActivity)).postOrders(
                     orderActivity.getStockModel().getStockId().toString(),
                     orderActivity.getOrderFragment().cardInputOrderViewHolder.orderAmount.getText().toString(),
                     alamatPengiriman.getText().toString(),
                     orderActivity.getStockModel().getStockPrice(),
                     new retrofit.Callback<PostOrderResponseModel>() {
-                        String caller = "postOrder";
-
                         @Override
                         public void success(PostOrderResponseModel postOrderResponseModel, Response response) {
-                            orderActivity.getOrderFragment().onAPICallSucceed(caller, postOrderResponseModel);
+                            orderActivity.getOrderFragment().onAPICallSucceed(route, postOrderResponseModel);
                         }
 
                         @Override
                         public void failure(RetrofitError error) {
-                            orderActivity.getOrderFragment().onAPICallFailed(caller, error);
+                            orderActivity.getOrderFragment().onAPICallFailed(route, error);
                         }
                     });
+            orderActivity.getOrderFragment().presenter.presentState(ViewState.LOADING);
         }
 
     }
@@ -266,6 +284,12 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
         @Bind(R.id.dialog_ongkos_kirim) TextView orderShipmentFee;
         @Bind(R.id.dialog_total) TextView orderAmount;
         @Bind(R.id.dialog_status_pesanan) TextView orderStatus;
+        @Bind(R.id.btn_confirm_payment) Button buttonConfirmPayment;
+
+        @OnClick(R.id.btn_confirm_payment)
+        public void onClick(View view) {
+            confirmDialog.show();
+        }
 
         public CardOrderResumeViewHolder(View view){
             ButterKnife.bind(this, view);
@@ -302,19 +326,6 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                 Crashlytics.logException(e);
             }
         }
-    }
-
-    public static class DialogConfirmPaymentViewHolder{
-        @Bind(R.id.btn_confirm_payment) Button buttonConfirmPayment;
-
-        @OnClick(R.id.btn_confirm_payment)
-        public void onClick(View view) {
-            confirmDialog.show();
-        }
-    }
-
-    public static class DialogFinishPaymentViewHolder{
-
     }
 
     @Override
@@ -374,7 +385,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        presenter = new OrderPresenterImpl(this);
     }
 
     @Override
@@ -415,24 +426,25 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
     }
 
     @Override
-    public void onAPICallSucceed(String caller, RootResponseModel responseModel) {
-        if (caller.equalsIgnoreCase("postConfirmOrders")){
+    public void onAPICallSucceed(APICallManager.APIRoute route, RootResponseModel responseModel) {
+        presenter.presentState(ViewState.IDLE);
+        if (route == APICallManager.APIRoute.CONFIRMORDER){
             confirmDialog.hide();
             ((OrderActivity)getActivity()).showDialogFinishOrder();
         }
-        else if (caller.equalsIgnoreCase("postOrder")){
+        else if (route == APICallManager.APIRoute.POSTORDER){
             PostOrderResponseModel.PostOrderResponseData data = ((PostOrderResponseModel)responseModel).getData().get(0);
             ((OrderActivity)getActivity()).setOrderModel(data);
             cardInputOrderViewHolder.cardInputOrder.setVisibility(View.GONE);
             cardOrderResumeViewHolder.cardResumeOrder.setVisibility(View.VISIBLE);
-
             cardOrderResumeViewHolder.updateOrderResume((OrderActivity) getActivity());
         }
     }
 
     @Override
-    public void onAPICallFailed(String caller, RetrofitError error) {
-        if (caller.equalsIgnoreCase("postConfirmOrders")){
+    public void onAPICallFailed(APICallManager.APIRoute route, RetrofitError error) {
+        presenter.presentState(ViewState.IDLE);
+        if (route == APICallManager.APIRoute.CONFIRMORDER ){
             Snackbar.make(view, "Konfirmasi pembayaran gagal", Snackbar.LENGTH_LONG)
                     .setAction("Ulangi", new View.OnClickListener() {
                         @Override
@@ -452,20 +464,22 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
     }
 
     public void confirmOrder(){
-        OrderActivity activity = (OrderActivity) getActivity();
+        final OrderActivity activity = (OrderActivity) getActivity();
+        activity.showLoadingView();
+        final APICallManager.APIRoute route = APICallManager.APIRoute.CONFIRMORDER;
         APICallManager.getInstance(PreferencesManager.getAuthToken(activity)).postOrders(
                 activity.getOrderModel().getOrderId().toString(), "amount transfer", PreferencesManager.getAsString(activity, PreferencesManager.NAME),
                 new retrofit.Callback<PostOrderConfirmResponseModel>() {
-                    String caller = "postConfirmOrders";
-
                     @Override
                     public void success(PostOrderConfirmResponseModel postOrderConfirmResponseModel, Response response) {
-                        onAPICallSucceed(caller, postOrderConfirmResponseModel);
+                        onAPICallSucceed(route, postOrderConfirmResponseModel);
+                        activity.hideLoadingView();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        onAPICallFailed(caller, error);
+                        onAPICallFailed(route, error);
+                        activity.hideLoadingView();
                     }
                 }
         );

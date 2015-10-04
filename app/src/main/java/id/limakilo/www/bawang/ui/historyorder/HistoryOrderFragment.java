@@ -2,7 +2,6 @@ package id.limakilo.www.bawang.ui.historyorder;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import id.limakilo.www.bawang.R;
@@ -21,12 +25,6 @@ import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.RootResponseModel;
 import id.limakilo.www.bawang.util.api.order.GetOrderResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -83,6 +81,7 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
 
     public void retrieveOrderList(){
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
+        final APICallManager.APIRoute route = APICallManager.APIRoute.GETORDERS;
         APICallManager.getInstance().getOrders(new Callback<GetOrderResponseModel>() {
             @Override
             public void success(GetOrderResponseModel getOrderResponseModel, Response response) {
@@ -104,12 +103,12 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
     }
 
     @Override
-    public void onAPICallSucceed(String caller, RootResponseModel responseModel) {
+    public void onAPICallSucceed(APICallManager.APIRoute endPoint, RootResponseModel responseModel) {
 
     }
 
     @Override
-    public void onAPICallFailed(String caller, RetrofitError error) {
+    public void onAPICallFailed(APICallManager.APIRoute endPoint, RetrofitError retrofitError) {
 
     }
 }

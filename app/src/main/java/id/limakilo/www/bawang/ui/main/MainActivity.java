@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -34,9 +35,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.appevents.AppEventsLogger;
@@ -44,16 +48,15 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.HistoryOrderActivity;
 import id.limakilo.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import id.limakilo.www.bawang.ui.main.stockfragment.StockFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
@@ -74,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.nav_username) TextView navUsername;
     @Bind(R.id.nav_email) TextView navEmail;
     @Bind(R.id.avatar_navheader) ImageView avatar;
+    @Bind(R.id.loading_bar) View loadingView;
+
+    public MaterialDialog dialogWebview;
 
     // True if this activity instance is a search result view (used on pre-HC devices that load
     // search results in a separate instance of the activity rather than loading results in-line
@@ -137,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         initNavigationProfile();
+        initDialogWebview();
 
         Glide.with(getBaseContext())
                 .load(id.limakilo.www.bawang.R.drawable.avatar_onion)
@@ -190,21 +197,34 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-
-                        Context context = getApplicationContext();
-
+                        final Context context = getBaseContext();
+                        final Handler handler = new Handler();
                         switch (menuItem.getItemId()) {
                             case id.limakilo.www.bawang.R.id.nav_home:
-                                Intent intent1 = new Intent(context, HistoryOrderActivity.class);
-                                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(intent1);
+                                MainActivity.this.showLoadingBar();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        handler.removeCallbacks(this);
+                                        Intent intent1 = new Intent(context, HistoryOrderActivity.class);
+                                        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        context.startActivity(intent1);
+                                        MainActivity.this.hideLoadingBar();
+                                    }
+                                }, 300L);
                                 break;
                             case id.limakilo.www.bawang.R.id.nav_messages:
-                                Snackbar.make(findViewById(id.limakilo.www.bawang.R.id.drawer_layout), "this feature will be available soon",
+                                Snackbar.make(findViewById(id.limakilo.www.bawang.R.id.drawer_layout), "fitur ini sedang dikembangkan",
                                         Snackbar.LENGTH_LONG).show();
                                 break;
                             case id.limakilo.www.bawang.R.id.nav_feedback:
-                                ConversationActivity.show(MainActivity.this);
+                                MainActivity.this.showLoadingBar();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        handler.removeCallbacks(this);
+                                        ConversationActivity.show(MainActivity.this);
+                                        MainActivity.this.hideLoadingBar();
+                                    }
+                                }, 300L);
                                 break;
                         }
                         return true;
@@ -257,6 +277,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void initDialogWebview(){
+        boolean wrapInScrollView = true;
+        dialogWebview = new MaterialDialog.Builder(this)
+//                .title("Konfirmasi Pembayaran")
+                .customView(R.layout.dialog_webview_main, wrapInScrollView)
+                .positiveText("Update")
+                .negativeText("Nanti")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        dialog.hide();
+                    }
+                })
+                .build();
+    }
+
+    public void showDialogWebview(){
+        WebView webView = (WebView) dialogWebview.getCustomView().findViewById(R.id.dialog_webview);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://limakilo.id");
+
+        dialogWebview.show();
+    }
+
     public void initNavigationProfile(){
 
         String handphone = PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
@@ -280,22 +329,21 @@ public class MainActivity extends AppCompatActivity {
             public void success(Result<GetUserResponseModel> result) {
                 String firstName = null;
                 String lastName = null;
-                try{
+                try {
                     firstName = result.data.getData().get(0).getUserFirstName();
                     lastName = result.data.getData().get(0).getUserLastName();
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     Crashlytics.logException(e);
                 }
 
-                if (firstName != null){
+                if (firstName != null) {
                     String name = firstName;
-                    if (lastName != null){
-                        name = firstName +" "+lastName;
+                    if (lastName != null) {
+                        name = firstName + " " + lastName;
                     }
                     navUsername.setText(name);
                 }
-                if (phone != null){
+                if (phone != null) {
                     navEmail.setText(phone);
                 }
             }
@@ -307,5 +355,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void showLoadingBar(){
+        loadingView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideLoadingBar(){
+        loadingView.setVisibility(View.GONE);
+    }
 
 }

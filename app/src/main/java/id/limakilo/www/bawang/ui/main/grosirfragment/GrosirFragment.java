@@ -13,6 +13,7 @@ import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.main.grosirfragment.mvp.GrosirFragmentPresenter;
 import id.limakilo.www.bawang.ui.main.grosirfragment.mvp.GrosirFragmentView;
 import id.limakilo.www.bawang.util.api.APICallListener;
+import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.RootResponseModel;
 import retrofit.RetrofitError;
 
@@ -48,21 +49,11 @@ public class GrosirFragment extends Fragment implements APICallListener, GrosirF
 //                }
 //                postOrder(getRadioChoosen(), qty, prc);
 
-                Snackbar.make(layoutView, "this feature will be available soon", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(layoutView, "Fitur ini sedang dikembangkan", Snackbar.LENGTH_LONG).show();
             }
         });
 
         return layoutView;
-    }
-
-    @Override
-    public void onAPICallSucceed(String caller, RootResponseModel responseModel) {
-
-    }
-
-    @Override
-    public void onAPICallFailed(String caller, RetrofitError error) {
-
     }
 
     public void postOrder(int type, String qty, String prc){
@@ -90,6 +81,21 @@ public class GrosirFragment extends Fragment implements APICallListener, GrosirF
         }else{
             return 1;
         }
+
+    }
+
+    @Override
+    public void onAPICallSucceed(APICallManager.APIRoute endPoint, RootResponseModel responseModel) {
+
+    }
+
+    @Override
+    public void onAPICallFailed(APICallManager.APIRoute endPoint, RetrofitError retrofitError) {
+
+    }
+
+    @Override
+    public void showState(ViewState state) {
 
     }
 }

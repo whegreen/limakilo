@@ -2,6 +2,7 @@ package id.limakilo.www.bawang.ui.main.stockfragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
+import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.ui.order.OrderActivity;
 import id.limakilo.www.bawang.util.api.stock.GetStockResponseModel;
 
@@ -98,21 +100,28 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
 
         @OnClick(R.id.stock_item_view_holder)
         public void OnStockItemClick(View view){
-            Context context = view.getContext();
-            Intent intent = new Intent(context, OrderActivity.class);
+            final Context context = view.getContext();
+            ((MainActivity)context).showLoadingBar();
 
-            intent.putExtra(OrderActivity.STOCKID, mBoundStockId);
-            intent.putExtra(OrderActivity.STOCKNAME, mBoundStockName);
-            intent.putExtra(OrderActivity.STOCKQUANTITY, mBoundStockQuantity);
-            intent.putExtra(OrderActivity.STOCKPRICE, mBoundStockPrice);
-            intent.putExtra(OrderActivity.SELLERID, mBoundSellerId);
-            intent.putExtra(OrderActivity.SELLERNAME, mBoundSellerName);
-            intent.putExtra(OrderActivity.SELLERAVAURL, mBoundSellerAvaUrl);
-            intent.putExtra(OrderActivity.SELLERADDRESS, mBoundSellerAddress);
-            intent.putExtra(OrderActivity.SELLERREPUTATION, mBoundSellerReputation);
-            intent.putExtra(OrderActivity.SELLERCITY, mBoundSellerCity);
-
-            context.startActivity(intent);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    handler.removeCallbacks(this);
+                    Intent intent = new Intent(context, OrderActivity.class);
+                    intent.putExtra(OrderActivity.STOCKID, mBoundStockId);
+                    intent.putExtra(OrderActivity.STOCKNAME, mBoundStockName);
+                    intent.putExtra(OrderActivity.STOCKQUANTITY, mBoundStockQuantity);
+                    intent.putExtra(OrderActivity.STOCKPRICE, mBoundStockPrice);
+                    intent.putExtra(OrderActivity.SELLERID, mBoundSellerId);
+                    intent.putExtra(OrderActivity.SELLERNAME, mBoundSellerName);
+                    intent.putExtra(OrderActivity.SELLERAVAURL, mBoundSellerAvaUrl);
+                    intent.putExtra(OrderActivity.SELLERADDRESS, mBoundSellerAddress);
+                    intent.putExtra(OrderActivity.SELLERREPUTATION, mBoundSellerReputation);
+                    intent.putExtra(OrderActivity.SELLERCITY, mBoundSellerCity);
+                    context.startActivity(intent);
+                    ((MainActivity)context).hideLoadingBar();
+                }
+            }, 300L);
         }
 
         public void bindData(GetStockResponseModel.GetStockResponseData stock){

@@ -5,6 +5,11 @@ package id.limakilo.www.bawang.ui.order.mvp;
  */
 public interface OrderPresenter {
 
+    public enum PresenterState {
+        LOGIN,
+    }
+    public void presentState(OrderView.ViewState state);
+
     public void showLoading(boolean state);
     public void refreshDetailOrder(String orderId);
 

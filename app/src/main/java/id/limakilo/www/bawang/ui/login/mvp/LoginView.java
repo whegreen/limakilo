@@ -1,35 +1,30 @@
 package id.limakilo.www.bawang.ui.login.mvp;
 
+import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
+import id.limakilo.www.bawang.util.api.user.LoginResponseModel;
+
 /**
  * Created by walesadanto on 25/6/15.
  */
 public interface LoginView {
 
-    public enum State {
-        IDLE, LOGGING_IN, INPUT_INVITATION_CODE, SUCCESS, FAILURE, CANCEL, LOADING, ERROR
+    void doSaveUserModel(LoginResponseModel.LoginResponseData userModel);
+
+    void doSaveUserAuthentification(String auth);
+
+    void doSaveUserData(GetUserResponseModel.GetUserResponseData userModel);
+
+    void setUserModel(GetUserResponseModel.GetUserResponseData userModel);
+
+    public enum ViewState {
+        IDLE, LOGGING_IN, LOGIN_LATER, INPUT_INVITATION_CODE, SUCCESS, FAILURE, CANCEL, LOADING, ERROR
     }
 
-    //login digit --> check di server invitation code ada ngga --> OK --> lanjut app
-    //login digit --> check di server invitation code ada ngga --> ga oke --> tampilin dialog input code invitation / masuk ke webview untuk get invitation code --> share twitter / fb
+    public void doLoginLater();
 
-    public enum StateAction {
-        FACEBOOK, DIGIT, API, NO_ACTION
-    }
+    public void showState(ViewState state);
 
-    public enum StateInfo {
-        DIGIT, FACEBOOK, AUTO_LOGIN, GET_USER
-    }
-
-    public void showState(State state, StateInfo info);
-
-    public void showIdle();
-    public void stateLoggingIn();
-    public void showSuccess();
-    public void showFailure(Exception e);
-    public void showCancel();
-
-    public void stateError(String message);
-    public void stateIdle();
-    public void stateLoading();
+    public void doCheckLogin();
+    public void doShowDialogError(Exception e);
 
 }
