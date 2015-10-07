@@ -20,6 +20,7 @@ public interface OrderService {
                     @Field("order_quantity") String orderQuantity,
                     @Field("order_address") String orderAddress,
                     @Field("order_price") String orderPrice,
+                    @Field("order_city") String orderCity,
                     Callback<PostOrderResponseModel> callback);
 
     @FormUrlEncoded

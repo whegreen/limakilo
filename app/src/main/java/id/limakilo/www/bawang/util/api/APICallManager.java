@@ -25,7 +25,7 @@ import retrofit.RestAdapter;
 public class APICallManager {
 
     public enum APIRoute {
-        LOGINDIGIT, LOGINFACEBOOK,
+        LOGINDIGIT, LOGINFACEBOOK, LOGIN,
         GETUSERS, GETUSER, POSTUSER, CONFIRMORDER,
         GETORDERS, GETORDER, POSTORDER,
         GETSTOCKS, GETSTOCK, POSTSTOCK, PUTUSER,
@@ -39,6 +39,7 @@ public class APICallManager {
 //    public static Boolean usingMock = true;
 
     private static String authentification;
+    private static String appVersion;
 
     /**
      * Returns singleton class instance
@@ -82,17 +83,31 @@ public class APICallManager {
         this.authentification = authentification;
     }
 
+    public static void setAppVersion(String appVersion) {
+        APICallManager.appVersion = appVersion;
+    }
+
+    public static String getAppVersion() {
+        return appVersion;
+    }
+
     // USERS
-//    public boolean loginFacebook(String facebookId, String firstName, String lastName,
-//                                 String email, Callback<LoginResponseModel> callback) {
-//        UserService userService = restAdapter.create(UserService.class);
-//        userService.loginFacebook(facebookId, firstName, lastName, email, callback);
-//        return true;
-//    }
+    public boolean loginFacebook(String facebookId, String firstName, String lastName,
+                                 String email, Callback<LoginResponseModel> callback) {
+        UserService userService = restAdapter.create(UserService.class);
+        userService.loginFacebook(facebookId, firstName, lastName, email, callback);
+        return true;
+    }
 
     public boolean loginDigit(String digitId, String phone, Callback<LoginResponseModel> callback) {
         UserService userService = restAdapter.create(UserService.class);
         userService.loginDigit(digitId, phone, callback);
+        return true;
+    }
+
+    public boolean login(Callback<LoginResponseModel> callback) {
+        UserService userService = restAdapter.create(UserService.class);
+        userService.login(getAuthentification(), getAppVersion(), callback);
         return true;
     }
 
@@ -122,10 +137,10 @@ public class APICallManager {
     }
 
     // ORDERS
-    public boolean postOrders(String stockId, String orderQuantity, String orderAddress, String orderPrice,
+    public boolean postOrders(String stockId, String orderQuantity, String orderAddress, String orderPrice, String orderCity,
                               Callback<PostOrderResponseModel> callback){
         OrderService orderService = restAdapter.create(OrderService.class);
-        orderService.postOrders(getAuthentification(), stockId, orderQuantity, orderAddress, orderPrice, callback);
+        orderService.postOrders(getAuthentification(), stockId, orderQuantity, orderAddress, orderPrice, orderCity, callback);
         return true;
     }
 

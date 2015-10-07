@@ -12,7 +12,8 @@ public class PreferencesManager {
 
     public static final String AUTH_TOKEN = "auth_token";
     public static final String USER_ID = "user_id";
-    public static final String NAME = "name";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
     public static final String ADDRESS = "address";
     public static final String HANDPHONE = "handphone";
     public static final String CITY = "city";

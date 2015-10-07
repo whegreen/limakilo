@@ -7,7 +7,10 @@ import com.digits.sdk.android.DigitsSession;
  */
 public interface LoginInteractor {
     public void callAsync(LoginListener.ListenerCaller caller, LoginListener.ListenerAction action);
+    public void callAPILogin(String authentification, String appVersion);
     public void callAPIDigitLogin(DigitsSession digitsSession);
+    public void callAPIFacebookLogin(String id, String firstName, String lastName, String email);
+
     public void callAPIGetUserData();
 }
 

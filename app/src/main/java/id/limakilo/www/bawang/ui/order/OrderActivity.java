@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -29,7 +28,6 @@ import id.limakilo.www.bawang.util.api.order.PostOrderResponseModel;
 import id.limakilo.www.bawang.util.api.stock.GetStockDetailResponseModel;
 import id.limakilo.www.bawang.util.api.user.PutUserResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
-import io.supportkit.ui.ConversationActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -64,7 +62,7 @@ public class OrderActivity extends AppCompatActivity {
 
     @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.backdrop) ImageView backdrop;
-    @Bind(R.id.fab) FloatingActionButton fab;
+//    @Bind(R.id.fab) FloatingActionButton fab;
     @Bind(R.id.loading_bar) View loadingView;
 
     @Override
@@ -81,7 +79,7 @@ public class OrderActivity extends AppCompatActivity {
         } else {
             stockModel.setStockId(Integer.parseInt(extras.getString(STOCKID)));
             stockModel.setStockName(extras.getString(STOCKNAME));
-            stockModel.setStockQuantity(Integer.parseInt(extras.getString(STOCKQUANTITY)));
+            stockModel.setStockQuantity(Float.parseFloat(extras.getString(STOCKQUANTITY)));
             stockModel.setStockPrice(extras.getString(STOCKPRICE));
             stockModel.setSellerId(Integer.parseInt(extras.getString(SELLERID)));
             stockModel.setSellerName(extras.getString(SELLERNAME));
@@ -97,7 +95,8 @@ public class OrderActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String activityTitle = stockModel.getStockName()+" | "+ stockModel.getSellerName();
+//        String activityTitle = stockModel.getStockName()+" | "+ stockModel.getSellerName();
+        String activityTitle = stockModel.getStockName();
         collapsingToolbarLayout.setTitle(activityTitle);
 
         boolean wrapInScrollView = true;
@@ -153,25 +152,31 @@ public class OrderActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.fab)
-    public void onFABClick(){
-        new MaterialDialog.Builder(getBaseContext())
-                .title("Cara Pemesanan Limakilo")
-                .content("FAQ-nya limakilo")
-                .positiveText("ok")
-                .negativeText("Tanya kami")
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        dialog.hide();
-                    }
+//    @OnClick(R.id.fab)
+//    public void onFABClick(){
+//        new MaterialDialog.Builder(getBaseContext())
+//                .title("Cara Pemesanan Limakilo")
+//                .content("FAQ-nya limakilo")
+//                .positiveText("ok")
+//                .negativeText("Tanya kami")
+//                .callback(new MaterialDialog.ButtonCallback() {
+//                    @Override
+//                    public void onPositive(MaterialDialog dialog) {
+//                        dialog.hide();
+//                    }
+//
+//                    @Override
+//                    public void onNegative(MaterialDialog dialog) {
+//                        ConversationActivity.show(getApplicationContext());
+//                    }
+//                })
+//                .build()
+//                .show();
+//    }
 
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        ConversationActivity.show(getApplicationContext());
-                    }
-                })
-                .build();
+    @OnClick(R.id.backdrop)
+    public void OnBackdropClick(){
+        hideSoftKeyboard();
     }
 
     @Override
@@ -260,7 +265,8 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     public void retrieveUserInfo(){
-        PreferencesManager.getAsString(this, PreferencesManager.NAME);
+        PreferencesManager.getAsString(this, PreferencesManager.FIRST_NAME);
+        PreferencesManager.getAsString(this, PreferencesManager.LAST_NAME);
         PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
         PreferencesManager.getAsString(this, PreferencesManager.ADDRESS);
         PreferencesManager.getAsString(this, PreferencesManager.CITY);
@@ -283,8 +289,9 @@ public class OrderActivity extends AppCompatActivity {
                 });
     }
 
-    public void saveUserInfo(String name, String phone, String address, String city){
-        PreferencesManager.saveAsString(this, PreferencesManager.NAME, name);
+    public void saveUserInfo(String firstName, String lastName, String phone, String address, String city){
+        PreferencesManager.saveAsString(this, PreferencesManager.FIRST_NAME, firstName);
+        PreferencesManager.saveAsString(this, PreferencesManager.LAST_NAME, lastName);
         PreferencesManager.saveAsString(this, PreferencesManager.HANDPHONE, phone);
         PreferencesManager.saveAsString(this, PreferencesManager.ADDRESS, address);
         PreferencesManager.saveAsString(this, PreferencesManager.CITY, city);

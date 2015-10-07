@@ -22,6 +22,7 @@ public class PostOrderResponseModel extends RootResponseModel{
         this.data = data;
     }
     public class PostOrderResponseData{
+
         @SerializedName("order_id")
         @Expose
         private Integer orderId;
@@ -40,6 +41,15 @@ public class PostOrderResponseModel extends RootResponseModel{
         @SerializedName("order_payment_code")
         @Expose
         private String orderPaymentCode;
+        @SerializedName("order_shipment_eta")
+        @Expose
+        private String orderShipmentEta;
+        @SerializedName("order_shipment_name")
+        @Expose
+        private String orderShipmentName;
+        @SerializedName("order_shipment_cost")
+        @Expose
+        private String orderShipmentCost;
 
         /**
          *
@@ -147,6 +157,60 @@ public class PostOrderResponseModel extends RootResponseModel{
          */
         public void setOrderPaymentCode(String orderPaymentCode) {
             this.orderPaymentCode = orderPaymentCode;
+        }
+
+        /**
+         *
+         * @return
+         * The orderShipmentEta
+         */
+        public String getOrderShipmentEta() {
+            return orderShipmentEta;
+        }
+
+        /**
+         *
+         * @param orderShipmentEta
+         * The order_shipment_eta
+         */
+        public void setOrderShipmentEta(String orderShipmentEta) {
+            this.orderShipmentEta = orderShipmentEta;
+        }
+
+        /**
+         *
+         * @return
+         * The orderShipmentName
+         */
+        public String getOrderShipmentName() {
+            return orderShipmentName;
+        }
+
+        /**
+         *
+         * @param orderShipmentName
+         * The order_shipment_name
+         */
+        public void setOrderShipmentName(String orderShipmentName) {
+            this.orderShipmentName = orderShipmentName;
+        }
+
+        /**
+         *
+         * @return
+         * The orderShipmentCost
+         */
+        public String getOrderShipmentCost() {
+            return orderShipmentCost;
+        }
+
+        /**
+         *
+         * @param orderShipmentCost
+         * The order_shipment_cost
+         */
+        public void setOrderShipmentCost(String orderShipmentCost) {
+            this.orderShipmentCost = orderShipmentCost;
         }
 
     }

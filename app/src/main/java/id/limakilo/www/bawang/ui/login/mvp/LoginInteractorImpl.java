@@ -46,6 +46,24 @@ public class LoginInteractorImpl implements LoginInteractor  {
         }
     }
 
+    @Override
+    public void callAPILogin(String authentification, String appVersion) {
+        final APICallManager.APIRoute route = APICallManager.APIRoute.LOGIN;
+        APICallManager.getInstance().setAppVersion(appVersion);
+        APICallManager.getInstance().setAuthentification(authentification);
+        APICallManager.getInstance().login(new Callback<LoginResponseModel>() {
+            @Override
+            public void success(LoginResponseModel loginResponseModel, Response response) {
+                listener.onAPICallSucceed(route, loginResponseModel);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                listener.onAPICallFailed(route, error);
+            }
+        });
+    }
+
 //    public void callAsyncFacebook(ListenerAction action){
 //        switch (action) {
 //            case FACEBOOK_AUTHORIZATION:
@@ -94,6 +112,26 @@ public class LoginInteractorImpl implements LoginInteractor  {
                         listener.onAPICallFailed(route, error);
                     }
                 });
+    }
+
+    @Override
+    public void callAPIFacebookLogin(String id, String firstName, String lastName, String email) {
+        final APICallManager.APIRoute route = APICallManager.APIRoute.LOGINFACEBOOK;
+
+        APICallManager.getInstance().loginFacebook(
+                id, firstName, lastName, email,
+                new Callback<LoginResponseModel>() {
+                    @Override
+                    public void success(LoginResponseModel loginResponseModel, Response response) {
+                        listener.onAPICallSucceed(route, loginResponseModel);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        listener.onAPICallFailed(route, error);
+                    }
+                });
+
     }
 
     @Override

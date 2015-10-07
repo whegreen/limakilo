@@ -24,7 +24,8 @@
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -47,11 +48,43 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Petani Laris Manis!!\nTunggu pre-order selanjutnya"
+            android:text="Terima kasih sudah berbelanja :)\nsaat ini kuota pre-order kami sudah habis\nTunggu pre-order selanjutnya"
             android:textColor="@color/color_primary"
             android:layout_centerInParent="true"
             android:gravity="center" />
-
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/error_state"
+        android:layout_centerInParent="true"
+        android:clickable="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ups, ada masalah dengan sistem"
+                android:textColor="@color/color_primary"
+                android:layout_centerInParent="true"
+                />
+            <Button
+                android:id="@+id/btn_error_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rounded_green"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Segarkan halaman"
+                android:textColor="#E9E9E9"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </LinearLayout>

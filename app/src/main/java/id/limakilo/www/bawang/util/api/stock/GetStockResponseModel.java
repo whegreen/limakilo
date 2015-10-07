@@ -23,6 +23,7 @@ public class GetStockResponseModel extends RootResponseModel{
     }
 
     public class GetStockResponseData {
+
         @SerializedName("stock_id")
         @Expose
         private Integer stockId;
@@ -31,7 +32,7 @@ public class GetStockResponseModel extends RootResponseModel{
         private String stockName;
         @SerializedName("stock_quantity")
         @Expose
-        private Integer stockQuantity;
+        private Float stockQuantity;
         @SerializedName("stock_price")
         @Expose
         private String stockPrice;
@@ -65,9 +66,12 @@ public class GetStockResponseModel extends RootResponseModel{
         @SerializedName("stock_quota")
         @Expose
         private Integer stockQuota;
+        @SerializedName("stock_available")
+        @Expose
+        private Integer stockAvailable;
         @SerializedName("stock_ordered")
         @Expose
-        private Object stockOrdered;
+        private Integer stockOrdered;
 
         /**
          * @return The stockId
@@ -100,14 +104,14 @@ public class GetStockResponseModel extends RootResponseModel{
         /**
          * @return The stockQuantity
          */
-        public Integer getStockQuantity() {
+        public Float getStockQuantity() {
             return stockQuantity;
         }
 
         /**
          * @param stockQuantity The stock_quantity
          */
-        public void setStockQuantity(Integer stockQuantity) {
+        public void setStockQuantity(Float stockQuantity) {
             this.stockQuantity = stockQuantity;
         }
 
@@ -266,16 +270,30 @@ public class GetStockResponseModel extends RootResponseModel{
         }
 
         /**
+         * @return The stockAvailable
+         */
+        public Integer getStockAvailable() {
+            return stockAvailable;
+        }
+
+        /**
+         * @param stockAvailable The stock_available
+         */
+        public void setStockAvailable(Integer stockAvailable) {
+            this.stockAvailable = stockAvailable;
+        }
+
+        /**
          * @return The stockOrdered
          */
-        public Object getStockOrdered() {
+        public Integer getStockOrdered() {
             return stockOrdered;
         }
 
         /**
          * @param stockOrdered The stock_ordered
          */
-        public void setStockOrdered(Object stockOrdered) {
+        public void setStockOrdered(Integer stockOrdered) {
             this.stockOrdered = stockOrdered;
         }
     }

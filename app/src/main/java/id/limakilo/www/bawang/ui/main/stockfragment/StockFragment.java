@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.ui.main.stockfragment.mvp.StockFragmentPresenter;
@@ -44,8 +45,15 @@ public class StockFragment extends Fragment implements StockFragmentView , Stock
     private StockFragmentPresenter presenter;
 
     @Bind(R.id.loading_bar) View viewLoading;
+    @Bind(R.id.error_state) View viewErrorState;
     @Bind(R.id.blank_state) View viewBlankState;
     @Bind(R.id.recyclerview) RecyclerView recyclerView;
+
+
+    @OnClick(R.id.btn_error_refresh)
+    public void OnBtnErrorRefresh(){
+        apiCallGetStocks();
+    }
 
     @Nullable
     @Override
@@ -103,7 +111,7 @@ public class StockFragment extends Fragment implements StockFragmentView , Stock
                     }
                 });
                 showStockList();
-                ((MainActivity)getActivity()).showDialogWebview();
+//                ((MainActivity)getActivity()).showDialogWebview();
             }
             setupStockRecyclerView();
         }
@@ -111,12 +119,10 @@ public class StockFragment extends Fragment implements StockFragmentView , Stock
 
     @Override
     public void onAPICallFailed(APICallManager.APIRoute endPoint, RetrofitError retrofitError) {
-
-
-            showErrorSnackbar();
+        showErrorSnackbar();
 
         if (endPoint == APICallManager.APIRoute.GETSTOCKS){
-            showBlankState();
+            showErrorState();
         }
         else{
 
@@ -128,6 +134,8 @@ public class StockFragment extends Fragment implements StockFragmentView , Stock
             recyclerView.setVisibility(View.VISIBLE);
             viewLoading.setVisibility(View.GONE);
             viewBlankState.setVisibility(View.GONE);
+            viewErrorState.setVisibility(View.GONE);
+
         }
         catch(Exception e){
             Crashlytics.logException(e);
@@ -140,6 +148,8 @@ public class StockFragment extends Fragment implements StockFragmentView , Stock
             recyclerView.setVisibility(View.GONE);
             viewLoading.setVisibility(View.VISIBLE);
             viewBlankState.setVisibility(View.GONE);
+            viewErrorState.setVisibility(View.GONE);
+
         }catch(Exception e){
             Crashlytics.logException(e);
         }
@@ -151,6 +161,15 @@ public class StockFragment extends Fragment implements StockFragmentView , Stock
         recyclerView.setVisibility(View.GONE);
         viewBlankState.setVisibility(View.VISIBLE);
         viewLoading.setVisibility(View.GONE);
+        viewErrorState.setVisibility(View.GONE);
+
+    }
+
+    public void showErrorState(){
+        recyclerView.setVisibility(View.GONE);
+        viewBlankState.setVisibility(View.GONE);
+        viewLoading.setVisibility(View.GONE);
+        viewErrorState.setVisibility(View.VISIBLE);
     }
 
     public void openSupportKit(){

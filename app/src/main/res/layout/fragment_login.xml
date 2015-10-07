@@ -36,12 +36,13 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.19"
             android:layout_marginBottom="20dp"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <com.digits.sdk.android.DigitsAuthButton
             android:id="@+id/btn_digit_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginBottom="20dp" />
 
         <TextView
@@ -51,6 +52,7 @@
             android:text="@string/login_later"
             android:id="@+id/btn_login_later"
             android:layout_gravity="right"
+            android:visibility="gone"
             android:textColor="@color/material_grey_100" />
     </LinearLayout>
 

@@ -13,7 +13,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import butterknife.Bind;
@@ -97,6 +100,7 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         @Bind(R.id.seller) TextView mTextView2;
         @Bind(R.id.harga) TextView mTextView3;
         @Bind(R.id.city) TextView mTextView5;
+//        @Bind(R.id.stock_quota) TextView mTextView4;
 
         @OnClick(R.id.stock_item_view_holder)
         public void OnStockItemClick(View view){
@@ -125,11 +129,20 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         }
 
         public void bindData(GetStockResponseModel.GetStockResponseData stock){
-            mTextView.setText(stock.getStockName() + " | ("+stock.getStockQuantity().toString()+" kg)");
+            mTextView.setText(stock.getStockName());
             mTextView2.setText(stock.getSellerName());
-            mTextView3.setText(stock.getStockPrice());
-//        mTextView4.setText(stock.getSellerReputation());
+            Locale locale  = new Locale("id", "ID");
+            String pattern = "###,###.##";
+
+            DecimalFormat decimalFormat = (DecimalFormat)
+                    NumberFormat.getNumberInstance(locale);
+            decimalFormat.applyPattern(pattern);
+
+            Double stockPrice = Double.parseDouble(stock.getStockPrice());
+
+            mTextView3.setText(decimalFormat.format(stockPrice));
             mTextView5.setText(stock.getSellerCity());
+//            mTextView4.setText(stock.getStockOrdered()+"/"+stock.getStockQuota()+"kg");
 
             mBoundStockId = stock.getStockId().toString();
             mBoundStockName = stock.getStockName();

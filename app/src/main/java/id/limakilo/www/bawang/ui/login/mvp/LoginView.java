@@ -1,5 +1,7 @@
 package id.limakilo.www.bawang.ui.login.mvp;
 
+import android.app.Activity;
+
 import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
 import id.limakilo.www.bawang.util.api.user.LoginResponseModel;
 
@@ -16,6 +18,9 @@ public interface LoginView {
 
     void setUserModel(GetUserResponseModel.GetUserResponseData userModel);
 
+    public String doGetAppVersion();
+    public Activity doGetActivity();
+
     public enum ViewState {
         IDLE, LOGGING_IN, LOGIN_LATER, INPUT_INVITATION_CODE, SUCCESS, FAILURE, CANCEL, LOADING, ERROR
     }
@@ -25,6 +30,11 @@ public interface LoginView {
     public void showState(ViewState state);
 
     public void doCheckLogin();
+
+    public void doShowDialogUpdate();
+
+    public String doGetAuthentification();
+
     public void doShowDialogError(Exception e);
 
 }

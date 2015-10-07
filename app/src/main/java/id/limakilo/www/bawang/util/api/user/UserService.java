@@ -30,7 +30,7 @@ public interface UserService {
     @FormUrlEncoded
     @POST("/login")
     void login(@Header("authentification") String authentification,
-               @Header("appVersion") String appVersion,
+               @Field("app_version") String appVersion,
                Callback<LoginResponseModel> callback);
 
     @GET("/users")

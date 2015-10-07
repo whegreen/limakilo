@@ -8,8 +8,6 @@ import java.util.Map;
 
 import id.limakilo.www.bawang.util.common.PreferencesManager;
 import io.supportkit.core.User;
-import io.supportkit.ui.ConversationActivity;
-import io.supportkit.ui.fragment.ConversationFragment;
 
 /**
  * Created by walesadanto on 13/9/15.
@@ -28,12 +26,20 @@ public class SupportkitKit {
     public void setupUser(Context context){
         skUser = User.getCurrentUser();
 
-        String name = PreferencesManager.getAsString(context, PreferencesManager.NAME);
+        String firstName = PreferencesManager.getAsString(context, PreferencesManager.FIRST_NAME);
+        String lastName = PreferencesManager.getAsString(context, PreferencesManager.LAST_NAME);
         String handphone = PreferencesManager.getAsString(context, PreferencesManager.HANDPHONE);
 
-        if (name != null){
-            skUser.setFirstName(name);
-//            skUser.setLastName("Babaev");
+        if (firstName != null){
+            skUser.setFirstName(firstName);
+        }
+
+        if (firstName != null){
+            skUser.setFirstName(lastName);
+        }
+
+        if (handphone != null){
+            skUser.setFirstName(lastName);
         }
 
         skUser.setEmail(handphone);

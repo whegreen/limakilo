@@ -47,12 +47,21 @@ public class GetOrderResponseModel extends RootResponseModel{
         @SerializedName("order_address")
         @Expose
         private String orderAddress;
+        @SerializedName("order_city")
+        @Expose
+        private String orderCity;
         @SerializedName("order_payment_code")
         @Expose
         private String orderPaymentCode;
         @SerializedName("order_shipment_eta")
         @Expose
-        private Object orderShipmentEta;
+        private String orderShipmentEta;
+        @SerializedName("order_shipment_name")
+        @Expose
+        private String orderShipmentName;
+        @SerializedName("order_shipment_cost")
+        @Expose
+        private String orderShipmentCost;
         @SerializedName("order_date")
         @Expose
         private String orderDate;
@@ -64,13 +73,16 @@ public class GetOrderResponseModel extends RootResponseModel{
         private String stockName;
         @SerializedName("stock_quantity")
         @Expose
-        private Integer stockQuantity;
+        private Float stockQuantity;
         @SerializedName("stock_price")
         @Expose
         private String stockPrice;
         @SerializedName("stock_quota")
         @Expose
         private Integer stockQuota;
+        @SerializedName("stock_available")
+        @Expose
+        private Integer stockAvailable;
         @SerializedName("stock_ordered")
         @Expose
         private Integer stockOrdered;
@@ -222,6 +234,24 @@ public class GetOrderResponseModel extends RootResponseModel{
         /**
          *
          * @return
+         * The orderCity
+         */
+        public String getOrderCity() {
+            return orderCity;
+        }
+
+        /**
+         *
+         * @param orderCity
+         * The order_city
+         */
+        public void setOrderCity(String orderCity) {
+            this.orderCity = orderCity;
+        }
+
+        /**
+         *
+         * @return
          * The orderPaymentCode
          */
         public String getOrderPaymentCode() {
@@ -242,7 +272,7 @@ public class GetOrderResponseModel extends RootResponseModel{
          * @return
          * The orderShipmentEta
          */
-        public Object getOrderShipmentEta() {
+        public String getOrderShipmentEta() {
             return orderShipmentEta;
         }
 
@@ -251,8 +281,44 @@ public class GetOrderResponseModel extends RootResponseModel{
          * @param orderShipmentEta
          * The order_shipment_eta
          */
-        public void setOrderShipmentEta(Object orderShipmentEta) {
+        public void setOrderShipmentEta(String orderShipmentEta) {
             this.orderShipmentEta = orderShipmentEta;
+        }
+
+        /**
+         *
+         * @return
+         * The orderShipmentName
+         */
+        public String getOrderShipmentName() {
+            return orderShipmentName;
+        }
+
+        /**
+         *
+         * @param orderShipmentName
+         * The order_shipment_name
+         */
+        public void setOrderShipmentName(String orderShipmentName) {
+            this.orderShipmentName = orderShipmentName;
+        }
+
+        /**
+         *
+         * @return
+         * The orderShipmentCost
+         */
+        public String getOrderShipmentCost() {
+            return orderShipmentCost;
+        }
+
+        /**
+         *
+         * @param orderShipmentCost
+         * The order_shipment_cost
+         */
+        public void setOrderShipmentCost(String orderShipmentCost) {
+            this.orderShipmentCost = orderShipmentCost;
         }
 
         /**
@@ -314,7 +380,7 @@ public class GetOrderResponseModel extends RootResponseModel{
          * @return
          * The stockQuantity
          */
-        public Integer getStockQuantity() {
+        public Float getStockQuantity() {
             return stockQuantity;
         }
 
@@ -323,7 +389,7 @@ public class GetOrderResponseModel extends RootResponseModel{
          * @param stockQuantity
          * The stock_quantity
          */
-        public void setStockQuantity(Integer stockQuantity) {
+        public void setStockQuantity(Float stockQuantity) {
             this.stockQuantity = stockQuantity;
         }
 
@@ -366,6 +432,24 @@ public class GetOrderResponseModel extends RootResponseModel{
         /**
          *
          * @return
+         * The stockAvailable
+         */
+        public Integer getStockAvailable() {
+            return stockAvailable;
+        }
+
+        /**
+         *
+         * @param stockAvailable
+         * The stock_available
+         */
+        public void setStockAvailable(Integer stockAvailable) {
+            this.stockAvailable = stockAvailable;
+        }
+
+        /**
+         *
+         * @return
          * The stockOrdered
          */
         public Integer getStockOrdered() {
@@ -380,6 +464,5 @@ public class GetOrderResponseModel extends RootResponseModel{
         public void setStockOrdered(Integer stockOrdered) {
             this.stockOrdered = stockOrdered;
         }
-
     }
 }

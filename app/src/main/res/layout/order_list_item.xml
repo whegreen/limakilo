@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -131,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_xsmall"
-                    android:text="Status pesanan : "
+                    android:text="Status : "
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                 <RelativeLayout

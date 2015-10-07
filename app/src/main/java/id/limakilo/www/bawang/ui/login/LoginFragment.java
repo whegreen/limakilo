@@ -16,7 +16,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 import com.digits.sdk.android.DigitsAuthButton;
 import com.digits.sdk.android.DigitsSession;
-import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
@@ -26,6 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
+import id.limakilo.www.bawang.ui.login.mvp.LoginListener;
 import id.limakilo.www.bawang.ui.login.mvp.LoginPresenterImpl;
 import id.limakilo.www.bawang.ui.login.mvp.LoginView;
 import id.limakilo.www.bawang.ui.main.MainActivity;
@@ -39,6 +39,10 @@ import io.supportkit.ui.ConversationActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+
+import static id.limakilo.www.bawang.ui.login.mvp.LoginListener.ListenerResult.CANCEL;
+import static id.limakilo.www.bawang.ui.login.mvp.LoginListener.ListenerResult.FAILURE;
+import static id.limakilo.www.bawang.ui.login.mvp.LoginListener.ListenerResult.SUCCESS;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -70,10 +74,6 @@ public class LoginFragment extends Fragment implements LoginView {
         ButterKnife.bind(this, view);
 
         presenter = new LoginPresenterImpl(this);
-
-        if (AccessToken.getCurrentAccessToken() != null){
-            return view;
-        }
 
         initPopupDialog();
         initFacebookLoginButton();
@@ -125,7 +125,7 @@ public class LoginFragment extends Fragment implements LoginView {
                 presenter.presentState(ViewState.IDLE);
                 handler.removeCallbacks(this);
             }
-        },300L);
+        }, 300L);
     }
 
     @Override
@@ -150,12 +150,24 @@ public class LoginFragment extends Fragment implements LoginView {
     public void doCheckLogin() {
         loadingView.setVisibility(View.VISIBLE);
         String auth = PreferencesManager.getAuthToken(getContext());
-        if (auth != null && auth.equalsIgnoreCase("")){
-            presenter.presentState(ViewState.SUCCESS);
+        if (auth != null && !auth.equalsIgnoreCase("")){
+//            doOpenMainActivity();
+            presenter.presentState(ViewState.LOGGING_IN);
         }
         else {
             presenter.presentState(ViewState.IDLE);
         }
+    }
+
+    @Override
+    public void doShowDialogUpdate() {
+        presenter.presentState(ViewState.IDLE);
+        ((LoginActivity)getActivity()).showDialogWebview();
+    }
+
+    @Override
+    public String doGetAuthentification() {
+        return PreferencesManager.getInstance().getAuthToken(getContext());
     }
 
     @Override
@@ -176,7 +188,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @Override
     public void doSaveUserAuthentification(String auth){
-        PreferencesManager.saveAsString(getContext(), PreferencesManager.AUTH_TOKEN, auth);
+        PreferencesManager.saveAuthToken(getContext(), auth);
         doOpenMainActivity();
     }
 
@@ -189,7 +201,10 @@ public class LoginFragment extends Fragment implements LoginView {
         PreferencesManager.saveAsString(getContext(), PreferencesManager.LAST_LOGIN_TS, String.valueOf(System.currentTimeMillis()));
 
         if (userModel.getUserFirstName() != null)
-            PreferencesManager.saveAsString(getContext(), PreferencesManager.NAME, userModel.getUserFirstName()+" "+userModel.getUserLastName());
+            PreferencesManager.saveAsString(getContext(), PreferencesManager.FIRST_NAME, userModel.getUserFirstName()+" "+userModel.getUserLastName());
+
+        if (userModel.getUserLastName() != null)
+            PreferencesManager.saveAsString(getContext(), PreferencesManager.LAST_NAME, userModel.getUserFirstName()+" "+userModel.getUserLastName());
 
         if (userModel.getUserAddress() != null)
             PreferencesManager.saveAsString(getContext(), PreferencesManager.ADDRESS, userModel.getUserAddress());
@@ -254,12 +269,30 @@ public class LoginFragment extends Fragment implements LoginView {
         this.userModel = userModel;
     }
 
+    @Override
+    public String doGetAppVersion() {
+        return getResources().getString(R.string.app_version);
+    }
+
+    @Override
+    public Activity doGetActivity() {
+        return getActivity();
+    }
+
     private void initDigitLoginButton(){
         getLoginActivity().setTwitterAuthCallback(presenter.getDigitCallback());
         digitsButton.setCallback(((LoginActivity) getActivity()).getTwitterAuthCallback());
     }
 
     private void initFacebookLoginButton(){
+//        Session activeSession = Session.getActiveSession();
+//        //Checks for an open session
+//        if (!(activeSession == null || activeSession.getState().isClosed())) {
+//            //if found one, kill it.
+//            activeSession.closeAndClearTokenInformation();
+//        }
+
+        facebookLoginButton.setReadPermissions("public_profile");
         facebookLoginButton.setReadPermissions("user_friends");
         facebookLoginButton.setReadPermissions("email");
         facebookLoginButton.setFragment(this);
@@ -271,21 +304,19 @@ public class LoginFragment extends Fragment implements LoginView {
         @Override
         public void onSuccess(LoginResult loginResult) {
             // App code
-//            final String userId = loginResult.getAccessToken().getUserId();
-//            onCallback(ListenerCaller.FACEBOOK, SUCCESS, loginResult);
-//            presenter.callAsync(LoginListener.ListenerCaller.FACEBOOK, LoginListener.ListenerAction.FACEBOOK_AUTHORIZATION);
+            presenter.onCallback(LoginListener.ListenerCaller.FACEBOOK, SUCCESS, loginResult);
         }
 
         @Override
         public void onCancel() {
             // App code
-//            onCallback(ListenerCaller.FACEBOOK, SUCCESS, null);
+            presenter.onCallback(LoginListener.ListenerCaller.FACEBOOK, CANCEL, null);
         }
 
         @Override
         public void onError(FacebookException exception) {
             // App code
-//            onCallback(ListenerCaller.FACEBOOK, ListenerResult.FAILURE, exception);
+            presenter.onCallback(LoginListener.ListenerCaller.FACEBOOK, FAILURE, exception);
         }
     };
 }

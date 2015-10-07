@@ -35,25 +35,37 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/amount_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="16dp"
-                        android:text="Jumlah yang dibayarkan"
-                        android:textColor="?attr/colorPrimaryDark" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/amount_title"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingLeft="16dp"-->
+                        <!--android:paddingTop="16dp"-->
+                        <!--android:text="Jumlah yang dibayarkan"-->
+                        <!--android:textColor="?attr/colorPrimaryDark" />-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginBottom="16dp"-->
+                        <!--android:layout_marginLeft="16dp"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:paddingBottom="16dp"-->
+                        <!--android:paddingLeft="16dp"-->
+                        <!--android:paddingTop="16dp"-->
+                        <!--android:textColor="?attr/colorAccent">-->
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="16dp"
                         android:orientation="horizontal"
                         android:paddingBottom="16dp"
                         android:paddingLeft="16dp"
                         android:paddingTop="16dp"
-                        android:textColor="?attr/colorAccent">
+                        android:background="?attr/colorPrimaryDark"
+                        android:textColor="?attr/colorAccent"
+                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/order_amount"
@@ -98,20 +110,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Rp. "
-                            android:textColor="?attr/colorPrimaryDark" />
+                            android:textColor="?attr/colorAccent" />
 
                         <TextView
                             android:id="@+id/total_payment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="170.000"
-                            android:textColor="?attr/colorPrimaryDark" />
+                            android:textColor="?attr/colorAccent" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=",-"
-                            android:textColor="?attr/colorPrimaryDark" />
+                            android:textColor="?attr/colorAccent" />
 
                     </LinearLayout>
 
@@ -120,7 +132,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="16dp"
-                        android:text="Jumlah paket yang dipesan"
+                        android:text="Silahkan pilih jumlah paket yang ingin dipesan"
                         android:textColor="?attr/colorPrimaryDark" />
 
                     <LinearLayout
@@ -181,7 +193,7 @@
                         android:textColor="?attr/colorPrimaryDark" />
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/nama_penerima"
+                        android:id="@+id/nama_depan_penerima"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
@@ -193,10 +205,32 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_nama_penerima"
+                            android:id="@+id/edit_nama_depan_penerima"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Nama Penerima"
+                            android:hint="Nama Depan"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/nama_belakang_penerima"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/edit_nama_belakang_penerima"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Nama Belakang"
                             android:imeOptions="actionNext"
                             android:singleLine="true" />
 
@@ -304,11 +338,11 @@
                 android:visibility="gone"
                 >
 
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -325,10 +359,31 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                         android:textColor="@color/color_primary_dark" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="16dp"
+                        android:paddingTop="16dp"
+                        android:background="?attr/colorPrimaryDark"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Pesanan anda sudah kami terima, silahkan lanjutkan ke proses pembayaran maksimal 24jam dari sekarang."
+                            android:textColor="?attr/colorAccent" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -360,6 +415,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -392,6 +449,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -424,6 +483,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -456,6 +517,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -488,6 +551,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -520,6 +585,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -552,6 +619,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -584,6 +653,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:orientation="horizontal">
 
                         <TextView

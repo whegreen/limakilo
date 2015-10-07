@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,10 +51,8 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
 
     @Override
     public void onBindViewHolder(final OrderItemViewHolder holder, int position) {
-
         GetOrderResponseModel.GetOrderResponseData item = historyOrder.get(position);
         holder.bindData(item);
-
     }
 
     @Override
@@ -61,9 +62,11 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
 
     public static class OrderItemViewHolder extends RecyclerView.ViewHolder{
         public String text;
-        public String commodityName;
+        public String totalPayment;
         public String orderId;
+        public String stockId;
         public String commodityPrice;
+        public String orderStatus;
         public String mBoundAvatar;
         public int mBoundStockId;
 
@@ -75,10 +78,23 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
         @Bind(R.id.order_item_view_holder) View mView;
 
         @OnClick(R.id.order_item_view_holder)
-
         public void OnOrderItemClick(View view){
-            Context context = view.getContext();
-            ((HistoryOrderActivity)context).retrieveOrderDetail(orderId);
+            if (orderStatus.equalsIgnoreCase("order_processed")){
+
+                Context context = view.getContext();
+                ((HistoryOrderActivity)context).showLoadingBar();
+                ((HistoryOrderActivity)context).retrievePaymentDetail(orderId, stockId, totalPayment);
+            }
+            else if (orderStatus.equalsIgnoreCase("order_paid")){
+                Context context = view.getContext();
+                ((HistoryOrderActivity)context).showLoadingBar();
+                ((HistoryOrderActivity)context).retrieveOrderDetail(orderId, totalPayment);
+            }
+            else if (orderStatus.equalsIgnoreCase("order_verified")){
+                Context context = view.getContext();
+                ((HistoryOrderActivity)context).showLoadingBar();
+                ((HistoryOrderActivity)context).finishOrderDialog.show();
+            }
         }
 
         public OrderItemViewHolder(View itemView) {
@@ -87,14 +103,43 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
         }
 
         public void bindData(GetOrderResponseModel.GetOrderResponseData item){
-            mTextView.setText("Paket "+item.getStockName()
-                    +" | "+ item.getOrderQuantity()+" x "+item.getStockQuantity()+"kg");
-            mTextView2.setText(item.getOrderStatus().toString());
+            mTextView.setText(item.getStockName());
 
-            mTextView3.setText(item.getStockPrice());
+            String status = "dalam pengiriman";
+            if (item.getOrderStatus().toString().equalsIgnoreCase("order_processed")){
+                status = "belum transfer";
+            } else if (item.getOrderStatus().toString().equalsIgnoreCase("order_paid")){
+                status = "transfer diproses";
+            }
+
+            mTextView2.setText(status);
+
+            Locale locale  = new Locale("id", "ID");
+            String pattern = "###,###.##";
+
+            DecimalFormat decimalFormat = (DecimalFormat)
+                    NumberFormat.getNumberInstance(locale);
+            decimalFormat.applyPattern(pattern);
+
+            int shipmentCost = 0;
+            if (item.getOrderShipmentCost() != null){
+                shipmentCost = Integer.valueOf(item.getOrderShipmentCost());
+            }
+            Float harga = (Float.valueOf(item.getStockPrice())*item.getStockQuantity())
+                    +Float.valueOf(item.getOrderPaymentCode())
+                    +shipmentCost;
+
+            totalPayment = decimalFormat.format(harga);
+
+            mTextView3.setText("Rp. "+totalPayment+",-");
+
+
             mTextView4.setText(item.getSellerName().toString());
 
             orderId = item.getOrderId().toString();
+            stockId = item.getStockId().toString();
+
+            orderStatus = item.getOrderStatus();
 
             Glide.with(mImageView.getContext())
 //                .load(historyOrder.get(position).getAvaUrl())

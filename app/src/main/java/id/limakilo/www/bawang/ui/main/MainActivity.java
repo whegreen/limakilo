@@ -36,11 +36,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.appevents.AppEventsLogger;
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.avatar_navheader) ImageView avatar;
     @Bind(R.id.loading_bar) View loadingView;
 
-    public MaterialDialog dialogWebview;
+//    public MaterialDialog dialogWebview;
 
     // True if this activity instance is a search result view (used on pre-HC devices that load
     // search results in a separate instance of the activity rather than loading results in-line
@@ -143,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         initNavigationProfile();
-        initDialogWebview();
 
         Glide.with(getBaseContext())
                 .load(id.limakilo.www.bawang.R.drawable.avatar_onion)
@@ -276,40 +273,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-    public void initDialogWebview(){
-        boolean wrapInScrollView = true;
-        dialogWebview = new MaterialDialog.Builder(this)
-//                .title("Konfirmasi Pembayaran")
-                .customView(R.layout.dialog_webview_main, wrapInScrollView)
-                .positiveText("Update")
-                .negativeText("Nanti")
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-
-                    }
-
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        dialog.hide();
-                    }
-                })
-                .build();
-    }
-
-    public void showDialogWebview(){
-        WebView webView = (WebView) dialogWebview.getCustomView().findViewById(R.id.dialog_webview);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://limakilo.id");
-
-        dialogWebview.show();
-    }
-
     public void initNavigationProfile(){
 
         String handphone = PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
-        String name = PreferencesManager.getAsString(this, PreferencesManager.NAME);
+        String name = PreferencesManager.getAsString(this, PreferencesManager.FIRST_NAME)+" "+PreferencesManager.getAsString(this, PreferencesManager.LAST_NAME);
 
         if (name != null){
             try{

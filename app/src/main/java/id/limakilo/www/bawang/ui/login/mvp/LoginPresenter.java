@@ -5,11 +5,6 @@ package id.limakilo.www.bawang.ui.login.mvp;
  */
 public interface LoginPresenter {
 
-    // public dialog dialog
-    // public void prepare dialog
-    // public void show dialog
-    // public void hide dialog
-
     public enum PresenterState {
         LOGIN,
     }

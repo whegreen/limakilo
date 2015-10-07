@@ -25,6 +25,10 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -47,7 +51,7 @@ import retrofit.client.Response;
 /**
  * Created by walesadanto on 30/8/15.
  */
-public class OrderFragment extends Fragment implements OrderView, APICallListener {
+public class OrderFragment extends Fragment implements OrderView, APICallListener{
 
     private static final String TAG = "OrderFragment";
     private View view;
@@ -92,8 +96,8 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             orderActivity.getOrderFragment().cardInputShipmentViewHolder.loadUserInfo(view.getContext());
             orderActivity.getOrderFragment().presenter.presentState(ViewState.IDLE);
             orderActivity.getOrderFragment().cardInputShipmentViewHolder.cardDetailOrder.setVisibility(View.VISIBLE);
-            orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaPenerima.requestFocus();
-            if (!orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaPenerima.getText().toString().isEmpty())
+            orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaDepanPenerima.requestFocus();
+            if (!orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaDepanPenerima.getText().toString().isEmpty())
                 ((OrderActivity)view.getContext()).showSoftKeyboard();
         }
 
@@ -102,9 +106,11 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             OrderActivity orderActivity = (OrderActivity) view.getContext();
             stockQuantity.setText(orderActivity.getStockModel().getStockQuantity().toString());
             stockPrice.setText(orderActivity.getStockModel().getStockPrice().toString());
-            int total = Integer.parseInt(String.valueOf(Integer.parseInt(stockQuantity.getText().toString()) *
-                    Integer.parseInt(stockPrice.getText().toString())));
-            totalPayment.setText(((Integer) total).toString());
+            Double total = Double.parseDouble(stockQuantity.getText().toString()) *
+                    Integer.parseInt(stockPrice.getText().toString());
+
+            totalPayment.setText(decimalFormat(total));
+
             numberPicker.setOnValueChangedListener(this);
         }
 
@@ -112,9 +118,10 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
         public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
             try {
                 orderAmount.setText(String.valueOf(newVal));
-                int total = newVal * Integer.parseInt(stockQuantity.getText().toString()) *
+                Double total = newVal * Double.parseDouble(stockQuantity.getText().toString()) *
                         Integer.parseInt(stockPrice.getText().toString());
-                totalPayment.setText(((Integer) total).toString());
+
+                totalPayment.setText(decimalFormat(total));
             }
             catch (Exception e){
                 Crashlytics.log(Log.ERROR, TAG, e.getMessage().toString());
@@ -124,7 +131,8 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
 
     public static class CardInputShipmentViewHolder{
         @Bind(R.id.card_detail_order) View cardDetailOrder;
-        @Bind(R.id.edit_nama_penerima) EditText namaPenerima;
+        @Bind(R.id.edit_nama_depan_penerima) EditText namaDepanPenerima;
+        @Bind(R.id.edit_nama_belakang_penerima) EditText namaBelakangPenerima;
         @Bind(R.id.edit_alamat_penerima) EditText alamatPengiriman;
         @Bind(R.id.edit_nomor_telepon) EditText nomorHandphone;
         @Bind(R.id.spinner_kota_penerima) Spinner kotaPenerima;
@@ -133,7 +141,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
         @OnClick(R.id.btn_pesan)
         public void OnBtnPesanClick(View view){
             OrderActivity orderActivity = (OrderActivity) view.getContext();
-            if (checkBlankOrderForm(namaPenerima) &&
+            if (checkBlankOrderForm(namaDepanPenerima) && checkBlankOrderForm(namaBelakangPenerima) &&
                     checkBlankOrderForm(nomorHandphone) && checkBlankOrderForm(alamatPengiriman)){
                 GetOrderDetailResponseModel.GetOrderDetailResponseData model = new GetOrderDetailResponseModel().new GetOrderDetailResponseData();
                 cardDetailOrder.setVisibility(View.GONE);
@@ -152,15 +160,34 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             }
         }
 
+        @OnClick(R.id.card_detail_order)
+        public void OnCardInputClick(View view){
+            ((OrderActivity)view.getContext()).hideSoftKeyboard();
+        }
+
         public CardInputShipmentViewHolder(View view){
             ButterKnife.bind(this, view);
 
-            namaPenerima.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            namaDepanPenerima.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     boolean handled = false;
                     if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                        if (checkBlankOrderForm(namaPenerima)) {
+                        if (checkBlankOrderForm(namaDepanPenerima)) {
+                            namaBelakangPenerima.requestFocus();
+                            handled = true;
+                        }
+                    }
+                    return handled;
+                }
+            });
+
+            namaBelakangPenerima.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                        if (checkBlankOrderForm(namaBelakangPenerima)) {
                             nomorHandphone.requestFocus();
                             handled = true;
                         }
@@ -196,7 +223,8 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
 
         public void loadUserInfo(Context context){
             try{
-                namaPenerima.setText(PreferencesManager.getAsString(context, PreferencesManager.NAME));
+                namaDepanPenerima.setText(PreferencesManager.getAsString(context, PreferencesManager.FIRST_NAME));
+                namaBelakangPenerima.setText(PreferencesManager.getAsString(context, PreferencesManager.LAST_NAME));
                 nomorHandphone.setText(PreferencesManager.getAsString(context, PreferencesManager.HANDPHONE));
                 alamatPengiriman.setText(PreferencesManager.getAsString(context, PreferencesManager.ADDRESS));
                 if ("Bandung".equalsIgnoreCase(PreferencesManager.getAsString(context, PreferencesManager.ADDRESS)))
@@ -211,7 +239,8 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
 
         public void saveUserInfo(OrderActivity orderActivity){
             orderActivity.saveUserInfo(
-                    namaPenerima.getText().toString(),
+                    namaDepanPenerima.getText().toString(),
+                    namaBelakangPenerima.getText().toString(),
                     nomorHandphone.getText().toString(),
                     alamatPengiriman.getText().toString(),
                     kotaPenerima.getSelectedItem().toString()
@@ -224,7 +253,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             final OrderFragment orderFragment = orderActivity.getOrderFragment();
             final APICallManager.APIRoute route = APICallManager.APIRoute.PUTUSER;
             APICallManager.getInstance(PreferencesManager.getAuthToken(orderActivity)).putUsers(
-                    namaPenerima.getText().toString(),
+                    alamatPengiriman.getText().toString(),
                     nomorHandphone.getText().toString(),
                     orderActivity.getUserModel().getUserEmail(),
                     kotaPenerima.getSelectedItem().toString(),
@@ -256,6 +285,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                     orderActivity.getOrderFragment().cardInputOrderViewHolder.orderAmount.getText().toString(),
                     alamatPengiriman.getText().toString(),
                     orderActivity.getStockModel().getStockPrice(),
+                    kotaPenerima.getSelectedItem().toString(),
                     new retrofit.Callback<PostOrderResponseModel>() {
                         @Override
                         public void success(PostOrderResponseModel postOrderResponseModel, Response response) {
@@ -301,23 +331,36 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                 GetStockDetailResponseModel.GetStockDetailResponseData stock = orderActivity.getStockModel();
 
                 String[] timestamp = order.getOrderTimestamp().toString().split("T");
-                int totalTransfer = (Integer.parseInt(order.getOrderQuantity().toString())
-                        *Integer.parseInt(orderActivity.getOrderFragment().cardInputOrderViewHolder.stockPrice
-                        .getText().toString()))
-                        +Integer.parseInt(order.getOrderPaymentCode());
 
                 orderId.setText(order.getOrderId().toString());
                 orderDate.setText(timestamp[0]+" "+timestamp[1].substring(0,5));
-                orderShipmentReceiver.setText(PreferencesManager.getAsString(orderActivity, PreferencesManager.NAME).toString());
-                orderQuantity.setText(order.getOrderQuantity().toString());
-                stockPrice.setText(orderActivity.getOrderFragment().cardInputOrderViewHolder.stockPrice
-                        .getText().toString());
+                orderShipmentReceiver.setText(
+                        capitalize(PreferencesManager.getAsString(orderActivity, PreferencesManager.FIRST_NAME).toString()) +
+                        " " + capitalize(PreferencesManager.getAsString(orderActivity, PreferencesManager.LAST_NAME).toString()));
+                orderQuantity.setText((Integer.parseInt(order.getOrderQuantity()) * stock.getStockQuantity()) + " kg");
+
+                Double hargaPesanan = (Double.valueOf(orderActivity.getOrderFragment().cardInputOrderViewHolder.stockPrice
+                        .getText().toString())*(Integer.parseInt(order.getOrderQuantity()) * stock.getStockQuantity()));
+
+                Double shipmentCost = Double.valueOf(0);
+                if (order.getOrderShipmentCost() != null){
+                    shipmentCost = Double.valueOf(order.getOrderShipmentCost());
+                }
+
+                stockPrice.setText(decimalFormat(hargaPesanan));
                 orderPaymentCode.setText(order.getOrderPaymentCode().toString());
-                orderShipmentFee.setText("gratis");
-                orderAmount.setText(totalTransfer + "");
+                orderShipmentFee.setText(decimalFormat(shipmentCost));
+
+                Double totalTransfer = hargaPesanan
+                        +Double.valueOf(order.getOrderPaymentCode())
+                        +shipmentCost;
+
+                String formattedTotal = decimalFormat(totalTransfer);
+
+                orderAmount.setText(formattedTotal + "");
                 orderStatus.setText(order.getOrderStatus().toString());
 
-                ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_total_payment)).setText(totalTransfer+"");
+                ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_total_payment)).setText("Rp. " +formattedTotal+",-");
                 ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_nama_rekening)).setText(stock.getSellerBankAccountName().toString());
                 ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_bank_rekening)).setText(stock.getSellerBankName().toString());
                 ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_nomor_rekening)).setText(stock.getSellerBankAccount().toString());
@@ -468,7 +511,8 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
         activity.showLoadingView();
         final APICallManager.APIRoute route = APICallManager.APIRoute.CONFIRMORDER;
         APICallManager.getInstance(PreferencesManager.getAuthToken(activity)).postOrders(
-                activity.getOrderModel().getOrderId().toString(), "amount transfer", PreferencesManager.getAsString(activity, PreferencesManager.NAME),
+                activity.getOrderModel().getOrderId().toString(), cardOrderResumeViewHolder.orderAmount.toString(),
+                PreferencesManager.getAsString(activity, PreferencesManager.FIRST_NAME) + PreferencesManager.getAsString(activity, PreferencesManager.LAST_NAME),
                 new retrofit.Callback<PostOrderConfirmResponseModel>() {
                     @Override
                     public void success(PostOrderConfirmResponseModel postOrderConfirmResponseModel, Response response) {
@@ -511,6 +555,22 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
         }
 
 
+    }
+
+
+    public static String capitalize(String word){
+        return word.substring(0,1).toUpperCase() + word.substring(1);
+    }
+
+    public static String decimalFormat(Double number){
+        Locale locale  = new Locale("id", "ID");
+        String pattern = "###,###.##";
+
+        DecimalFormat decimalFormat = (DecimalFormat)
+                NumberFormat.getNumberInstance(locale);
+        decimalFormat.applyPattern(pattern);
+
+        return decimalFormat.format(number);
     }
 
 

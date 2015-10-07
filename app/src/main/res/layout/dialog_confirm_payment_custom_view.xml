@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_xsmall"
-                    android:text="19333 4934 3223 84"
+                    android:text="dummy 4934 3223 84"
                     android:textColor="?attr/colorPrimaryDark"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:layout_alignParentEnd="true"
@@ -136,7 +136,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
                 android:textColor="?attr/colorPrimary"
-                android:text="Pastikan Rekening dan jumlah transfer yang anda masukkan sudah benar. Proses pembelian bawang anda kami proses maksimal dalam waktu 24 jam."/>
+                android:text="Pastikan nomor rekening dan jumlah transfer yang anda masukkan sudah benar. Proses pembelian bawang anda kami proses maksimal dalam waktu 24 jam setelah transfer dilakukan."/>
         </LinearLayout>
 
 

@@ -9,7 +9,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetStockDetailResponseModel {
+import id.limakilo.www.bawang.util.api.RootResponseModel;
+
+public class GetStockDetailResponseModel extends RootResponseModel {
         private List<GetStockDetailResponseData> data = new ArrayList<GetStockDetailResponseData>();
 
         public List<GetStockDetailResponseData> getData() {
@@ -21,6 +23,7 @@ public class GetStockDetailResponseModel {
         }
 
         public class GetStockDetailResponseData {
+
                 @SerializedName("stock_id")
                 @Expose
                 private Integer stockId;
@@ -29,7 +32,7 @@ public class GetStockDetailResponseModel {
                 private String stockName;
                 @SerializedName("stock_quantity")
                 @Expose
-                private Integer stockQuantity;
+                private Float stockQuantity;
                 @SerializedName("stock_price")
                 @Expose
                 private String stockPrice;
@@ -69,315 +72,263 @@ public class GetStockDetailResponseModel {
                 @SerializedName("stock_quota")
                 @Expose
                 private Integer stockQuota;
+                @SerializedName("stock_available")
+                @Expose
+                private Integer stockAvailable;
                 @SerializedName("stock_ordered")
                 @Expose
                 private Integer stockOrdered;
 
                 /**
-                 *
-                 * @return
-                 * The stockId
+                 * @return The stockId
                  */
                 public Integer getStockId() {
                         return stockId;
                 }
 
                 /**
-                 *
-                 * @param stockId
-                 * The stock_id
+                 * @param stockId The stock_id
                  */
                 public void setStockId(Integer stockId) {
                         this.stockId = stockId;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The stockName
+                 * @return The stockName
                  */
                 public String getStockName() {
                         return stockName;
                 }
 
                 /**
-                 *
-                 * @param stockName
-                 * The stock_name
+                 * @param stockName The stock_name
                  */
                 public void setStockName(String stockName) {
                         this.stockName = stockName;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The stockQuantity
+                 * @return The stockQuantity
                  */
-                public Integer getStockQuantity() {
+                public Float getStockQuantity() {
                         return stockQuantity;
                 }
 
                 /**
-                 *
-                 * @param stockQuantity
-                 * The stock_quantity
+                 * @param stockQuantity The stock_quantity
                  */
-                public void setStockQuantity(Integer stockQuantity) {
+                public void setStockQuantity(Float stockQuantity) {
                         this.stockQuantity = stockQuantity;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The stockPrice
+                 * @return The stockPrice
                  */
                 public String getStockPrice() {
                         return stockPrice;
                 }
 
                 /**
-                 *
-                 * @param stockPrice
-                 * The stock_price
+                 * @param stockPrice The stock_price
                  */
                 public void setStockPrice(String stockPrice) {
                         this.stockPrice = stockPrice;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The stockCommodity
+                 * @return The stockCommodity
                  */
                 public String getStockCommodity() {
                         return stockCommodity;
                 }
 
                 /**
-                 *
-                 * @param stockCommodity
-                 * The stock_commodity
+                 * @param stockCommodity The stock_commodity
                  */
                 public void setStockCommodity(String stockCommodity) {
                         this.stockCommodity = stockCommodity;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The stockCategory
+                 * @return The stockCategory
                  */
                 public String getStockCategory() {
                         return stockCategory;
                 }
 
                 /**
-                 *
-                 * @param stockCategory
-                 * The stock_category
+                 * @param stockCategory The stock_category
                  */
                 public void setStockCategory(String stockCategory) {
                         this.stockCategory = stockCategory;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The sellerId
+                 * @return The sellerId
                  */
                 public Integer getSellerId() {
                         return sellerId;
                 }
 
                 /**
-                 *
-                 * @param sellerId
-                 * The seller_id
+                 * @param sellerId The seller_id
                  */
                 public void setSellerId(Integer sellerId) {
                         this.sellerId = sellerId;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The sellerName
+                 * @return The sellerName
                  */
                 public String getSellerName() {
                         return sellerName;
                 }
 
                 /**
-                 *
-                 * @param sellerName
-                 * The seller_name
+                 * @param sellerName The seller_name
                  */
                 public void setSellerName(String sellerName) {
                         this.sellerName = sellerName;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The sellerAvatarUrl
+                 * @return The sellerAvatarUrl
                  */
                 public String getSellerAvatarUrl() {
                         return sellerAvatarUrl;
                 }
 
                 /**
-                 *
-                 * @param sellerAvatarUrl
-                 * The seller_avatar_url
+                 * @param sellerAvatarUrl The seller_avatar_url
                  */
                 public void setSellerAvatarUrl(String sellerAvatarUrl) {
                         this.sellerAvatarUrl = sellerAvatarUrl;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The sellerReputation
+                 * @return The sellerReputation
                  */
                 public String getSellerReputation() {
                         return sellerReputation;
                 }
 
                 /**
-                 *
-                 * @param sellerReputation
-                 * The seller_reputation
+                 * @param sellerReputation The seller_reputation
                  */
                 public void setSellerReputation(String sellerReputation) {
                         this.sellerReputation = sellerReputation;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The sellerAddress
+                 * @return The sellerAddress
                  */
                 public String getSellerAddress() {
                         return sellerAddress;
                 }
 
                 /**
-                 *
-                 * @param sellerAddress
-                 * The seller_address
+                 * @param sellerAddress The seller_address
                  */
                 public void setSellerAddress(String sellerAddress) {
                         this.sellerAddress = sellerAddress;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The sellerCity
+                 * @return The sellerCity
                  */
                 public String getSellerCity() {
                         return sellerCity;
                 }
 
                 /**
-                 *
-                 * @param sellerCity
-                 * The seller_city
+                 * @param sellerCity The seller_city
                  */
                 public void setSellerCity(String sellerCity) {
                         this.sellerCity = sellerCity;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The sellerBankName
+                 * @return The sellerBankName
                  */
                 public String getSellerBankName() {
                         return sellerBankName;
                 }
 
                 /**
-                 *
-                 * @param sellerBankName
-                 * The seller_bank_name
+                 * @param sellerBankName The seller_bank_name
                  */
                 public void setSellerBankName(String sellerBankName) {
                         this.sellerBankName = sellerBankName;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The sellerBankAccount
+                 * @return The sellerBankAccount
                  */
                 public String getSellerBankAccount() {
                         return sellerBankAccount;
                 }
 
                 /**
-                 *
-                 * @param sellerBankAccount
-                 * The seller_bank_account
+                 * @param sellerBankAccount The seller_bank_account
                  */
                 public void setSellerBankAccount(String sellerBankAccount) {
                         this.sellerBankAccount = sellerBankAccount;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The sellerBankAccountName
+                 * @return The sellerBankAccountName
                  */
                 public String getSellerBankAccountName() {
                         return sellerBankAccountName;
                 }
 
                 /**
-                 *
-                 * @param sellerBankAccountName
-                 * The seller_bank_account_name
+                 * @param sellerBankAccountName The seller_bank_account_name
                  */
                 public void setSellerBankAccountName(String sellerBankAccountName) {
                         this.sellerBankAccountName = sellerBankAccountName;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The stockQuota
+                 * @return The stockQuota
                  */
                 public Integer getStockQuota() {
                         return stockQuota;
                 }
 
                 /**
-                 *
-                 * @param stockQuota
-                 * The stock_quota
+                 * @param stockQuota The stock_quota
                  */
                 public void setStockQuota(Integer stockQuota) {
                         this.stockQuota = stockQuota;
                 }
 
                 /**
-                 *
-                 * @return
-                 * The stockOrdered
+                 * @return The stockAvailable
+                 */
+                public Integer getStockAvailable() {
+                        return stockAvailable;
+                }
+
+                /**
+                 * @param stockAvailable The stock_available
+                 */
+                public void setStockAvailable(Integer stockAvailable) {
+                        this.stockAvailable = stockAvailable;
+                }
+
+                /**
+                 * @return The stockOrdered
                  */
                 public Integer getStockOrdered() {
                         return stockOrdered;
                 }
 
                 /**
-                 *
-                 * @param stockOrdered
-                 * The stock_ordered
+                 * @param stockOrdered The stock_ordered
                  */
                 public void setStockOrdered(Integer stockOrdered) {
                         this.stockOrdered = stockOrdered;
                 }
-
         }
 }

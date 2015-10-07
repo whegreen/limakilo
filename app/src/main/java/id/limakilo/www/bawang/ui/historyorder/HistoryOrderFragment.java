@@ -23,7 +23,9 @@ import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderView;
 import id.limakilo.www.bawang.util.api.APICallListener;
 import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.RootResponseModel;
+import id.limakilo.www.bawang.util.api.order.GetOrderDetailResponseModel;
 import id.limakilo.www.bawang.util.api.order.GetOrderResponseModel;
+import id.limakilo.www.bawang.util.api.stock.GetStockDetailResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -39,8 +41,6 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
     private HistoryOrderPresenter presenter;
     RecyclerView recyclerView;
     private MaterialDialog confirmDialog;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,13 +87,21 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
         APICallManager.getInstance().getOrders(new Callback<GetOrderResponseModel>() {
             @Override
             public void success(GetOrderResponseModel getOrderResponseModel, Response response) {
-                orderList = getOrderResponseModel.getData();
+                List<GetOrderResponseModel.GetOrderResponseData> temp = new ArrayList<GetOrderResponseModel.GetOrderResponseData>();
+
+                for (GetOrderResponseModel.GetOrderResponseData data : getOrderResponseModel.getData()) {
+                    if (data.getSellerId() != null) {
+                        temp.add(data);
+                    }
+                }
+                orderList = temp;
                 Collections.sort(orderList, new Comparator<GetOrderResponseModel.GetOrderResponseData>() {
                     @Override
                     public int compare(GetOrderResponseModel.GetOrderResponseData lhs, GetOrderResponseModel.GetOrderResponseData rhs) {
                         return lhs.getOrderDate().compareTo(rhs.getOrderDate());
                     }
                 });
+
                 setupOrderRecyclerView();
             }
 
@@ -106,11 +114,53 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
 
     @Override
     public void onAPICallSucceed(APICallManager.APIRoute endPoint, RootResponseModel responseModel) {
+        if (endPoint == APICallManager.APIRoute.GETSTOCK){
 
+        }
+        else if (endPoint == APICallManager.APIRoute.GETORDER){
+
+        }
     }
 
     @Override
     public void onAPICallFailed(APICallManager.APIRoute endPoint, RetrofitError retrofitError) {
+        if (endPoint == APICallManager.APIRoute.GETSTOCK){
 
+        }
+        else if (endPoint == APICallManager.APIRoute.GETORDER){
+
+        }
+    }
+
+    public void CallAPIStockDetail(String stockId){
+        APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
+        final APICallManager.APIRoute route = APICallManager.APIRoute.GETSTOCK;
+        APICallManager.getInstance().getStocks(stockId, new Callback<GetStockDetailResponseModel>() {
+            @Override
+            public void success(GetStockDetailResponseModel getStockDetailResponseModel, Response response) {
+                onAPICallSucceed(route, getStockDetailResponseModel);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                onAPICallFailed(route, error);
+            }
+        });
+    }
+
+    public void CallAPIOrderDetail(String orderId){
+        APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(getActivity()));
+        final APICallManager.APIRoute route = APICallManager.APIRoute.GETORDER;
+        APICallManager.getInstance().getOrders(orderId, new Callback<GetOrderDetailResponseModel>() {
+            @Override
+            public void success(GetOrderDetailResponseModel getOrderDetailResponseModel, Response response) {
+                onAPICallSucceed(route, getOrderDetailResponseModel);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                onAPICallFailed(route, error);
+            }
+        });
     }
 }

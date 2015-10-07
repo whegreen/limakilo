@@ -8,7 +8,7 @@ import id.limakilo.www.bawang.util.api.APICallListener;
 public interface LoginListener extends APICallListener{
 
     public enum ListenerCaller{
-        DIGIT, LATER
+        DIGIT, FACEBOOK, LATER
     }
 
     public enum ListenerAction{
