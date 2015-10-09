@@ -371,7 +371,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
 
                 String formattedTotal = TextFormatter.decimalFormat(totalTransfer);
 
-                orderActivity.getOrderModel().setOrderAmount(totalTransfer.toString());
+                orderActivity.getOrderModel().setOrderAmount(formattedTotal);
 
                 orderAmount.setText("Rp. "+formattedTotal + ",-");
                 orderStatus.setText(order.getOrderStatus().toString());
