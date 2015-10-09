@@ -13,10 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 import butterknife.Bind;
@@ -26,6 +23,7 @@ import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.ui.order.OrderActivity;
 import id.limakilo.www.bawang.util.api.stock.GetStockResponseModel;
+import id.limakilo.www.bawang.util.common.TextFormatter;
 
 /**
  * Created by walesadanto on 26/7/15.
@@ -131,16 +129,10 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         public void bindData(GetStockResponseModel.GetStockResponseData stock){
             mTextView.setText(stock.getStockName());
             mTextView2.setText(stock.getSellerName());
-            Locale locale  = new Locale("id", "ID");
-            String pattern = "###,###.##";
-
-            DecimalFormat decimalFormat = (DecimalFormat)
-                    NumberFormat.getNumberInstance(locale);
-            decimalFormat.applyPattern(pattern);
 
             Double stockPrice = Double.parseDouble(stock.getStockPrice());
 
-            mTextView3.setText(decimalFormat.format(stockPrice));
+            mTextView3.setText("Rp. "+TextFormatter.decimalFormat(stockPrice)+",-");
             mTextView5.setText(stock.getSellerCity());
 //            mTextView4.setText(stock.getStockOrdered()+"/"+stock.getStockQuota()+"kg");
 

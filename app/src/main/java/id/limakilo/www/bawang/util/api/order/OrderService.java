@@ -21,6 +21,7 @@ public interface OrderService {
                     @Field("order_address") String orderAddress,
                     @Field("order_price") String orderPrice,
                     @Field("order_city") String orderCity,
+                    @Field("user_email") String userEmail,
                     Callback<PostOrderResponseModel> callback);
 
     @FormUrlEncoded

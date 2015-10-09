@@ -276,12 +276,13 @@ public class MainActivity extends AppCompatActivity {
     public void initNavigationProfile(){
 
         String handphone = PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
+        final String email = PreferencesManager.getAsString(this, PreferencesManager.EMAIL);
         String name = PreferencesManager.getAsString(this, PreferencesManager.FIRST_NAME)+" "+PreferencesManager.getAsString(this, PreferencesManager.LAST_NAME);
 
         if (name != null){
             try{
                 navUsername.setText(name);
-                navEmail.setText(handphone);
+                navEmail.setText(email);
             }
             catch (Exception e){
                 Crashlytics.logException(e);
@@ -312,6 +313,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (phone != null) {
                     navEmail.setText(phone);
+                }else{
+                    navEmail.setText(email);
                 }
             }
 

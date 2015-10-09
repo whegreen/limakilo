@@ -268,6 +268,7 @@ public class OrderActivity extends AppCompatActivity {
         PreferencesManager.getAsString(this, PreferencesManager.FIRST_NAME);
         PreferencesManager.getAsString(this, PreferencesManager.LAST_NAME);
         PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
+        PreferencesManager.getAsString(this, PreferencesManager.EMAIL);
         PreferencesManager.getAsString(this, PreferencesManager.ADDRESS);
         PreferencesManager.getAsString(this, PreferencesManager.CITY);
     }
@@ -289,10 +290,11 @@ public class OrderActivity extends AppCompatActivity {
                 });
     }
 
-    public void saveUserInfo(String firstName, String lastName, String phone, String address, String city){
+    public void saveUserInfo(String firstName, String lastName, String phone, String email, String address, String city){
         PreferencesManager.saveAsString(this, PreferencesManager.FIRST_NAME, firstName);
         PreferencesManager.saveAsString(this, PreferencesManager.LAST_NAME, lastName);
         PreferencesManager.saveAsString(this, PreferencesManager.HANDPHONE, phone);
+        PreferencesManager.saveAsString(this, PreferencesManager.EMAIL, email);
         PreferencesManager.saveAsString(this, PreferencesManager.ADDRESS, address);
         PreferencesManager.saveAsString(this, PreferencesManager.CITY, city);
     }

@@ -8,6 +8,8 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.NumberPicker;
 
+import com.crashlytics.android.Crashlytics;
+
 import id.limakilo.www.bawang.R;
 
 /**
@@ -46,12 +48,12 @@ public class CustomNumberPicker extends NumberPicker{
                     ColorDrawable colorDrawable = new ColorDrawable(color);
                     pf.set(picker, colorDrawable);
                 } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
+                    Crashlytics.logException(e);
                 } catch (Resources.NotFoundException e) {
-                    e.printStackTrace();
+                    Crashlytics.logException(e);
                 }
                 catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    Crashlytics.logException(e);
                 }
                 break;
             }

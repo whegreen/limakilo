@@ -137,10 +137,10 @@ public class APICallManager {
     }
 
     // ORDERS
-    public boolean postOrders(String stockId, String orderQuantity, String orderAddress, String orderPrice, String orderCity,
+    public boolean postOrders(String stockId, String orderQuantity, String orderAddress, String orderPrice, String orderCity, String userEmail,
                               Callback<PostOrderResponseModel> callback){
         OrderService orderService = restAdapter.create(OrderService.class);
-        orderService.postOrders(getAuthentification(), stockId, orderQuantity, orderAddress, orderPrice, orderCity, callback);
+        orderService.postOrders(getAuthentification(), stockId, orderQuantity, orderAddress, orderPrice, orderCity, userEmail, callback);
         return true;
     }
 

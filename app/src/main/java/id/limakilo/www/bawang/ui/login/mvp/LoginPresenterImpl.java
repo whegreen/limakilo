@@ -164,10 +164,10 @@ public class LoginPresenterImpl implements LoginPresenter, LoginListener, APICal
                             PreferencesManager.saveAsString(view.doGetActivity(), PreferencesManager.LAST_NAME, lastName);
 
                             email = json.getString("email");
-                            PreferencesManager.saveAsString(view.doGetActivity(), PreferencesManager.HANDPHONE, email);
+                            PreferencesManager.saveAsString(view.doGetActivity(), PreferencesManager.EMAIL, email);
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
 
                         presentState(ViewState.LOADING);

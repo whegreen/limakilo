@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,10 +24,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,6 +39,7 @@ import id.limakilo.www.bawang.util.api.order.PostOrderResponseModel;
 import id.limakilo.www.bawang.util.api.stock.GetStockDetailResponseModel;
 import id.limakilo.www.bawang.util.api.user.PutUserResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
+import id.limakilo.www.bawang.util.common.TextFormatter;
 import id.limakilo.www.bawang.util.widget.CustomNumberPicker;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -109,7 +105,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             Double total = Double.parseDouble(stockQuantity.getText().toString()) *
                     Integer.parseInt(stockPrice.getText().toString());
 
-            totalPayment.setText(decimalFormat(total));
+            totalPayment.setText(TextFormatter.decimalFormat(total));
 
             numberPicker.setOnValueChangedListener(this);
         }
@@ -121,10 +117,10 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                 Double total = newVal * Double.parseDouble(stockQuantity.getText().toString()) *
                         Integer.parseInt(stockPrice.getText().toString());
 
-                totalPayment.setText(decimalFormat(total));
+                totalPayment.setText(TextFormatter.decimalFormat(total));
             }
             catch (Exception e){
-                Crashlytics.log(Log.ERROR, TAG, e.getMessage().toString());
+                Crashlytics.logException(e);
             }
         }
     }
@@ -135,6 +131,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
         @Bind(R.id.edit_nama_belakang_penerima) EditText namaBelakangPenerima;
         @Bind(R.id.edit_alamat_penerima) EditText alamatPengiriman;
         @Bind(R.id.edit_nomor_telepon) EditText nomorHandphone;
+        @Bind(R.id.edit_email) EditText email;
         @Bind(R.id.spinner_kota_penerima) Spinner kotaPenerima;
         @Bind(R.id.btn_pesan) Button buttonPesan;
 
@@ -142,7 +139,8 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
         public void OnBtnPesanClick(View view){
             OrderActivity orderActivity = (OrderActivity) view.getContext();
             if (checkBlankOrderForm(namaDepanPenerima) && checkBlankOrderForm(namaBelakangPenerima) &&
-                    checkBlankOrderForm(nomorHandphone) && checkBlankOrderForm(alamatPengiriman)){
+                    checkBlankOrderForm(nomorHandphone) && checkBlankOrderForm(alamatPengiriman)
+                    && checkBlankOrderForm(email)){
                 GetOrderDetailResponseModel.GetOrderDetailResponseData model = new GetOrderDetailResponseModel().new GetOrderDetailResponseData();
                 cardDetailOrder.setVisibility(View.GONE);
                 orderActivity.getOrderFragment().cardInputOrderViewHolder.cardInputOrder.setVisibility(View.GONE);
@@ -188,6 +186,20 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                     boolean handled = false;
                     if (actionId == EditorInfo.IME_ACTION_NEXT) {
                         if (checkBlankOrderForm(namaBelakangPenerima)) {
+                            email.requestFocus();
+                            handled = true;
+                        }
+                    }
+                    return handled;
+                }
+            });
+
+            email.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                        if (checkBlankOrderForm(email)) {
                             nomorHandphone.requestFocus();
                             handled = true;
                         }
@@ -226,6 +238,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                 namaDepanPenerima.setText(PreferencesManager.getAsString(context, PreferencesManager.FIRST_NAME));
                 namaBelakangPenerima.setText(PreferencesManager.getAsString(context, PreferencesManager.LAST_NAME));
                 nomorHandphone.setText(PreferencesManager.getAsString(context, PreferencesManager.HANDPHONE));
+                email.setText(PreferencesManager.getAsString(context, PreferencesManager.EMAIL));
                 alamatPengiriman.setText(PreferencesManager.getAsString(context, PreferencesManager.ADDRESS));
                 if ("Bandung".equalsIgnoreCase(PreferencesManager.getAsString(context, PreferencesManager.ADDRESS)))
                 {
@@ -242,10 +255,10 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                     namaDepanPenerima.getText().toString(),
                     namaBelakangPenerima.getText().toString(),
                     nomorHandphone.getText().toString(),
+                    email.getText().toString(),
                     alamatPengiriman.getText().toString(),
                     kotaPenerima.getSelectedItem().toString()
             );
-
             updateUserInfo(orderActivity);
         }
 
@@ -255,7 +268,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
             APICallManager.getInstance(PreferencesManager.getAuthToken(orderActivity)).putUsers(
                     alamatPengiriman.getText().toString(),
                     nomorHandphone.getText().toString(),
-                    orderActivity.getUserModel().getUserEmail(),
+                    email.getText().toString(),
                     kotaPenerima.getSelectedItem().toString(),
                     new retrofit.Callback<PutUserResponseModel>() {
                         @Override
@@ -286,6 +299,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                     alamatPengiriman.getText().toString(),
                     orderActivity.getStockModel().getStockPrice(),
                     kotaPenerima.getSelectedItem().toString(),
+                    email.getText().toString(),
                     new retrofit.Callback<PostOrderResponseModel>() {
                         @Override
                         public void success(PostOrderResponseModel postOrderResponseModel, Response response) {
@@ -335,8 +349,8 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                 orderId.setText(order.getOrderId().toString());
                 orderDate.setText(timestamp[0]+" "+timestamp[1].substring(0,5));
                 orderShipmentReceiver.setText(
-                        capitalize(PreferencesManager.getAsString(orderActivity, PreferencesManager.FIRST_NAME).toString()) +
-                        " " + capitalize(PreferencesManager.getAsString(orderActivity, PreferencesManager.LAST_NAME).toString()));
+                        TextFormatter.capitalize(PreferencesManager.getAsString(orderActivity, PreferencesManager.FIRST_NAME).toString()) +
+                        " " + TextFormatter.capitalize(PreferencesManager.getAsString(orderActivity, PreferencesManager.LAST_NAME).toString()));
                 orderQuantity.setText((Integer.parseInt(order.getOrderQuantity()) * stock.getStockQuantity()) + " kg");
 
                 Double hargaPesanan = (Double.valueOf(orderActivity.getOrderFragment().cardInputOrderViewHolder.stockPrice
@@ -347,17 +361,19 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
                     shipmentCost = Double.valueOf(order.getOrderShipmentCost());
                 }
 
-                stockPrice.setText(decimalFormat(hargaPesanan));
-                orderPaymentCode.setText(order.getOrderPaymentCode().toString());
-                orderShipmentFee.setText(decimalFormat(shipmentCost));
+                stockPrice.setText("Rp. "+TextFormatter.decimalFormat(hargaPesanan)+ ",-");
+                orderPaymentCode.setText("Rp. "+order.getOrderPaymentCode().toString()+ ",-");
+                orderShipmentFee.setText("Rp. "+TextFormatter.decimalFormat(shipmentCost)+ ",-");
 
                 Double totalTransfer = hargaPesanan
                         +Double.valueOf(order.getOrderPaymentCode())
                         +shipmentCost;
 
-                String formattedTotal = decimalFormat(totalTransfer);
+                String formattedTotal = TextFormatter.decimalFormat(totalTransfer);
 
-                orderAmount.setText(formattedTotal + "");
+                orderActivity.getOrderModel().setOrderAmount(totalTransfer.toString());
+
+                orderAmount.setText("Rp. "+formattedTotal + ",-");
                 orderStatus.setText(order.getOrderStatus().toString());
 
                 ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_total_payment)).setText("Rp. " +formattedTotal+",-");
@@ -511,8 +527,9 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
         activity.showLoadingView();
         final APICallManager.APIRoute route = APICallManager.APIRoute.CONFIRMORDER;
         APICallManager.getInstance(PreferencesManager.getAuthToken(activity)).postOrders(
-                activity.getOrderModel().getOrderId().toString(), cardOrderResumeViewHolder.orderAmount.toString(),
-                PreferencesManager.getAsString(activity, PreferencesManager.FIRST_NAME) + PreferencesManager.getAsString(activity, PreferencesManager.LAST_NAME),
+                activity.getOrderModel().getOrderId().toString(),
+                activity.getOrderModel().getOrderAmount(),
+                PreferencesManager.getAsString(activity, PreferencesManager.FIRST_NAME) + " " + PreferencesManager.getAsString(activity, PreferencesManager.LAST_NAME),
                 new retrofit.Callback<PostOrderConfirmResponseModel>() {
                     @Override
                     public void success(PostOrderConfirmResponseModel postOrderConfirmResponseModel, Response response) {
@@ -556,24 +573,5 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
 
 
     }
-
-
-    public static String capitalize(String word){
-        return word.substring(0,1).toUpperCase() + word.substring(1);
-    }
-
-    public static String decimalFormat(Double number){
-        Locale locale  = new Locale("id", "ID");
-        String pattern = "###,###.##";
-
-        DecimalFormat decimalFormat = (DecimalFormat)
-                NumberFormat.getNumberInstance(locale);
-        decimalFormat.applyPattern(pattern);
-
-        return decimalFormat.format(number);
-    }
-
-
-
 
 }

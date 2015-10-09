@@ -82,7 +82,7 @@ public class GetOrderDetailResponseModel extends RootResponseModel{
         private String stockName;
         @SerializedName("stock_quantity")
         @Expose
-        private Integer stockQuantity;
+        private Float stockQuantity;
         @SerializedName("stock_price")
         @Expose
         private String stockPrice;
@@ -368,14 +368,14 @@ public class GetOrderDetailResponseModel extends RootResponseModel{
         /**
          * @return The stockQuantity
          */
-        public Integer getStockQuantity() {
+        public Float getStockQuantity() {
             return stockQuantity;
         }
 
         /**
          * @param stockQuantity The stock_quantity
          */
-        public void setStockQuantity(Integer stockQuantity) {
+        public void setStockQuantity(Float stockQuantity) {
             this.stockQuantity = stockQuantity;
         }
 

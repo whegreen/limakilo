@@ -189,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="16dp"
                         android:paddingTop="16dp"
-                        android:text="Detail Pengiriman"
+                        android:text="Silahkan masukkan data penerima pesanan anda"
                         android:textColor="?attr/colorPrimaryDark" />
 
                     <android.support.design.widget.TextInputLayout
@@ -221,7 +221,6 @@
                         android:layout_marginBottom="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:layout_marginTop="16dp"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:orientation="vertical">
@@ -231,6 +230,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Nama Belakang"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/edit_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="email"
                             android:imeOptions="actionNext"
                             android:singleLine="true" />
 
@@ -374,7 +393,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
-                            android:text="Pesanan anda sudah kami terima, silahkan lanjutkan ke proses pembayaran maksimal 24jam dari sekarang."
+                            android:text="Pesanan anda sudah kami terima, silahkan lanjutkan ke proses pembayaran maksimal 24 jam dari sekarang."
                             android:textColor="?attr/colorAccent" />
 
                     </LinearLayout>

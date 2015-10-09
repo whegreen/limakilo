@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import id.limakilo.www.bawang.R;
 
 /**
@@ -62,9 +64,8 @@ public class HistoryBidListAdapter extends ArrayAdapter<HistoryBidModel> {
             holder.txtTitle2.setText(orderData.title2);
         }
         catch (Exception e){
-//            Crashlytics.logException(e);
+            Crashlytics.logException(e);
         }
-
         return row;
     }
 

@@ -87,16 +87,6 @@
         </activity>
 
         <activity
-            android:name="id.limakilo.www.bawang.ui.confirmorder.ConfirmOrderActivity"
-            android:screenOrientation="portrait"
-
-            android:label="@string/app_name" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="id.limakilo.www.bawang.ui.main.MainActivity" />
-        </activity>
-
-        <activity
             android:name=".ui.order.OrderActivity"
             android:screenOrientation="portrait"
 

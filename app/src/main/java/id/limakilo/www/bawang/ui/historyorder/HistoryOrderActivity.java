@@ -153,7 +153,7 @@ public class HistoryOrderActivity extends AppCompatActivity implements APICallLi
                             Float.valueOf(orderModel.getStockPrice().toString())
                                     * Float.valueOf(orderModel.getStockQuantity().toString())))+",-"
             );
-            ((TextView)dialogView.findViewById(R.id.dialog_kode_transfer)).setText(orderModel.getOrderPaymentCode().toString());
+            ((TextView)dialogView.findViewById(R.id.dialog_kode_transfer)).setText("Rp. "+orderModel.getOrderPaymentCode().toString()+",-");
             ((TextView)dialogView.findViewById(R.id.dialog_ongkos_kirim)).setText(
                     "Rp. "+decimalFormat(Double.valueOf(orderModel.getOrderShipmentCost()))+",-"
             );
@@ -236,7 +236,7 @@ public class HistoryOrderActivity extends AppCompatActivity implements APICallLi
         APICallManager.getInstance(PreferencesManager.getAuthToken(this)).postOrders(
                 orderId, totalPayment.toString(),
                 capitalize(PreferencesManager.getAsString(this, PreferencesManager.FIRST_NAME))
-                        + capitalize(PreferencesManager.getAsString(this, PreferencesManager.LAST_NAME)),
+                        +" "+ capitalize(PreferencesManager.getAsString(this, PreferencesManager.LAST_NAME)),
                 new Callback<PostOrderConfirmResponseModel>() {
                     @Override
                     public void success(PostOrderConfirmResponseModel getStockDetailResponseModel, Response response) {

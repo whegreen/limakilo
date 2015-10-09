@@ -11,16 +11,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.util.api.order.GetOrderResponseModel;
+import id.limakilo.www.bawang.util.common.TextFormatter;
 
 /**
  * Created by walesadanto on 26/7/15.
@@ -114,22 +112,15 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
 
             mTextView2.setText(status);
 
-            Locale locale  = new Locale("id", "ID");
-            String pattern = "###,###.##";
-
-            DecimalFormat decimalFormat = (DecimalFormat)
-                    NumberFormat.getNumberInstance(locale);
-            decimalFormat.applyPattern(pattern);
-
             int shipmentCost = 0;
             if (item.getOrderShipmentCost() != null){
                 shipmentCost = Integer.valueOf(item.getOrderShipmentCost());
             }
-            Float harga = (Float.valueOf(item.getStockPrice())*item.getStockQuantity())
+            Double harga = (Double.valueOf(item.getStockPrice())*item.getStockQuantity())
                     +Float.valueOf(item.getOrderPaymentCode())
                     +shipmentCost;
 
-            totalPayment = decimalFormat.format(harga);
+            totalPayment = TextFormatter.decimalFormat(harga);
 
             mTextView3.setText("Rp. "+totalPayment+",-");
 
