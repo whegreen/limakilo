@@ -65,7 +65,6 @@ import io.supportkit.ui.ConversationActivity;
  * TODO
  */
 public class MainActivity extends AppCompatActivity {
-//    implements } ContactsListFragment.OnContactsInteractionListener{
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -76,13 +75,6 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.nav_email) TextView navEmail;
     @Bind(R.id.avatar_navheader) ImageView avatar;
     @Bind(R.id.loading_bar) View loadingView;
-
-//    public MaterialDialog dialogWebview;
-
-    // True if this activity instance is a search result view (used on pre-HC devices that load
-    // search results in a separate instance of the activity rather than loading results in-line
-    // as the query is typed.
-    private boolean isSearchResultView = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,29 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(id.limakilo.www.bawang.R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-        // Check if this activity instance has been triggered as a result of a search query. This
-        // will only happen on pre-HC OS versions as from HC onward search is carried out using
-        // an ActionBar SearchView which carries out the search in-line without loading a new
-        // Activity.
-//        if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
-//
-//            // Fetch query from intent and notify the fragment that it should display search
-//            // results instead of all contacts.
-//            String searchQuery = getIntent().getStringExtra(SearchManager.QUERY);
-//            ContactsListFragment mContactsListFragment = (ContactsListFragment)
-//                    getSupportFragmentManager().findFragmentById(R.id.contact_list);
-//
-//            // This flag notes that the Activity is doing a search, and so the result will be
-//            // search results rather than all contacts. This prevents the Activity and Fragment
-//            // from trying to a search on search results.
-//            isSearchResultView = true;
-//            mContactsListFragment.setSearchQuery(searchQuery);
-//
-//            // Set special title for search results
-//            String title = getString(R.string.contacts_list_search_results_title, searchQuery);
-//            setTitle(title);
-//        }
 
         initNavigationProfile();
 
@@ -259,16 +228,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSearchRequested() {
-        // Don't allow another search if this activity instance is already showing
-        // search results. Only used pre-HC.
-        return !isSearchResultView && super.onSearchRequested();
-    }
-
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(id.limakilo.www.bawang.R.menu.menu_limakilo, menu);
         return true;
     }

@@ -54,6 +54,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
     private OrderPresenterImpl presenter;
     private MaterialDialog dialogProgress;
     private static MaterialDialog confirmDialog;
+
     public CardInputOrderViewHolder cardInputOrderViewHolder;
     public CardInputShipmentViewHolder cardInputShipmentViewHolder;
     public CardOrderResumeViewHolder cardOrderResumeViewHolder;
@@ -371,7 +372,7 @@ public class OrderFragment extends Fragment implements OrderView, APICallListene
 
                 String formattedTotal = TextFormatter.decimalFormat(totalTransfer);
 
-                orderActivity.getOrderModel().setOrderAmount(formattedTotal);
+                orderActivity.getOrderModel().setOrderAmount(String.valueOf(totalTransfer.intValue()));
 
                 orderAmount.setText("Rp. "+formattedTotal + ",-");
                 orderStatus.setText(order.getOrderStatus().toString());

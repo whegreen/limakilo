@@ -193,7 +193,7 @@ public class HistoryOrderActivity extends AppCompatActivity implements APICallLi
     }
 
     public void retrieveOrderDetail(String orderId, String totalPayment){
-        this.totalPayment = totalPayment;
+        this.totalPayment = String.valueOf(Double.parseDouble(totalPayment));
         APICallManager.getInstance().setAuthentification(PreferencesManager.getAuthToken(this));
         final APICallManager.APIRoute route = APICallManager.APIRoute.GETORDER;
         APICallManager.getInstance().getOrders(orderId, new retrofit.Callback<GetOrderDetailResponseModel>() {

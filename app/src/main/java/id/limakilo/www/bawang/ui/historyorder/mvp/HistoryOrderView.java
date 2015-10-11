@@ -5,4 +5,10 @@ package id.limakilo.www.bawang.ui.historyorder.mvp;
  */
 public interface HistoryOrderView {
 
+    public enum ViewState {
+        IDLE, LOGGING_IN, LOGIN_LATER, INPUT_INVITATION_CODE, SUCCESS, FAILURE, CANCEL, LOADING, ERROR
+    }
+
+    public void showState(ViewState state);
+
 }

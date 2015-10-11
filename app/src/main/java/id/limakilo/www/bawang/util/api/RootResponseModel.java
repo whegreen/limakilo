@@ -8,7 +8,6 @@ public class RootResponseModel {
     private Boolean Error;
     private String Message;
     //    private List data = new ArrayList<>();
-    private Integer Balance;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -64,24 +63,6 @@ public class RootResponseModel {
 //    public void setData(List data) {
 //        this.data = data;
 //    }
-
-    /**
-     *
-     * @return
-     * The Balance
-     */
-    public Integer getBalance() {
-        return Balance;
-    }
-
-    /**
-     *
-     * @param Balance
-     * The Balance
-     */
-    public void setBalance(Integer Balance) {
-        this.Balance = Balance;
-    }
 
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;

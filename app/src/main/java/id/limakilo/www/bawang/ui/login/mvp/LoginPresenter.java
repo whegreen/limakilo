@@ -5,9 +5,6 @@ package id.limakilo.www.bawang.ui.login.mvp;
  */
 public interface LoginPresenter {
 
-    public enum PresenterState {
-        LOGIN,
-    }
     public void presentState(LoginView.ViewState state);
     public void callAsync(LoginListener.ListenerCaller caller, LoginListener.ListenerAction action);
 }

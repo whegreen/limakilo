@@ -6,4 +6,5 @@ package id.limakilo.www.bawang.ui.main.stockfragment.mvp;
 public interface StockFragmentInteractor {
     public void callAsync(StockFragmentListener.Listener caller, StockFragmentListener.ListenerAction action);
 
+    void callAPIGetStocks();
 }

@@ -116,7 +116,7 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
             if (item.getOrderShipmentCost() != null){
                 shipmentCost = Integer.valueOf(item.getOrderShipmentCost());
             }
-            Double harga = (Double.valueOf(item.getStockPrice())*item.getStockQuantity())
+            Double harga = ((Double.valueOf(item.getStockPrice())*item.getStockQuantity())*Double.parseDouble(item.getOrderQuantity()))
                     +Float.valueOf(item.getOrderPaymentCode())
                     +shipmentCost;
 

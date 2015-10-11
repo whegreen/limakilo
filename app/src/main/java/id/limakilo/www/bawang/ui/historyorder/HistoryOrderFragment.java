@@ -163,4 +163,9 @@ public class HistoryOrderFragment extends Fragment implements APICallListener, H
             }
         });
     }
+
+    @Override
+    public void showState(ViewState state) {
+
+    }
 }
