@@ -74,7 +74,8 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        detailOrderDialog.hide();
+                        dialog.hide();
+                        presenter.presentState(ViewState.IDLE);
                     }
                 })
                 .build();
@@ -250,6 +251,14 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
 
     @Override
     public String doRetrieveFullname(){
-        return PreferencesManager.getAsString(getActivity(), PreferencesManager.FIRST_NAME).toString()+" "+PreferencesManager.getAsString(getActivity(), PreferencesManager.LAST_NAME).toString();
+        String firstName = PreferencesManager.getAsString(getActivity(), PreferencesManager.FIRST_NAME);
+        String lastName = PreferencesManager.getAsString(getActivity(), PreferencesManager.LAST_NAME);
+        if (firstName == null){
+            firstName = "";
+        }
+        if (lastName == null){
+            lastName = "";
+        }
+        return firstName+" "+lastName;
     }
 }
