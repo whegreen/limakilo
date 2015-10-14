@@ -73,6 +73,9 @@ public class LoginFragment extends Fragment implements LoginView {
         view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
 
+        facebookLoginButton.setPadding(10, 10, 10, 10);
+        facebookLoginButton.setBackgroundResource(R.color.color_primary_dark);
+
         presenter = new LoginPresenterImpl(this);
 
         initPopupDialog();

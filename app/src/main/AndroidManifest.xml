@@ -15,7 +15,7 @@
     <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
 
     <application android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@drawable/limakilo" android:theme="@style/AppTheme"
+        android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme"
         android:name="id.limakilo.www.bawang.BawangApplication">
 
         <receiver
