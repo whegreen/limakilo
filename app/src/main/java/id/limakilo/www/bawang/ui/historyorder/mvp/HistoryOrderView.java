@@ -5,10 +5,16 @@ package id.limakilo.www.bawang.ui.historyorder.mvp;
  */
 public interface HistoryOrderView {
 
+    String doRetrieveFullname();
+
     public enum ViewState {
-        IDLE, LOGGING_IN, LOGIN_LATER, INPUT_INVITATION_CODE, SUCCESS, FAILURE, CANCEL, LOADING, ERROR
+        IDLE, LOADING, LOAD_ORDERS, API_ERROR, SHOW_ORDERS, CONFIRM_ORDER, SHOW_DETAIL_ORDER, SHOW_CONFIRM_DIALOG, SHOW_FINISH_DIALOG
     }
 
     public void showState(ViewState state);
+
+    String doRetrieveAuthentification();
+
+    public HistoryOrderModel doRetrieveModel();
 
 }

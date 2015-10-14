@@ -17,6 +17,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
+import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderModel;
+import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderPresenter;
+import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderView;
 import id.limakilo.www.bawang.util.api.order.GetOrderResponseModel;
 import id.limakilo.www.bawang.util.common.TextFormatter;
 
@@ -28,15 +31,20 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
     private List<GetOrderResponseModel.GetOrderResponseData> historyOrder;
+    private HistoryOrderPresenter presenter;
+    private HistoryOrderModel model;
 
     public GetOrderResponseModel.GetOrderResponseData getValueAt(int position){
         return historyOrder.get(position);
     }
 
-    public HistoryOrderRecyclerViewAdapter(Context context, List<GetOrderResponseModel.GetOrderResponseData> historyOrder){
+    public HistoryOrderRecyclerViewAdapter(Context context, List<GetOrderResponseModel.GetOrderResponseData> historyOrder,
+                                           HistoryOrderPresenter presenter, HistoryOrderModel model){
         context.getTheme().resolveAttribute(android.support.design.R.attr.selectableItemBackground, mTypedValue, true);
         mBackground = mTypedValue.resourceId;
         this.historyOrder = historyOrder;
+        this.presenter = presenter;
+        this.model = model;
     }
 
     @Override
@@ -58,7 +66,7 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
         return historyOrder.size();
     }
 
-    public static class OrderItemViewHolder extends RecyclerView.ViewHolder{
+    public class OrderItemViewHolder extends RecyclerView.ViewHolder{
         public String text;
         public String totalPayment;
         public String orderId;
@@ -81,17 +89,19 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
 
                 Context context = view.getContext();
                 ((HistoryOrderActivity)context).showLoadingBar();
-                ((HistoryOrderActivity)context).retrievePaymentDetail(orderId, stockId, totalPayment);
+//                ((HistoryOrderActivity)context).retrievePaymentDetail(orderId, stockId, totalPayment);
+                presenter.presentState(HistoryOrderView.ViewState.SHOW_DETAIL_ORDER);
             }
             else if (orderStatus.equalsIgnoreCase("order_paid")){
                 Context context = view.getContext();
                 ((HistoryOrderActivity)context).showLoadingBar();
-                ((HistoryOrderActivity)context).retrieveOrderDetail(orderId, totalPayment);
+//                ((HistoryOrderActivity)context).retrieveOrderDetail(orderId, totalPayment);
+                presenter.presentState(HistoryOrderView.ViewState.LOAD_ORDERS);
             }
             else if (orderStatus.equalsIgnoreCase("order_verified")){
                 Context context = view.getContext();
                 ((HistoryOrderActivity)context).showLoadingBar();
-                ((HistoryOrderActivity)context).finishOrderDialog.show();
+                presenter.presentState(HistoryOrderView.ViewState.SHOW_FINISH_DIALOG);
             }
         }
 
@@ -101,6 +111,8 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
         }
 
         public void bindData(GetOrderResponseModel.GetOrderResponseData item){
+            model.getOrderDetailModel().setData(item);
+
             mTextView.setText(item.getStockName());
 
             String status = "dalam pengiriman";
@@ -121,10 +133,9 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
                     +shipmentCost;
 
             totalPayment = TextFormatter.decimalFormat(harga);
+            model.setTotalPayment(totalPayment);
 
             mTextView3.setText("Rp. "+totalPayment+",-");
-
-
             mTextView4.setText(item.getSellerName().toString());
 
             orderId = item.getOrderId().toString();
@@ -133,7 +144,6 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
             orderStatus = item.getOrderStatus();
 
             Glide.with(mImageView.getContext())
-//                .load(historyOrder.get(position).getAvaUrl())
                     .load(id.limakilo.www.bawang.R.drawable.onion3)
                     .fitCenter()
                     .into(mImageView);

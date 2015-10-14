@@ -1,9 +1,7 @@
 package id.limakilo.www.bawang.ui.order;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,25 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.Crashlytics;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
-import id.limakilo.www.bawang.ui.main.MainActivity;
-import id.limakilo.www.bawang.util.api.APICallManager;
-import id.limakilo.www.bawang.util.api.order.PostOrderResponseModel;
 import id.limakilo.www.bawang.util.api.stock.GetStockDetailResponseModel;
-import id.limakilo.www.bawang.util.api.user.PutUserResponseModel;
-import id.limakilo.www.bawang.util.common.PreferencesManager;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by walesadanto on 30/8/15.
@@ -49,16 +36,8 @@ public class OrderActivity extends AppCompatActivity {
     public static final String SELLERCITY = "seller_city";
 
     private GetStockDetailResponseModel.GetStockDetailResponseData stockModel;
-    private PostOrderResponseModel.PostOrderResponseData orderModel;
-    private PutUserResponseModel.PutUserResponseData userModel;
 
     private OrderFragment orderFragment;
-
-    public MaterialDialog confirmDialog;
-    private int orderQuantity = 0;
-
-    private MaterialDialog dialogProgress;
-    private MaterialDialog.Builder dialogFinishOrder;
 
     @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.backdrop) ImageView backdrop;
@@ -70,8 +49,6 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         stockModel = new GetStockDetailResponseModel().new GetStockDetailResponseData();
-        orderModel = new PostOrderResponseModel().new PostOrderResponseData();
-        userModel = new PutUserResponseModel().new PutUserResponseData();
 
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
@@ -99,56 +76,10 @@ public class OrderActivity extends AppCompatActivity {
         String activityTitle = stockModel.getStockName();
         collapsingToolbarLayout.setTitle(activityTitle);
 
-        boolean wrapInScrollView = true;
-        confirmDialog = new MaterialDialog.Builder(this)
-                .title("Konfirmasi Pesanan")
-                .customView(R.layout.dialog_confirm_order_custom_view, wrapInScrollView)
-                .positiveText("Lanjut")
-                .negativeText("Batal")
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        setOrderQuantity(1);
-                        confirmDialog.hide();
-                    }
-
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        dialog.hide();
-                    }
-                })
-                .build();
-
-        dialogFinishOrder = new MaterialDialog.Builder(this)
-                .content("Terima kasih sudah berbelanja, mari ramaikan gerakan #yukbelanjakepetani bersama #limakilo :)")
-                .positiveText("ok")
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        super.onPositive(dialog);
-                        showLoadingView();
-
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                getApplicationContext().startActivity(intent);
-                                hideLoadingView();
-                                handler.removeCallbacks(this);
-                                OrderActivity.this.finish();
-                            }
-                        }, 300L);
-                    }
-                });
-
         Glide.with(this)
                 .load(Integer.parseInt(stockModel.getSellerAvatarUrl()))
                 .fitCenter()
                 .into(backdrop);
-
-        retrieveUserInfo();
-        retrieveStockDetail();
 
     }
 
@@ -205,33 +136,6 @@ public class OrderActivity extends AppCompatActivity {
         return stockModel;
     }
 
-    public void setOrderQuantity(int orderQuantity) {
-        this.orderQuantity = orderQuantity;
-    }
-
-    public void showOrderDetail() {
-        View customView = confirmDialog.getCustomView();
-        ((TextView)customView.findViewById(R.id.dialog_id_pesanan)).setText("");
-        ((TextView)customView.findViewById(R.id.dialog_harga_pesanan)).setText("");
-        ((TextView)customView.findViewById(R.id.dialog_jumlah_pesanan)).setText("");
-        ((TextView)customView.findViewById(R.id.dialog_kode_transfer)).setText("");
-        ((TextView)customView.findViewById(R.id.dialog_nama_penerima)).setText("");
-        ((TextView)customView.findViewById(R.id.dialog_ongkos_kirim)).setText("");
-        ((TextView)customView.findViewById(R.id.dialog_status_pesanan)).setText("");
-        ((TextView)customView.findViewById(R.id.dialog_tanggal_pesanan)).setText("");
-        ((TextView)customView.findViewById(R.id.dialog_total)).setText("");
-
-        confirmDialog.show();
-    }
-
-    public void showDialogProgress() {
-        dialogProgress = new MaterialDialog.Builder(this)
-                .title("memproses pemesanan")
-                .content("mohon tunggu ...")
-                .progress(true, 0)
-                .show();
-    }
-
     public void hideSoftKeyboard(){
         View view = getCurrentFocus();
         if (view != null) {
@@ -246,61 +150,6 @@ public class OrderActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         }
-    }
-
-    public PostOrderResponseModel.PostOrderResponseData getOrderModel() {
-        return orderModel;
-    }
-
-    public void setOrderModel(PostOrderResponseModel.PostOrderResponseData orderModel) {
-        this.orderModel = orderModel;
-    }
-
-    public PutUserResponseModel.PutUserResponseData getUserModel() {
-        return userModel;
-    }
-
-    public void setUserModel(PutUserResponseModel.PutUserResponseData userModel) {
-        this.userModel = userModel;
-    }
-
-    public void retrieveUserInfo(){
-        PreferencesManager.getAsString(this, PreferencesManager.FIRST_NAME);
-        PreferencesManager.getAsString(this, PreferencesManager.LAST_NAME);
-        PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
-        PreferencesManager.getAsString(this, PreferencesManager.EMAIL);
-        PreferencesManager.getAsString(this, PreferencesManager.ADDRESS);
-        PreferencesManager.getAsString(this, PreferencesManager.CITY);
-    }
-
-    public void retrieveStockDetail(){
-
-
-        APICallManager.getInstance(PreferencesManager.getAuthToken(this)).getStocks(stockModel.getStockId().toString(),
-                new Callback<GetStockDetailResponseModel>() {
-                    @Override
-                    public void success(GetStockDetailResponseModel getStockDetailResponseModel, Response response) {
-                        stockModel = getStockDetailResponseModel.getData().get(0);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Crashlytics.logException(error);
-                    }
-                });
-    }
-
-    public void saveUserInfo(String firstName, String lastName, String phone, String email, String address, String city){
-        PreferencesManager.saveAsString(this, PreferencesManager.FIRST_NAME, firstName);
-        PreferencesManager.saveAsString(this, PreferencesManager.LAST_NAME, lastName);
-        PreferencesManager.saveAsString(this, PreferencesManager.HANDPHONE, phone);
-        PreferencesManager.saveAsString(this, PreferencesManager.EMAIL, email);
-        PreferencesManager.saveAsString(this, PreferencesManager.ADDRESS, address);
-        PreferencesManager.saveAsString(this, PreferencesManager.CITY, city);
-    }
-
-    public void showDialogFinishOrder(){
-        dialogFinishOrder.show();
     }
 
     public OrderFragment getOrderFragment() {

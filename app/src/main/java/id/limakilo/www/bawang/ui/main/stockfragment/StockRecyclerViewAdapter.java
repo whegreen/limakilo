@@ -38,10 +38,10 @@ public class StockRecyclerViewAdapter extends RecyclerView.Adapter<StockRecycler
         return mStocks.get(position);
     }
 
-    public StockRecyclerViewAdapter(Context context, List<GetStockResponseModel.GetStockResponseData> chats){
+    public StockRecyclerViewAdapter(Context context, List<GetStockResponseModel.GetStockResponseData> stocks){
         context.getTheme().resolveAttribute(android.support.design.R.attr.selectableItemBackground, mTypedValue, true);
         mBackground = mTypedValue.resourceId;
-        mStocks = chats;
+        mStocks = stocks;
     }
 
     @Override

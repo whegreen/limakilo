@@ -34,7 +34,8 @@ public class APICallManager {
     private static APICallManager instance;
     private RestAdapter restAdapter;
     private String endPoint = "http://limakilo.id";
-    public static final String DEMO_AUTH = "EkhZMUG0";
+//    public static final String DEMO_AUTH = "EkhZMUG0";
+    public static final String DEMO_AUTH = "VygphmZh";
     public APIRoute apiRoute;
 //    public static Boolean usingMock = true;
 

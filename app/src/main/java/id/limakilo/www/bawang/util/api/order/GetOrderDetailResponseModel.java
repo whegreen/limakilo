@@ -99,6 +99,31 @@ public class GetOrderDetailResponseModel extends RootResponseModel{
         @Expose
         private Integer stockOrdered;
 
+
+        public void setData(GetOrderResponseModel.GetOrderResponseData data){
+            setOrderId(data.getOrderId());
+            setOrderAddress(data.getOrderAddress());
+            setOrderAmount(data.getOrderAmount().toString());
+            setOrderCity(data.getOrderCity());
+            setOrderDate(data.getOrderDate());
+            setOrderPaymentCode(data.getOrderPaymentCode());
+            setOrderQuantity(data.getOrderQuantity());
+            setOrderShipmentCost(data.getOrderShipmentCost());
+            setOrderShipmentEta(data.getOrderShipmentEta());
+            setOrderShipmentName(data.getOrderShipmentName());
+            setOrderStatus(data.getOrderStatus());
+            setSellerCity(data.getSellerCity());
+            setSellerId(data.getSellerId());
+            setSellerName(data.getSellerName());
+            setStockName(data.getStockName());
+            setStockOrdered(data.getStockOrdered());
+            setStockPrice(data.getStockPrice());
+            setStockQuantity(data.getStockQuantity());
+            setStockQuota(data.getStockQuota());
+            setStockId(data.getStockId());
+            setStockAvailable(data.getStockAvailable());
+        }
+
         /**
          * @return The sellerId
          */
