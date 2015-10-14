@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -62,6 +63,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
     //binding view
     @Bind(R.id.login_button) LoginButton facebookLoginButton;
+    @Bind(R.id.login_button_limakilo) Button login_btn;
     @Bind(R.id.btn_login_later) TextView loginLater;
     @Bind(R.id.btn_digit_login) DigitsAuthButton digitsButton;
     @Bind(R.id.loading_bar) View loadingView;
@@ -73,7 +75,7 @@ public class LoginFragment extends Fragment implements LoginView {
         view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
 
-        facebookLoginButton.setPadding(10, 10, 10, 10);
+        facebookLoginButton.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
         facebookLoginButton.setBackgroundResource(R.color.color_primary_dark);
 
         presenter = new LoginPresenterImpl(this);
@@ -100,6 +102,11 @@ public class LoginFragment extends Fragment implements LoginView {
     @OnClick(R.id.btn_login_later)
     public void onClickLoginLater(){
         presenter.presentState(ViewState.LOGIN_LATER);
+    }
+
+    @OnClick(R.id.login_button_limakilo)
+    public void onClickLoginLimakilo(){
+        facebookLoginButton.performClick();
     }
 
     // facebook stuff
@@ -320,6 +327,7 @@ public class LoginFragment extends Fragment implements LoginView {
         public void onError(FacebookException exception) {
             // App code
             presenter.onCallback(LoginListener.ListenerCaller.FACEBOOK, FAILURE, exception);
+            initPopupDialog();
         }
     };
 }

@@ -4,6 +4,8 @@
     <color name="window_background">#FFF5F5F5</color>
     <color name="holo_blue">#FF33B5E5</color>
 
+    <color name="white">#FFFFFF</color>
+
     <color name="color_primary">#B94F76</color>
     <color name="color_primary_dark">#782F45</color>
     <color name="color_accent">#B3D994</color>

@@ -28,16 +28,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/login_button_limakilo"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:background="@color/color_primary_dark"
+                android:text="LOGIN WITH FACEBOOK"
+                android:textColor="@color/white" />
+
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_login_later"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
+                android:layout_width="220dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
-                android:layout_weight="0.19"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <com.digits.sdk.android.DigitsAuthButton
                 android:id="@+id/btn_digit_login"
