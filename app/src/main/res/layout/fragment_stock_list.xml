@@ -85,6 +85,5 @@
                 android:textColor="#E9E9E9"
                 android:textSize="14sp" />
         </LinearLayout>
-
     </RelativeLayout>
 </LinearLayout>
