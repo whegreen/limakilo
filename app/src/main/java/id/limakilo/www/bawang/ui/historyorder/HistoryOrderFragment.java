@@ -58,11 +58,23 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        confirmDialog.hide();
+                        super.onPositive(dialog);
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                confirmDialog.hide();
+                            }
+                        }, 300L);
                     }
                     @Override
                     public void onNegative(MaterialDialog dialog) {
-                        dialog.hide();
+                        super.onNegative(dialog);
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                confirmDialog.hide();
+                            }
+                        }, 300L);
                     }
                 })
                 .build();
@@ -74,12 +86,17 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        dialog.hide();
-                        presenter.presentState(ViewState.IDLE);
+                        super.onPositive(dialog);
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                presenter.presentState(ViewState.IDLE);
+                                showDetailOrderDialog(false);
+                            }
+                        }, 300L);
                     }
                 })
                 .build();
-
 
         confirmPaymentDialog = new MaterialDialog.Builder(getActivity())
                 .title("Pesanan Anda")
@@ -90,17 +107,26 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         super.onPositive(dialog);
-                        dialog.hide();
-                        presenter.presentState(ViewState.CONFIRM_ORDER);
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                confirmPaymentDialog.hide();
+                                presenter.presentState(ViewState.CONFIRM_ORDER);
+                            }
+                        }, 300L);
                     }
 
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         super.onNegative(dialog);
-                        dialog.hide();
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                confirmPaymentDialog.hide();
+                            }
+                        }, 300L);
                     }
                 })
-
                 .build();
 
         finishOrderDialog = new MaterialDialog.Builder(getActivity())
@@ -109,6 +135,7 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
+                        super.onPositive(dialog);
                         dialog.hide();
                         ((HistoryOrderActivity)getActivity()).showLoadingBar();
                         final Handler handler = new Handler();
@@ -158,7 +185,7 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                 showAPIError();
                 break;
             case SHOW_DETAIL_ORDER:
-                showDetailOrderDialog();
+                showDetailOrderDialog(true);
                 break;
             case SHOW_CONFIRM_DIALOG:
                 showConfirmOrderDialog();
@@ -200,37 +227,44 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
         return model;
     }
 
-    public void showDetailOrderDialog(){
+    public void showDetailOrderDialog(boolean state){
+        presenter.presentState(ViewState.IDLE);
 
-        try{
-            String[] timestamp = model.getOrderDetailModel().getOrderDate().toString().split("T");
+        if (state){
+            try{
+                String[] timestamp = model.getOrderDetailModel().getOrderDate().toString().split("T");
 
-            View dialogView = detailOrderDialog.getCustomView();
-            ((TextView)dialogView.findViewById(R.id.dialog_id_pesanan)).setText(model.getOrderDetailModel().getOrderId().toString());
-            ((TextView)dialogView.findViewById(R.id.dialog_tanggal_pesanan)).setText(timestamp[0]+" "+timestamp[1].substring(0, 5));
-            ((TextView)dialogView.findViewById(R.id.dialog_nama_penerima)).setText(
-                    doRetrieveFullname()
-            );
-            ((TextView)dialogView.findViewById(R.id.dialog_jumlah_pesanan)).setText(model.getOrderDetailModel().getOrderQuantity().toString() + " x "
-                            +model.getOrderDetailModel().getStockQuantity().toString()+" kg"
-            );
-            ((TextView)dialogView.findViewById(R.id.dialog_harga_pesanan)).setText(
-                    "Rp. "+model.decimalFormat(Double.valueOf(
-                            Float.valueOf(model.getOrderDetailModel().getStockPrice().toString())
-                                    * Float.valueOf(model.getOrderDetailModel().getStockQuantity().toString())))+",-"
-            );
-            ((TextView)dialogView.findViewById(R.id.dialog_kode_transfer)).setText("Rp. "+model.getOrderDetailModel().getOrderPaymentCode().toString()+",-");
-            ((TextView)dialogView.findViewById(R.id.dialog_ongkos_kirim)).setText(
-                    "Rp. "+model.decimalFormat(Double.valueOf(model.getOrderDetailModel().getOrderShipmentCost()))+",-"
-            );
-            ((TextView)dialogView.findViewById(R.id.dialog_total)).setText("Rp. "+model.getTotalPayment()+",-");
-            ((TextView)dialogView.findViewById(R.id.dialog_status_pesanan)).setText(model.getOrderDetailModel().getOrderStatus().toString());
+                View dialogView = detailOrderDialog.getCustomView();
+                ((TextView)dialogView.findViewById(R.id.dialog_id_pesanan)).setText(model.getOrderDetailModel().getOrderId().toString());
+                ((TextView)dialogView.findViewById(R.id.dialog_tanggal_pesanan)).setText(timestamp[0]+" "+timestamp[1].substring(0, 5));
+                ((TextView)dialogView.findViewById(R.id.dialog_nama_penerima)).setText(
+                        doRetrieveFullname()
+                );
+                ((TextView)dialogView.findViewById(R.id.dialog_jumlah_pesanan)).setText(model.getOrderDetailModel().getOrderQuantity().toString() + " x "
+                                +model.getOrderDetailModel().getStockQuantity().toString()+" kg"
+                );
+                ((TextView)dialogView.findViewById(R.id.dialog_harga_pesanan)).setText(
+                        "Rp. "+model.decimalFormat(Double.valueOf(
+                                Float.valueOf(model.getOrderDetailModel().getStockPrice().toString())
+                                        * Float.valueOf(model.getOrderDetailModel().getStockQuantity().toString())))+",-"
+                );
+                ((TextView)dialogView.findViewById(R.id.dialog_kode_transfer)).setText("Rp. "+model.getOrderDetailModel().getOrderPaymentCode().toString()+",-");
+                ((TextView)dialogView.findViewById(R.id.dialog_ongkos_kirim)).setText(
+                        "Rp. "+model.decimalFormat(Double.valueOf(model.getOrderDetailModel().getOrderShipmentCost()))+",-"
+                );
+                ((TextView)dialogView.findViewById(R.id.dialog_total)).setText("Rp. "+model.getTotalPayment()+",-");
+                ((TextView)dialogView.findViewById(R.id.dialog_status_pesanan)).setText(model.getOrderDetailModel().getOrderStatus().toString());
 
-            detailOrderDialog.show();
+                detailOrderDialog.show();
+
+            }
+            catch(Exception e){
+                Crashlytics.logException(e);
+            }
+        }else{
+            detailOrderDialog.hide();
         }
-        catch(Exception e){
-            Crashlytics.logException(e);
-        }
+
     }
 
     public void showConfirmOrderDialog(){

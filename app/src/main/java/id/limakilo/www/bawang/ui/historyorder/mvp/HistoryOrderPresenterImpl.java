@@ -72,6 +72,7 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
 
     @Override
     public void onAPICallSucceed(APICallManager.APIRoute endPoint, RootResponseModel responseModel) {
+        presentState(HistoryOrderView.ViewState.IDLE);
         if (endPoint == APICallManager.APIRoute.GETORDERS){
             try{
                 List<GetOrderResponseModel.GetOrderResponseData> temp = new ArrayList<GetOrderResponseModel.GetOrderResponseData>();
@@ -104,6 +105,7 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
 
     @Override
     public void onAPICallFailed(APICallManager.APIRoute endPoint, RetrofitError retrofitError) {
+        presentState(HistoryOrderView.ViewState.IDLE);
         if (endPoint == APICallManager.APIRoute.GETORDERS){
             presentState(HistoryOrderView.ViewState.API_ERROR);
         } else if (endPoint == APICallManager.APIRoute.GETORDER){
