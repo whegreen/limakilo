@@ -48,8 +48,13 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
                 view.showState(HistoryOrderView.ViewState.LOADING);
                 interactor.callAPIGetOrders(view.doRetrieveAuthentification());
                 break;
+            case LOAD_STOCK:
+                interactor.callAPIStockDetail(
+                        view.doRetrieveAuthentification(),
+                        view.doRetrieveModel().getOrderDetailModel().getStockId().toString()
+                );
+                break;
             case SHOW_ORDERS:
-
                 view.showState(HistoryOrderView.ViewState.SHOW_ORDERS);
                 break;
             case SHOW_DETAIL_ORDER:
@@ -64,6 +69,9 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
             case API_ERROR:
                 presentState(HistoryOrderView.ViewState.IDLE);
                 view.showState(HistoryOrderView.ViewState.API_ERROR);
+                break;
+            case BLANK_STATE:
+                view.showState(HistoryOrderView.ViewState.BLANK_STATE);
                 break;
             default:
                 break;
@@ -90,7 +98,7 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
                 });
                 presentState(HistoryOrderView.ViewState.SHOW_ORDERS);
             } catch (Exception e){
-                presentState(HistoryOrderView.ViewState.API_ERROR);
+                presentState(HistoryOrderView.ViewState.BLANK_STATE);
             }
         } if (endPoint == APICallManager.APIRoute.GETORDER){
             view.doRetrieveModel().setOrderDetailModel(((GetOrderDetailResponseModel) responseModel).getData().get(0));

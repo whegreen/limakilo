@@ -9,13 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderModel;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderPresenter;
@@ -30,8 +33,7 @@ import id.limakilo.www.bawang.util.common.PreferencesManager;
 public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
 
     private HistoryOrderPresenter presenter;
-    RecyclerView recyclerView;
-    private MaterialDialog confirmDialog;
+//    private MaterialDialog confirmDialog;
 
     MaterialDialog detailOrderDialog;
     MaterialDialog confirmPaymentDialog;
@@ -39,10 +41,22 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
 
     private HistoryOrderModel model;
 
+    @Bind(R.id.loading_bar) View loadingView;
+    @Bind(R.id.blank_state) View blankStateView;
+    @Bind(R.id.error_state) View errorStateView;
+    @Bind(R.id.btn_error_refresh) Button buttonErrorRefresh;
+    @Bind(R.id.recyclerview) RecyclerView recyclerView;
+
+
+    @OnClick(R.id.btn_error_refresh)
+    public void OnClickButtonErrorRefresh(){
+        presenter.presentState(ViewState.LOAD_ORDERS);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        recyclerView = (RecyclerView) inflater.inflate(id.limakilo.www.bawang.R.layout.fragment_history_order_list, container, false);
-        ButterKnife.bind(this, recyclerView);
+        View view = inflater.inflate(id.limakilo.www.bawang.R.layout.fragment_history_order_list, container, false);
+        ButterKnife.bind(this, view);
 
         presenter = new HistoryOrderPresenterImpl(this);
         model = new HistoryOrderModel();
@@ -50,34 +64,6 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
         setupOrderRecyclerView();
 
         boolean wrapInScrollView = true;
-        confirmDialog = new MaterialDialog.Builder(getActivity())
-                .title("Konfirmasi Pembayaran")
-                .customView(R.layout.dialog_confirm_payment_custom_view, wrapInScrollView)
-                .positiveText("Transfer sudah dilakukan")
-                .negativeText("Transfer nanti")
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        super.onPositive(dialog);
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                confirmDialog.hide();
-                            }
-                        }, 300L);
-                    }
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        super.onNegative(dialog);
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                confirmDialog.hide();
-                            }
-                        }, 300L);
-                    }
-                })
-                .build();
 
         detailOrderDialog = new MaterialDialog.Builder(getActivity())
                 .title("Pesanan Anda")
@@ -110,8 +96,8 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
-                                confirmPaymentDialog.hide();
                                 presenter.presentState(ViewState.CONFIRM_ORDER);
+                                confirmPaymentDialog.hide();
                             }
                         }, 300L);
                     }
@@ -137,14 +123,15 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                     public void onPositive(MaterialDialog dialog) {
                         super.onPositive(dialog);
                         dialog.hide();
-                        ((HistoryOrderActivity)getActivity()).showLoadingBar();
+//                        ((HistoryOrderActivity)getActivity()).showLoadingBar();
+                        presenter.presentState(ViewState.LOADING);
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
                                 Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 getActivity().getApplicationContext().startActivity(intent);
-                                ((HistoryOrderActivity) getActivity()).hideLoadingBar();
+                                presenter.presentState(ViewState.IDLE);
                                 handler.removeCallbacks(this);
                                 (getActivity()).finish();
                             }
@@ -152,7 +139,7 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                     }
                 }).build();
 
-        return recyclerView;
+        return view;
     }
 
     public void setupOrderRecyclerView(){
@@ -179,10 +166,15 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                 break;
             case SHOW_ORDERS:
                 setupOrderRecyclerView();
-                showLoadingState(false);
+//                showLoadingState(false);
+                showIdleState();
+                break;
+            case BLANK_STATE:
+                showBlankState();
                 break;
             case API_ERROR:
-                showAPIError();
+//                showAPIError();
+                showErrorState();
                 break;
             case SHOW_DETAIL_ORDER:
                 showDetailOrderDialog(true);
@@ -194,10 +186,12 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                 finishOrderDialog.show();
                 break;
             case IDLE:
-                showLoadingState(false);
+//                showLoadingState(false);
+                showIdleState();
                 break;
             case LOADING:
-                showLoadingState(true);
+//                showLoadingState(true);
+                showLoadingView();
                 break;
             default:
 
@@ -205,18 +199,46 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
         }
     }
 
+    private void showLoadingView(){
+        loadingView.setVisibility(View.VISIBLE);
+        errorStateView.setVisibility(View.GONE);
+        blankStateView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void showBlankState(){
+        loadingView.setVisibility(View.GONE);
+        errorStateView.setVisibility(View.GONE);
+        blankStateView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void showErrorState(){
+        loadingView.setVisibility(View.GONE);
+        errorStateView.setVisibility(View.VISIBLE);
+        blankStateView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void showIdleState(){
+        loadingView.setVisibility(View.GONE);
+        errorStateView.setVisibility(View.GONE);
+        blankStateView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public String doRetrieveAuthentification(){
         return PreferencesManager.getAuthToken(getActivity());
     }
 
-    private void showLoadingState(boolean state){
-        if (state){
-            ((HistoryOrderActivity)getActivity()).showLoadingBar();
-        } else{
-            ((HistoryOrderActivity)getActivity()).hideLoadingBar();
-        }
-    }
+//    private void showLoadingState(boolean state){
+//        if (state){
+//            ((HistoryOrderActivity)getActivity()).showLoadingBar();
+//        } else{
+//            ((HistoryOrderActivity)getActivity()).hideLoadingBar();
+//        }
+//    }
 
     private void showAPIError(){
         Toast.makeText(getActivity(), "failed to get data", Toast.LENGTH_SHORT).show();

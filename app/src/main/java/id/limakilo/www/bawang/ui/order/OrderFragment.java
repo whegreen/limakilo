@@ -75,7 +75,7 @@ public class OrderFragment extends Fragment implements OrderView{
                 ((OrderActivity)getActivity()).hideLoadingView();
                 break;
             case ORDER_PAID:
-                showConfirmDialog(true);
+                showConfirmDialog(false);
                 showFinishOrderDialog();
                 break;
             case SHOW_STOCK_LIST:
@@ -98,8 +98,10 @@ public class OrderFragment extends Fragment implements OrderView{
                 showOrderProcessed();
                 break;
             case LOAD_STOCK:
-//                showOrderProcessed();
-
+                showOrderProcessed();
+                break;
+            case SHOW_DETAIL_ORDER:
+                showDetailOrder();
                 break;
             case STOCK_NOT_AVAILABLE:
                 showOutOfStockDialog(true);
@@ -119,6 +121,16 @@ public class OrderFragment extends Fragment implements OrderView{
         }
     }
 
+    private void showDetailOrder(){
+        OrderActivity orderActivity = (OrderActivity) getActivity();
+        orderActivity.getOrderFragment().cardInputShipmentViewHolder.loadUserInfo(view.getContext());
+        orderActivity.getOrderFragment().cardInputOrderViewHolder.cardInputOrder.setVisibility(View.GONE);
+        orderActivity.getOrderFragment().cardInputShipmentViewHolder.cardDetailOrder.setVisibility(View.VISIBLE);
+        orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaDepanPenerima.requestFocus();
+        if (!orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaDepanPenerima.getText().toString().isEmpty())
+            ((OrderActivity)view.getContext()).showSoftKeyboard();
+    }
+
     private void showSoftKeyboard(boolean state){
         if (state){
             ((OrderActivity)view.getContext()).showSoftKeyboard();
@@ -130,7 +142,6 @@ public class OrderFragment extends Fragment implements OrderView{
     }
 
     private void showPostOrder(){
-        presenter.presentState(ViewState.IDLE);
         presenter.presentState(ViewState.POST_ORDER);
     }
 
@@ -201,15 +212,8 @@ public class OrderFragment extends Fragment implements OrderView{
 
         @OnClick(R.id.btn_detail_penerima)
         public void OnBtnDetailPenerimaClick(View view){
-            cardInputOrder.setVisibility(View.GONE);
-            OrderActivity orderActivity = (OrderActivity) view.getContext();
-            orderActivity.getOrderFragment().presenter.presentState(ViewState.LOADING);
-            orderActivity.getOrderFragment().cardInputShipmentViewHolder.loadUserInfo(view.getContext());
-            orderActivity.getOrderFragment().presenter.presentState(ViewState.IDLE);
-            orderActivity.getOrderFragment().cardInputShipmentViewHolder.cardDetailOrder.setVisibility(View.VISIBLE);
-            orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaDepanPenerima.requestFocus();
-            if (!orderActivity.getOrderFragment().cardInputShipmentViewHolder.namaDepanPenerima.getText().toString().isEmpty())
-                ((OrderActivity)view.getContext()).showSoftKeyboard();
+            presenter.presentState(ViewState.LOAD_STOCK);
+            presenter.presentState(ViewState.LOAD_USER);
         }
 
         public CardInputOrderViewHolder(View view){
@@ -257,17 +261,24 @@ public class OrderFragment extends Fragment implements OrderView{
             if (checkBlankOrderForm(namaDepanPenerima) && checkBlankOrderForm(namaBelakangPenerima) &&
                     checkBlankOrderForm(nomorHandphone) && checkBlankOrderForm(alamatPengiriman)
                     && checkBlankOrderForm(email)){
-//                GetOrderDetailResponseModel.GetOrderDetailResponseData model = new GetOrderDetailResponseModel().new GetOrderDetailResponseData();
-                cardDetailOrder.setVisibility(View.GONE);
-                orderActivity.getOrderFragment().cardInputOrderViewHolder.cardInputOrder.setVisibility(View.GONE);
-                orderActivity.getOrderFragment().presenter.presentState(ViewState.LOADING);
                 try{
-                    saveUserInfo();
+                    cardDetailOrder.setVisibility(View.GONE);
+                    orderActivity.getOrderFragment().cardInputOrderViewHolder.cardInputOrder.setVisibility(View.GONE);
+
+                    model.getUserModel().setUserFirstName(namaDepanPenerima.getText().toString());
+                    model.getUserModel().setUserLastName(namaBelakangPenerima.getText().toString());
+                    model.getUserModel().setUserPhone(nomorHandphone.getText().toString());
+                    model.getUserModel().setUserEmail(email.getText().toString());
+                    model.getUserModel().setUserAddress(alamatPengiriman.getText().toString());
+                    model.getUserModel().setUserCity(kotaPenerima.getSelectedItem().toString());
+
+                    presenter.presentState(ViewState.SAVE_USER_INFO);
+
                     model.getPostOrderModel().setOrderQuantity(cardInputOrderViewHolder.orderAmount.getText().toString());
                     presenter.presentState(ViewState.POST_ORDER);
                 }
                 catch (Exception e){
-                    orderActivity.getOrderFragment().presenter.presentState(ViewState.IDLE);
+                    presenter.presentState(ViewState.IDLE);
                     Crashlytics.logException(e);
                 }
             }
@@ -350,13 +361,6 @@ public class OrderFragment extends Fragment implements OrderView{
 
         public void loadUserInfo(Context context){
             try{
-                model.getUserModel().setUserFirstName(PreferencesManager.getAsString(context, PreferencesManager.FIRST_NAME));
-                model.getUserModel().setUserLastName(PreferencesManager.getAsString(context, PreferencesManager.LAST_NAME));
-                model.getUserModel().setUserPhone(PreferencesManager.getAsString(context, PreferencesManager.HANDPHONE));
-                model.getUserModel().setUserEmail(PreferencesManager.getAsString(context, PreferencesManager.EMAIL));
-                model.getUserModel().setUserAddress(PreferencesManager.getAsString(context, PreferencesManager.ADDRESS));
-                model.getUserModel().setUserCity(PreferencesManager.getAsString(context, PreferencesManager.CITY));
-
                 namaDepanPenerima.setText(model.getUserModel().getUserFirstName());
                 namaBelakangPenerima.setText(model.getUserModel().getUserLastName());
                 nomorHandphone.setText(model.getUserModel().getUserPhone());
@@ -373,16 +377,6 @@ public class OrderFragment extends Fragment implements OrderView{
             }
         }
 
-        public void saveUserInfo(){
-            model.getUserModel().setUserFirstName(namaDepanPenerima.getText().toString());
-            model.getUserModel().setUserLastName(namaBelakangPenerima.getText().toString());
-            model.getUserModel().setUserPhone(nomorHandphone.getText().toString());
-            model.getUserModel().setUserEmail(email.getText().toString());
-            model.getUserModel().setUserAddress(alamatPengiriman.getText().toString());
-            model.getUserModel().setUserCity(kotaPenerima.getSelectedItem().toString());
-
-            presenter.presentState(ViewState.SHOW_USER_INFO);
-        }
     }
 
     public class CardOrderResumeViewHolder{

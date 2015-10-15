@@ -85,22 +85,21 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
 
         @OnClick(R.id.order_item_view_holder)
         public void OnOrderItemClick(View view){
-            if (orderStatus.equalsIgnoreCase("order_processed")){
+            model.getOrderDetailModel().setOrderId(Integer.parseInt(orderId));
+            model.getOrderDetailModel().setStockId(Integer.parseInt(stockId));
+            model.setTotalPayment(totalPayment);
 
+            presenter.presentState(HistoryOrderView.ViewState.LOADING);
+            if (orderStatus.equalsIgnoreCase("order_processed")){
                 Context context = view.getContext();
-                ((HistoryOrderActivity)context).showLoadingBar();
-//                ((HistoryOrderActivity)context).retrievePaymentDetail(orderId, stockId, totalPayment);
-                presenter.presentState(HistoryOrderView.ViewState.SHOW_DETAIL_ORDER);
+                presenter.presentState(HistoryOrderView.ViewState.LOAD_STOCK);
             }
             else if (orderStatus.equalsIgnoreCase("order_paid")){
                 Context context = view.getContext();
-                ((HistoryOrderActivity)context).showLoadingBar();
-//                ((HistoryOrderActivity)context).retrieveOrderDetail(orderId, totalPayment);
-                presenter.presentState(HistoryOrderView.ViewState.LOAD_ORDERS);
+                presenter.presentState(HistoryOrderView.ViewState.SHOW_DETAIL_ORDER);
             }
             else if (orderStatus.equalsIgnoreCase("order_verified")){
                 Context context = view.getContext();
-                ((HistoryOrderActivity)context).showLoadingBar();
                 presenter.presentState(HistoryOrderView.ViewState.SHOW_FINISH_DIALOG);
             }
         }

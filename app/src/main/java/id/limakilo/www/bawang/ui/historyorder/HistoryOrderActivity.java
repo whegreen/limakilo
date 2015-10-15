@@ -6,7 +6,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,7 +18,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
 
     @Nullable
     @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
-    @Bind(R.id.loading_bar) View loadingBar;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,8 @@ public class HistoryOrderActivity extends AppCompatActivity {
         setContentView(id.limakilo.www.bawang.R.layout.activity_history_order);
         ButterKnife.bind(this);
 
-        setSupportActionBar((Toolbar) findViewById(id.limakilo.www.bawang.R.id.toolbar));
+//        setSupportActionBar((Toolbar) findViewById(id.limakilo.www.bawang.R.id.toolbar));
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String itemTitle = "Pesanan";
@@ -46,11 +46,11 @@ public class HistoryOrderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void showLoadingBar(){
-        loadingBar.setVisibility(View.VISIBLE);
-    }
-    public void hideLoadingBar(){
-        loadingBar.setVisibility(View.GONE);
-    }
+//    public void showLoadingBar(){
+//        loadingBar.setVisibility(View.VISIBLE);
+//    }
+//    public void hideLoadingBar(){
+//        loadingBar.setVisibility(View.GONE);
+//    }
 
 }
