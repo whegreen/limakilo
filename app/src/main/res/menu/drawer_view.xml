@@ -19,15 +19,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_dashboard"
+            android:icon="@drawable/ic_history_state"
             android:title="Riwayat Pemesanan" />
-        <item
-            android:id="@+id/nav_messages"
-            android:icon="@drawable/ic_forum"
-            android:title="Riwayat Grosir" />
+        <!--<item-->
+            <!--android:id="@+id/nav_messages"-->
+            <!--android:icon="@drawable/ic_history_state"-->
+            <!--android:title="Riwayat Grosir" />-->
         <item
             android:id="@+id/nav_feedback"
-            android:icon="@drawable/ic_forum"
+            android:icon="@drawable/ic_question_state"
             android:title="Tanya Kami" />
     </group>
 

@@ -22,7 +22,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -178,10 +177,10 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 }, 300L);
                                 break;
-                            case id.limakilo.www.bawang.R.id.nav_messages:
-                                Snackbar.make(findViewById(id.limakilo.www.bawang.R.id.drawer_layout), "fitur ini sedang dikembangkan",
-                                        Snackbar.LENGTH_LONG).show();
-                                break;
+//                            case id.limakilo.www.bawang.R.id.nav_messages:
+//                                Snackbar.make(findViewById(id.limakilo.www.bawang.R.id.drawer_layout), "fitur ini sedang dikembangkan",
+//                                        Snackbar.LENGTH_LONG).show();
+//                                break;
                             case id.limakilo.www.bawang.R.id.nav_feedback:
                                 MainActivity.this.showLoadingBar();
                                 handler.postDelayed(new Runnable() {
