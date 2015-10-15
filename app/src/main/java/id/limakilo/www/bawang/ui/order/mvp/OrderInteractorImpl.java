@@ -5,6 +5,7 @@ import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.order.PostOrderConfirmResponseModel;
 import id.limakilo.www.bawang.util.api.order.PostOrderResponseModel;
 import id.limakilo.www.bawang.util.api.stock.GetStockDetailResponseModel;
+import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
 import id.limakilo.www.bawang.util.api.user.PutUserResponseModel;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -94,18 +95,31 @@ public class OrderInteractorImpl implements OrderInteractor {
     public void callAPIGetStockDetails(String authentification, String stockId){
         final APICallManager.APIRoute route = APICallManager.APIRoute.GETSTOCK;
         APICallManager.getInstance(authentification).getStocks(
-//                stockModel.getStockId().toString(),
                 stockId,
                 new Callback<GetStockDetailResponseModel>() {
                     @Override
                     public void success(GetStockDetailResponseModel getStockDetailResponseModel, Response response) {
-//                        stockModel = getStockDetailResponseModel.getData().get(0);
                         listener.onAPICallSucceed(route, getStockDetailResponseModel);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-//                        Crashlytics.logException(error);
+                        listener.onAPICallFailed(route, error);
+                    }
+                });
+    }
+
+    @Override
+    public void callAPIGetUser(String authentification) {
+        final APICallManager.APIRoute route = APICallManager.APIRoute.GETUSER;
+        APICallManager.getInstance(authentification).getUsers(
+                new Callback<GetUserResponseModel>() {
+                    @Override
+                    public void success(GetUserResponseModel getUserResponseModel, Response response) {
+                        listener.onAPICallSucceed(route, getUserResponseModel);
+                    }
+                    @Override
+                    public void failure(RetrofitError error) {
                         listener.onAPICallFailed(route, error);
                     }
                 });

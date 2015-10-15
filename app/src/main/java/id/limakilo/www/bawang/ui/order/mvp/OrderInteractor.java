@@ -12,4 +12,6 @@ public interface OrderInteractor {
     void callAPIPutUser(String authentification, String address, String phone, String email, String city);
 
     void callAPIGetStockDetails(String authentification, String stockId);
+
+    void callAPIGetUser(String authentification);
 }
