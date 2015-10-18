@@ -94,6 +94,9 @@ public class OrderPresenterImpl implements OrderPresenter, APICallListener {
                         user.getUserCity()
                 );
                 break;
+            case SHOW_API_ERROR:
+                view.showState(OrderView.ViewState.SHOW_API_ERROR);
+                break;
             default:
                 break;
         }
@@ -165,13 +168,13 @@ public class OrderPresenterImpl implements OrderPresenter, APICallListener {
         if (endPoint == APICallManager.APIRoute.CONFIRMORDER) {
             presentState(OrderView.ViewState.ERROR_CONFIRM_ORDER);
         } else if (endPoint == APICallManager.APIRoute.POSTORDER) {
-
+            presentState(OrderView.ViewState.SHOW_API_ERROR);
         } else if (endPoint == APICallManager.APIRoute.PUTUSER) {
-
+            presentState(OrderView.ViewState.SHOW_API_ERROR);
         } else if (endPoint == APICallManager.APIRoute.GETSTOCK) {
-
+            presentState(OrderView.ViewState.SHOW_API_ERROR);
         } else if (endPoint == APICallManager.APIRoute.GETUSER) {
-
+            presentState(OrderView.ViewState.SHOW_API_ERROR);
         }
     }
 }

@@ -1,6 +1,7 @@
 package id.limakilo.www.bawang.ui.historyorder;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -81,6 +82,7 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
         @Bind(R.id.order_list_status)TextView mTextView2;
         @Bind(R.id.order_list_pembayaran)TextView mTextView3;
         @Bind(R.id.order_list_seller)TextView mTextView4;
+        @Bind(R.id.order_list_tanggal_pesan)TextView mTextView5;
         @Bind(R.id.order_item_view_holder) View mView;
 
         @OnClick(R.id.order_item_view_holder)
@@ -102,6 +104,12 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
                 Context context = view.getContext();
                 presenter.presentState(HistoryOrderView.ViewState.SHOW_FINISH_DIALOG);
             }
+            else if (orderStatus.equalsIgnoreCase("order_shipment")){
+
+            }
+            else if (orderStatus.equalsIgnoreCase("order_discard")){
+
+            }
         }
 
         public OrderItemViewHolder(View itemView) {
@@ -116,9 +124,20 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
 
             String status = "dalam pengiriman";
             if (item.getOrderStatus().toString().equalsIgnoreCase("order_processed")){
-                status = "belum transfer";
+                status = "pesanan diproses";
+//                mTextView2.setTextColor(Color.parseColor("#808080"));
             } else if (item.getOrderStatus().toString().equalsIgnoreCase("order_paid")){
-                status = "transfer diproses";
+                status = "konfirmasi pembayaran";
+                mTextView2.setTextColor(Color.parseColor("#B94F76"));
+            } else if (item.getOrderStatus().toString().equalsIgnoreCase("order_verified")){
+                status = "verifikasi pembayaran";
+                mTextView2.setTextColor(Color.parseColor("#B3D994"));
+            } else if (item.getOrderStatus().toString().equalsIgnoreCase("order_shipment")){
+                status = "pesanan dikirim";
+                mTextView2.setTextColor(Color.parseColor("#00FF00"));
+            } else if (item.getOrderStatus().toString().equalsIgnoreCase("order_discard")){
+                status = "pesanan dibatalkan";
+                mTextView2.setTextColor(Color.parseColor("#808080"));
             }
 
             mTextView2.setText(status);
@@ -128,7 +147,7 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
                 shipmentCost = Integer.valueOf(item.getOrderShipmentCost());
             }
             Double harga = ((Double.valueOf(item.getStockPrice())*item.getStockQuantity())*Double.parseDouble(item.getOrderQuantity()))
-                    +Float.valueOf(item.getOrderPaymentCode())
+                    + Float.valueOf(item.getOrderPaymentCode())
                     +shipmentCost;
 
             totalPayment = TextFormatter.decimalFormat(harga);
@@ -136,6 +155,10 @@ public class HistoryOrderRecyclerViewAdapter extends RecyclerView.Adapter<Histor
 
             mTextView3.setText("Rp. "+totalPayment+",-");
             mTextView4.setText(item.getSellerName().toString());
+
+            String[] timestamp = item.getOrderDate().toString().split("T");
+//            mTextView5.setText(timestamp[0] + " " + timestamp[1].substring(0, 5));
+            mTextView5.setText(timestamp[0]);
 
             orderId = item.getOrderId().toString();
             stockId = item.getStockId().toString();

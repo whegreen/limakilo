@@ -3,14 +3,18 @@ package id.limakilo.www.bawang.ui.order;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 
 import butterknife.Bind;
@@ -43,6 +47,29 @@ public class OrderActivity extends AppCompatActivity {
     @Bind(R.id.backdrop) ImageView backdrop;
 //    @Bind(R.id.fab) FloatingActionButton fab;
     @Bind(R.id.loading_bar) View loadingView;
+
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
+
+    private boolean wrapInScrollView = true;
+    private MaterialDialog faq;
+
+    @OnClick(R.id.fab)
+    public void OnClickFab(){
+        final View loadingBar = faq.getCustomView().findViewById(R.id.loading_bar);
+        final WebView webView = ((WebView)faq.getCustomView().findViewById(R.id.webview));
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://limakilo.id/faq");
+        webView.setWebViewClient(new WebViewClient() {
+
+            public void onPageFinished(WebView view, String url) {
+                // do your stuff here
+                webView.setVisibility(View.VISIBLE);
+                loadingBar.setVisibility(View.GONE);
+            }
+        });
+        faq.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +108,17 @@ public class OrderActivity extends AppCompatActivity {
                 .fitCenter()
                 .into(backdrop);
 
+        faq =  new MaterialDialog.Builder(this)
+                .customView(R.layout.fragment_webview, wrapInScrollView)
+                .positiveText("Tutup")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        super.onPositive(dialog);
+                        dialog.hide();
+                    }
+                })
+                .build();
     }
 
 //    @OnClick(R.id.fab)

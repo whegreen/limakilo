@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
@@ -26,6 +26,7 @@ import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderPresenterImpl;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderView;
 import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
+import io.supportkit.ui.ConversationActivity;
 
 /**
  * Created by walesadanto on 1/9/15.
@@ -40,6 +41,7 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
     MaterialDialog finishOrderDialog;
 
     private HistoryOrderModel model;
+    private View view;
 
     @Bind(R.id.loading_bar) View loadingView;
     @Bind(R.id.blank_state) View blankStateView;
@@ -55,7 +57,7 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(id.limakilo.www.bawang.R.layout.fragment_history_order_list, container, false);
+        view = inflater.inflate(id.limakilo.www.bawang.R.layout.fragment_history_order_list, container, false);
         ButterKnife.bind(this, view);
 
         presenter = new HistoryOrderPresenterImpl(this);
@@ -173,7 +175,7 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                 showBlankState();
                 break;
             case API_ERROR:
-//                showAPIError();
+                showAPIError();
                 showErrorState();
                 break;
             case SHOW_DETAIL_ORDER:
@@ -241,7 +243,17 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
 //    }
 
     private void showAPIError(){
-        Toast.makeText(getActivity(), "failed to get data", Toast.LENGTH_SHORT).show();
+        Snackbar.make(recyclerView, "Server kami bermasalah...", Snackbar.LENGTH_LONG)
+                .setAction("Lapor", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showSupportKit();
+                    }
+                }).show();
+    }
+
+    public void showSupportKit(){
+        ConversationActivity.show(getActivity());
     }
 
     @Override

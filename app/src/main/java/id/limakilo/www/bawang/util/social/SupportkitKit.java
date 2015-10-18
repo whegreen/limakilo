@@ -34,12 +34,8 @@ public class SupportkitKit {
             skUser.setFirstName(firstName);
         }
 
-        if (firstName != null){
-            skUser.setFirstName(lastName);
-        }
-
-        if (handphone != null){
-            skUser.setFirstName(lastName);
+        if (lastName != null){
+            skUser.setLastName(lastName);
         }
 
         skUser.setEmail(handphone);

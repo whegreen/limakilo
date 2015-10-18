@@ -19,6 +19,7 @@ import com.digits.sdk.android.DigitsAuthButton;
 import com.digits.sdk.android.DigitsSession;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -165,6 +166,7 @@ public class LoginFragment extends Fragment implements LoginView {
             presenter.presentState(ViewState.LOGGING_IN);
         }
         else {
+            LoginManager.getInstance().logOut();
             presenter.presentState(ViewState.IDLE);
         }
     }

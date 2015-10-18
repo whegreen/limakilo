@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
+    android:layout_marginTop="12dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="id.limakilo.www.bawang.ui.order.OrderFragment">
 
@@ -13,10 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right|top"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
@@ -36,24 +39,24 @@
                     android:orientation="vertical">
 
                     <!--<TextView-->
-                        <!--android:id="@+id/amount_title"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:paddingLeft="16dp"-->
-                        <!--android:paddingTop="16dp"-->
-                        <!--android:text="Jumlah yang dibayarkan"-->
-                        <!--android:textColor="?attr/colorPrimaryDark" />-->
+                    <!--android:id="@+id/amount_title"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingLeft="16dp"-->
+                    <!--android:paddingTop="16dp"-->
+                    <!--android:text="Jumlah yang dibayarkan"-->
+                    <!--android:textColor="?attr/colorPrimaryDark" />-->
 
                     <!--<LinearLayout-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginBottom="16dp"-->
-                        <!--android:layout_marginLeft="16dp"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingBottom="16dp"-->
-                        <!--android:paddingLeft="16dp"-->
-                        <!--android:paddingTop="16dp"-->
-                        <!--android:textColor="?attr/colorAccent">-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="16dp"-->
+                    <!--android:layout_marginLeft="16dp"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:paddingBottom="16dp"-->
+                    <!--android:paddingLeft="16dp"-->
+                    <!--android:paddingTop="16dp"-->
+                    <!--android:textColor="?attr/colorAccent">-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -714,7 +717,7 @@
                         android:background="@drawable/rounded_green"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Pembayaran"
+                        android:text="Konfirmasi Pembayaran"
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>
@@ -723,19 +726,20 @@
 
         </LinearLayout>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:id="@+id/loading_bar"
-                android:visibility="gone"
-                android:layout_gravity="center">
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/progressBar"
-                    android:layout_gravity="center" />
-            </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:id="@+id/loading_bar"
+            android:visibility="visible"
+            android:layout_gravity="center">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center" />
+        </FrameLayout>
     </FrameLayout>
 
 </android.support.v4.widget.NestedScrollView>

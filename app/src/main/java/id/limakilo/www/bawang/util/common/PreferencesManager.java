@@ -50,6 +50,21 @@ public class PreferencesManager {
         return editor.commit();
     }
 
+    public static boolean removeString(Context context, String key) {
+        if (context == null || key == null || key.isEmpty()) {
+            return false;
+        }
+
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        if (!prefs.contains(key)) {
+            return false;
+        }
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(key);
+        return editor.commit();
+    }
+
     public static String getAsString(Context context, String key){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(key, null);

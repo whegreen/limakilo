@@ -52,6 +52,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.HistoryOrderActivity;
+import id.limakilo.www.bawang.ui.login.LoginActivity;
 import id.limakilo.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import id.limakilo.www.bawang.ui.main.stockfragment.StockFragment;
 import id.limakilo.www.bawang.util.api.APICallManager;
@@ -188,6 +189,20 @@ public class MainActivity extends AppCompatActivity {
                                         handler.removeCallbacks(this);
                                         ConversationActivity.show(MainActivity.this);
                                         MainActivity.this.hideLoadingBar();
+                                    }
+                                }, 300L);
+                                break;
+                            case R.id.nav_logout:
+                                MainActivity.this.showLoadingBar();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        handler.removeCallbacks(this);
+                                        PreferencesManager.removeString(context, PreferencesManager.AUTH_TOKEN);
+                                        Intent intent1 = new Intent(context, LoginActivity.class);
+                                        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        context.startActivity(intent1);
+                                        MainActivity.this.hideLoadingBar();
+
                                     }
                                 }, 300L);
                                 break;

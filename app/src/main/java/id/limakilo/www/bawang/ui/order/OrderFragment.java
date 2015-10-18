@@ -39,6 +39,7 @@ import id.limakilo.www.bawang.util.api.stock.GetStockDetailResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
 import id.limakilo.www.bawang.util.common.TextFormatter;
 import id.limakilo.www.bawang.util.widget.CustomNumberPicker;
+import io.supportkit.ui.ConversationActivity;
 
 /**
  * Created by walesadanto on 30/8/15.
@@ -109,6 +110,9 @@ public class OrderFragment extends Fragment implements OrderView{
             case ERROR_CONFIRM_ORDER:
                 showReconfirmOrder();
                 break;
+            case SHOW_API_ERROR:
+                showAPIError();
+                break;
             case TOGGLE_KEYBOARD:
                 if (isKeyboardShown){
                     showSoftKeyboard(false);
@@ -119,6 +123,20 @@ public class OrderFragment extends Fragment implements OrderView{
             default:
                 break;
         }
+    }
+
+    private void showAPIError(){
+        Snackbar.make(view, "Server kami bermasalah...", Snackbar.LENGTH_LONG)
+                .setAction("Lapor", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showSupportKit();
+                    }
+                }).show();
+    }
+
+    public void showSupportKit(){
+        ConversationActivity.show(getActivity());
     }
 
     private void showDetailOrder(){
@@ -437,9 +455,24 @@ public class OrderFragment extends Fragment implements OrderView{
                 model.getPostOrderModel().setOrderAmount(String.valueOf(totalTransfer.intValue()));
 
                 orderAmount.setText("Rp. "+formattedTotal + ",-");
-                orderStatus.setText(order.getOrderStatus().toString());
 
-                ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_total_payment)).setText("Rp. " +formattedTotal+",-");
+                String status = "dalam pengiriman";
+
+                if (order.getOrderStatus().toString().equalsIgnoreCase("order_processed")){
+                    status = "pesanan diproses";
+                } else if (order.getOrderStatus().toString().equalsIgnoreCase("order_paid")){
+                    status = "konfirmasi pembayaran";
+                } else if (order.getOrderStatus().toString().equalsIgnoreCase("order_verified")){
+                    status = "verifikasi pembayaran";
+                } else if (order.getOrderStatus().toString().equalsIgnoreCase("order_shipment")){
+                    status = "pesanan dikirim";
+                } else if (order.getOrderStatus().toString().equalsIgnoreCase("order_discard")){
+                    status = "pesanan dibatalkan";
+                }
+
+                orderStatus.setText(status);
+
+                ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_total_payment)).setText("Rp. " + formattedTotal + ",-");
                 ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_nama_rekening)).setText(stock.getSellerBankAccountName().toString());
                 ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_bank_rekening)).setText(stock.getSellerBankName().toString());
                 ((TextView)confirmDialog.getCustomView().findViewById(R.id.dialog_nomor_rekening)).setText(stock.getSellerBankAccount().toString());

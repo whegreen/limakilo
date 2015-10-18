@@ -9,10 +9,29 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="id.limakilo.www.bawang.ui.webview.WebViewFragment">
 
-    <WebView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webview">
-    </WebView>
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:id="@+id/loading_bar"
+            android:layout_gravity="center"
+            android:visibility="visible">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/webview"
+            android:visibility="gone">
+        </WebView>
+    </FrameLayout>
 
 </android.support.v4.widget.NestedScrollView>

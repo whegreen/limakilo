@@ -29,6 +29,10 @@
             android:id="@+id/nav_feedback"
             android:icon="@drawable/ic_question_state"
             android:title="Tanya Kami" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_power_settings_state"
+            android:title="Keluar" />
     </group>
 
     <!--<item android:title="Sub items">-->

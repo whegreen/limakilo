@@ -45,8 +45,8 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
                 );
                 break;
             case LOAD_ORDERS:
-                view.showState(HistoryOrderView.ViewState.LOADING);
                 interactor.callAPIGetOrders(view.doRetrieveAuthentification());
+                view.showState(HistoryOrderView.ViewState.LOADING);
                 break;
             case LOAD_STOCK:
                 interactor.callAPIStockDetail(
@@ -67,7 +67,6 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
                 view.showState(HistoryOrderView.ViewState.SHOW_FINISH_DIALOG);
                 break;
             case API_ERROR:
-                presentState(HistoryOrderView.ViewState.IDLE);
                 view.showState(HistoryOrderView.ViewState.API_ERROR);
                 break;
             case BLANK_STATE:
@@ -93,7 +92,7 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
                 Collections.sort(view.doRetrieveModel().getOrderList(), new Comparator<GetOrderResponseModel.GetOrderResponseData>() {
                     @Override
                     public int compare(GetOrderResponseModel.GetOrderResponseData lhs, GetOrderResponseModel.GetOrderResponseData rhs) {
-                        return lhs.getOrderDate().compareTo(rhs.getOrderDate());
+                        return rhs.getOrderDate().compareTo(lhs.getOrderDate());
                     }
                 });
                 presentState(HistoryOrderView.ViewState.SHOW_ORDERS);
@@ -117,11 +116,11 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
         if (endPoint == APICallManager.APIRoute.GETORDERS){
             presentState(HistoryOrderView.ViewState.API_ERROR);
         } else if (endPoint == APICallManager.APIRoute.GETORDER){
-
+            presentState(HistoryOrderView.ViewState.API_ERROR);
         }else if (endPoint == APICallManager.APIRoute.GETSTOCK){
-
+            presentState(HistoryOrderView.ViewState.API_ERROR);
         }else if (endPoint == APICallManager.APIRoute.CONFIRMORDER){
-
+            presentState(HistoryOrderView.ViewState.API_ERROR);
         }
     }
 
