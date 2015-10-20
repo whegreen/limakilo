@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.nav_username) TextView navUsername;
     @Bind(R.id.nav_email) TextView navEmail;
     @Bind(R.id.avatar_navheader) ImageView avatar;
+    @Bind(R.id.cover_navheader) ImageView cover;
     @Bind(R.id.loading_bar) View loadingView;
 
     @Override
@@ -110,11 +111,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         initNavigationProfile();
-
-        Glide.with(getBaseContext())
-                .load(id.limakilo.www.bawang.R.drawable.avatar_onion)
-                .fitCenter()
-                .into(avatar);
 
         SupportkitKit supportkitKit = new SupportkitKit();
         supportkitKit.setupUser(this);
@@ -253,12 +249,37 @@ public class MainActivity extends AppCompatActivity {
         final String email = PreferencesManager.getAsString(this, PreferencesManager.EMAIL);
         String name = PreferencesManager.getAsString(this, PreferencesManager.FIRST_NAME)+" "+PreferencesManager.getAsString(this, PreferencesManager.LAST_NAME);
 
+        String avatarUrl = PreferencesManager.getAsString(this, PreferencesManager.AVATAR_URL);
+        String coverUrl = PreferencesManager.getAsString(this, PreferencesManager.COVER_URL);
+
         if (name != null){
             try{
                 navUsername.setText(name);
                 navEmail.setText(email);
             }
             catch (Exception e){
+                Crashlytics.logException(e);
+            }
+        }
+
+        if (avatarUrl != null && !avatarUrl.equals("")){
+            try{
+                Glide.with(getBaseContext())
+                        .load(avatarUrl)
+                        .fitCenter()
+                        .into(avatar);
+                if (coverUrl != null && !coverUrl.equals("")){
+                    Glide.with(getBaseContext())
+                            .load(coverUrl)
+                            .centerCrop()
+                            .into(cover);
+                }
+            }
+            catch (Exception e){
+                Glide.with(getBaseContext())
+                        .load(id.limakilo.www.bawang.R.drawable.avatar_onion)
+                        .fitCenter()
+                        .into(avatar);
                 Crashlytics.logException(e);
             }
         }

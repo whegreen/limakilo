@@ -45,7 +45,7 @@ import io.supportkit.ui.ConversationActivity;
  * Created by walesadanto on 30/8/15.
  */
 
-public class OrderFragment extends Fragment implements OrderView{
+public class OrderFragment extends Fragment implements OrderView {
 
     private static final String TAG = "OrderFragment";
     private View view;
@@ -135,7 +135,7 @@ public class OrderFragment extends Fragment implements OrderView{
                 }).show();
     }
 
-    public void showSupportKit(){
+    public void showSupportKit() {
         ConversationActivity.show(getActivity());
     }
 
@@ -159,7 +159,7 @@ public class OrderFragment extends Fragment implements OrderView{
         isKeyboardShown = !state;
     }
 
-    private void showPostOrder(){
+    private void showPostOrder() {
         presenter.presentState(ViewState.POST_ORDER);
     }
 
@@ -385,16 +385,31 @@ public class OrderFragment extends Fragment implements OrderView{
                 email.setText(model.getUserModel().getUserEmail());
                 alamatPengiriman.setText(model.getUserModel().getUserAddress());
 
-                if ("Bandung".equalsIgnoreCase(model.getUserModel().getUserCity()))
+                if ("Jakarta".equalsIgnoreCase(model.getUserModel().getUserCity()))
+                {
+                    kotaPenerima.setSelection(0, true);
+                }
+                else if ("Depok".equalsIgnoreCase(model.getUserModel().getUserCity()))
                 {
                     kotaPenerima.setSelection(1, true);
+                }
+                else if ("Tangerang".equalsIgnoreCase(model.getUserModel().getUserCity()))
+                {
+                    kotaPenerima.setSelection(2, true);
+                }
+                else if ("Bekasi".equalsIgnoreCase(model.getUserModel().getUserCity()))
+                {
+                    kotaPenerima.setSelection(3, true);
+                }
+                else if ("Bandung".equalsIgnoreCase(model.getUserModel().getUserCity()))
+                {
+                    kotaPenerima.setSelection(4, true);
                 }
             }
             catch (Exception e){
                 Crashlytics.logException(e);
             }
         }
-
     }
 
     public class CardOrderResumeViewHolder{
@@ -565,6 +580,7 @@ public class OrderFragment extends Fragment implements OrderView{
                 .build();
 
         model.setStockDetailModel(((OrderActivity)getActivity()).getStockModel());
+
         return view;
     }
 

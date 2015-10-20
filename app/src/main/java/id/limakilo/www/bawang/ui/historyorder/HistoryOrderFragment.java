@@ -1,10 +1,10 @@
 package id.limakilo.www.bawang.ui.historyorder;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,21 +24,21 @@ import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderModel;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderPresenter;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderPresenterImpl;
 import id.limakilo.www.bawang.ui.historyorder.mvp.HistoryOrderView;
-import id.limakilo.www.bawang.ui.main.MainActivity;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
 import io.supportkit.ui.ConversationActivity;
 
 /**
  * Created by walesadanto on 1/9/15.
  */
-public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
+public class HistoryOrderFragment extends Fragment implements HistoryOrderView, SwipeRefreshLayout.OnRefreshListener {
 
     private HistoryOrderPresenter presenter;
-//    private MaterialDialog confirmDialog;
 
     MaterialDialog detailOrderDialog;
     MaterialDialog confirmPaymentDialog;
     MaterialDialog finishOrderDialog;
+    MaterialDialog shipmentOrderDialog;
+    MaterialDialog discardOrderDialog;
 
     private HistoryOrderModel model;
     private View view;
@@ -48,7 +48,7 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
     @Bind(R.id.error_state) View errorStateView;
     @Bind(R.id.btn_error_refresh) Button buttonErrorRefresh;
     @Bind(R.id.recyclerview) RecyclerView recyclerView;
-
+    @Bind(R.id.swipe_container) SwipeRefreshLayout swipeView;
 
     @OnClick(R.id.btn_error_refresh)
     public void OnClickButtonErrorRefresh(){
@@ -125,21 +125,35 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                     public void onPositive(MaterialDialog dialog) {
                         super.onPositive(dialog);
                         dialog.hide();
-//                        ((HistoryOrderActivity)getActivity()).showLoadingBar();
-                        presenter.presentState(ViewState.LOADING);
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                getActivity().getApplicationContext().startActivity(intent);
-                                presenter.presentState(ViewState.IDLE);
-                                handler.removeCallbacks(this);
-                                (getActivity()).finish();
-                            }
-                        }, 300L);
+                        presenter.presentState(ViewState.LOAD_ORDERS);
                     }
                 }).build();
+
+        shipmentOrderDialog= new MaterialDialog.Builder(getActivity())
+                .content("Pesanan dalam proses pengiriman")
+                .positiveText("ok")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        super.onPositive(dialog);
+                        dialog.hide();
+                    }
+                }).build();
+
+        discardOrderDialog = new MaterialDialog.Builder(getActivity())
+                .content("Pesanan telah dibatalkan")
+                .positiveText("ok")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        super.onPositive(dialog);
+                        dialog.hide();
+                    }
+                }).build();
+
+
+        swipeView.setOnRefreshListener(this);
+        swipeView.setColorSchemeColors(R.color.color_primary_dark, R.color.color_primary, R.color.color_accent);
 
         return view;
     }
@@ -168,7 +182,6 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                 break;
             case SHOW_ORDERS:
                 setupOrderRecyclerView();
-//                showLoadingState(false);
                 showIdleState();
                 break;
             case BLANK_STATE:
@@ -187,12 +200,16 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
             case SHOW_FINISH_DIALOG:
                 finishOrderDialog.show();
                 break;
+            case SHOW_SHIPMENT_DIALOG:
+                shipmentOrderDialog.show();
+                break;
+            case SHOW_DISCARD_DIALOG:
+                discardOrderDialog.show();
+                break;
             case IDLE:
-//                showLoadingState(false);
                 showIdleState();
                 break;
             case LOADING:
-//                showLoadingState(true);
                 showLoadingView();
                 break;
             default:
@@ -227,6 +244,9 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
         errorStateView.setVisibility(View.GONE);
         blankStateView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        if (swipeView.isRefreshing()){
+            swipeView.setRefreshing(false);
+        }
     }
 
     @Override
@@ -287,7 +307,21 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
                         "Rp. "+model.decimalFormat(Double.valueOf(model.getOrderDetailModel().getOrderShipmentCost()))+",-"
                 );
                 ((TextView)dialogView.findViewById(R.id.dialog_total)).setText("Rp. "+model.getTotalPayment()+",-");
-                ((TextView)dialogView.findViewById(R.id.dialog_status_pesanan)).setText(model.getOrderDetailModel().getOrderStatus().toString());
+
+                String status = "dalam pengiriman";
+                if (model.getOrderDetailModel().getOrderStatus().toString().equalsIgnoreCase("order_processed")){
+                    status = "pesanan diproses";
+                } else if (model.getOrderDetailModel().getOrderStatus().toString().equalsIgnoreCase("order_paid")){
+                    status = "konfirmasi pembayaran";
+                } else if (model.getOrderDetailModel().getOrderStatus().toString().equalsIgnoreCase("order_verified")){
+                    status = "verifikasi pembayaran";
+                } else if (model.getOrderDetailModel().getOrderStatus().toString().equalsIgnoreCase("order_shipment")){
+                    status = "pesanan dikirim";
+                } else if (model.getOrderDetailModel().getOrderStatus().toString().equalsIgnoreCase("order_discard")){
+                    status = "pesanan dibatalkan";
+                }
+
+                ((TextView)dialogView.findViewById(R.id.dialog_status_pesanan)).setText(status);
 
                 detailOrderDialog.show();
 
@@ -328,5 +362,22 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView {
             lastName = "";
         }
         return firstName+" "+lastName;
+    }
+
+    @Override
+    public int doRetrieveColor(int color){
+        return getResources().getColor(color);
+    }
+
+
+    @Override
+    public void onRefresh() {
+        presenter.presentState(ViewState.LOAD_ORDERS);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override public void run() {
+//                swipeView.setRefreshing(false);
+//            }
+//        }, 5000);
+
     }
 }

@@ -6,76 +6,82 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="36dp"
-        android:visibility="gone"
-        />
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:visibility="visible"
-      android:id="@+id/loading_bar"
-      android:clickable="true">
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
-  </RelativeLayout>
-
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:visibility="gone"
-      android:id="@+id/blank_state"
-      android:clickable="true">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Anda belum pernah berbelanja di #limakilo,\nyuk bantu petani dengan belanja langsung ke mereka"
-        android:textColor="@color/color_primary"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
-  </RelativeLayout>
-
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:visibility="gone"
-      android:id="@+id/error_state"
-      android:clickable="true">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="50dp">
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="ups, ada masalah dengan sistem"
-          android:textColor="@color/color_primary"
-          android:layout_centerInParent="true"
-          />
-      <Button
-          android:id="@+id/btn_error_refresh"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
-          android:background="@drawable/rounded_green"
-          android:paddingLeft="10dp"
-          android:paddingRight="10dp"
-          android:text="Memuat Kembali"
-          android:textColor="#E9E9E9"
-          android:textSize="14sp" />
-    </LinearLayout>
+        android:visibility="visible"
+        android:id="@+id/loading_bar"
+        android:clickable="true">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="50dp" />
+    </RelativeLayout>
 
-  </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/blank_state"
+        android:clickable="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anda belum pernah berbelanja di #limakilo,\nyuk bantu petani dengan belanja langsung ke mereka"
+            android:textColor="@color/color_primary"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="50dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/error_state"
+        android:clickable="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:paddingTop="50dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ups, ada masalah dengan sistem"
+                android:textColor="@color/color_primary"
+                android:layout_centerInParent="true"
+                />
+            <Button
+                android:id="@+id/btn_error_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_green"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Memuat Kembali"
+                android:textColor="#E9E9E9"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

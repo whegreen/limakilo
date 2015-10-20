@@ -46,7 +46,7 @@ public class PreferencesManager {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(key, value.toLowerCase());
+        editor.putString(key, value);
         return editor.commit();
     }
 

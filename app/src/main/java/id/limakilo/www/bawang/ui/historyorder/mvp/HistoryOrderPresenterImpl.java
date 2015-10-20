@@ -1,5 +1,7 @@
 package id.limakilo.www.bawang.ui.historyorder.mvp;
 
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -66,6 +68,12 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
             case SHOW_FINISH_DIALOG:
                 view.showState(HistoryOrderView.ViewState.SHOW_FINISH_DIALOG);
                 break;
+            case SHOW_DISCARD_DIALOG:
+                view.showState(HistoryOrderView.ViewState.SHOW_DISCARD_DIALOG);
+                break;
+            case SHOW_SHIPMENT_DIALOG:
+                view.showState(HistoryOrderView.ViewState.SHOW_SHIPMENT_DIALOG);
+                break;
             case API_ERROR:
                 view.showState(HistoryOrderView.ViewState.API_ERROR);
                 break;
@@ -89,15 +97,20 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
                     }
                 }
                 view.doRetrieveModel().setOrderList(temp);
-                Collections.sort(view.doRetrieveModel().getOrderList(), new Comparator<GetOrderResponseModel.GetOrderResponseData>() {
-                    @Override
-                    public int compare(GetOrderResponseModel.GetOrderResponseData lhs, GetOrderResponseModel.GetOrderResponseData rhs) {
-                        return rhs.getOrderDate().compareTo(lhs.getOrderDate());
-                    }
-                });
-                presentState(HistoryOrderView.ViewState.SHOW_ORDERS);
+
+                if (temp.isEmpty()){
+                    presentState(HistoryOrderView.ViewState.BLANK_STATE);
+                }
+                else{
+                    Collections.sort(view.doRetrieveModel().getOrderList(), new Comparator<GetOrderResponseModel.GetOrderResponseData>() {
+                        @Override
+                        public int compare(GetOrderResponseModel.GetOrderResponseData lhs, GetOrderResponseModel.GetOrderResponseData rhs) {
+                            return rhs.getOrderDate().compareTo(lhs.getOrderDate());
+                        }
+                    });
+                    presentState(HistoryOrderView.ViewState.SHOW_ORDERS);
+                }
             } catch (Exception e){
-                presentState(HistoryOrderView.ViewState.BLANK_STATE);
             }
         } if (endPoint == APICallManager.APIRoute.GETORDER){
             view.doRetrieveModel().setOrderDetailModel(((GetOrderDetailResponseModel) responseModel).getData().get(0));
@@ -122,6 +135,11 @@ public class HistoryOrderPresenterImpl implements HistoryOrderPresenter, APICall
         }else if (endPoint == APICallManager.APIRoute.CONFIRMORDER){
             presentState(HistoryOrderView.ViewState.API_ERROR);
         }
+    }
+
+    @Override
+    public void doUpdateTextColor(TextView textView, int color){
+        textView.setTextColor(view.doRetrieveColor(color));
     }
 
 }

@@ -155,6 +155,9 @@ public class LoginPresenterImpl implements LoginPresenter, LoginListener, APICal
                         String id = "";
                         String lastName = "";
                         String email = "";
+                        String avatarUrl = "";
+                        String coverUrl = "";
+
                         try {
                             id = json.getString("id");
                             firstName = json.getString("first_name");
@@ -166,19 +169,28 @@ public class LoginPresenterImpl implements LoginPresenter, LoginListener, APICal
                             email = json.getString("email");
                             PreferencesManager.saveAsString(view.doGetActivity(), PreferencesManager.EMAIL, email);
 
+                            avatarUrl = json.getJSONObject("picture").getJSONObject("data").getString("url");
+                            PreferencesManager.saveAsString(view.doGetActivity(), PreferencesManager.AVATAR_URL, avatarUrl);
+
+                            coverUrl = json.getJSONObject("cover").getString("source");
+                            PreferencesManager.saveAsString(view.doGetActivity(), PreferencesManager.COVER_URL, coverUrl);
+
                         } catch (JSONException e) {
                             Crashlytics.logException(e);
                         }
+
 
                         presentState(ViewState.LOADING);
                         interactor.callAPIFacebookLogin(id, firstName, lastName, email);
                     }
                 });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,first_name,last_name,email");
+        parameters.putString("fields","id,first_name,last_name,email,picture,cover");
         request.setParameters(parameters);
         request.executeAsync();
     }
+
+
     // Digit stuffs
     public AuthCallback getDigitCallback() {
         return new AuthCallback() {

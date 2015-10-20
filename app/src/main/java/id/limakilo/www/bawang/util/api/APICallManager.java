@@ -18,6 +18,7 @@ import id.limakilo.www.bawang.util.api.user.PutUserResponseModel;
 import id.limakilo.www.bawang.util.api.user.UserService;
 import retrofit.Callback;
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 
 /**
  * Created by walesadanto on 2/7/15.
@@ -72,7 +73,7 @@ public class APICallManager {
         restAdapter = new RestAdapter.Builder()
                 .setEndpoint(endPoint)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-//                .setClient(new OkClient(client))
+                .setClient(new OkClient(client))
                 .build();
     }
 

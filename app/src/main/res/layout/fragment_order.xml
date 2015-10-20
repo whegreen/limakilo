@@ -1,745 +1,754 @@
-<android.support.v4.widget.NestedScrollView
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nested_scroll_view"
+    android:id="@+id/swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:layout_marginTop="12dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="id.limakilo.www.bawang.ui.order.OrderFragment">
+    tools:context="id.limakilo.www.bawang.ui.order.OrderFragment"
+    >
 
-    <FrameLayout
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|top"
-            android:visibility="gone"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_input_order"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:focusable="true"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
-                app:cardElevation="@dimen/spacing_medium"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!--<TextView-->
-                    <!--android:id="@+id/amount_title"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:paddingLeft="16dp"-->
-                    <!--android:paddingTop="16dp"-->
-                    <!--android:text="Jumlah yang dibayarkan"-->
-                    <!--android:textColor="?attr/colorPrimaryDark" />-->
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginBottom="16dp"-->
-                    <!--android:layout_marginLeft="16dp"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:paddingBottom="16dp"-->
-                    <!--android:paddingLeft="16dp"-->
-                    <!--android:paddingTop="16dp"-->
-                    <!--android:textColor="?attr/colorAccent">-->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal"
-                        android:paddingBottom="16dp"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="16dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:textColor="?attr/colorAccent"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/order_amount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1"
-                            android:textColor="?attr/colorAccent" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" x "
-                            android:textColor="?attr/colorAccent" />
-
-                        <TextView
-                            android:id="@+id/stock_quantity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5"
-                            android:textColor="?attr/colorAccent" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" kg x "
-                            android:textColor="?attr/colorAccent" />
-
-                        <TextView
-                            android:id="@+id/stock_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="17,000"
-                            android:textColor="?attr/colorAccent" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="/kg = "
-                            android:textColor="?attr/colorAccent" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Rp. "
-                            android:textColor="?attr/colorAccent" />
-
-                        <TextView
-                            android:id="@+id/total_payment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="170.000"
-                            android:textColor="?attr/colorAccent" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=",-"
-                            android:textColor="?attr/colorAccent" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/rangebar_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:text="Silahkan pilih jumlah paket yang ingin dipesan"
-                        android:textColor="?attr/colorPrimaryDark" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="vertical">
-
-                        <id.limakilo.www.bawang.util.widget.CustomNumberPicker
-                            android:id="@+id/numberPicker"
-                            dividerColor="@color/color_accent"
-                            max="10"
-                            min="1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:orientation="vertical" />
-
-                    </LinearLayout>
-
-
-                    <Button
-                        android:id="@+id/btn_detail_penerima"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:background="@drawable/rounded_green"
-                        android:text="lanjut"
-                        android:textColor="@android:color/white" />
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_detail_order"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:focusable="true"
-                android:visibility="gone"
-                app:cardElevation="@dimen/spacing_medium"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/alamat_pengiriman_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="16dp"
-                        android:text="Silahkan masukkan data penerima pesanan anda"
-                        android:textColor="?attr/colorPrimaryDark" />
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/nama_depan_penerima"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="16dp"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/edit_nama_depan_penerima"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Nama Depan"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/nama_belakang_penerima"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/edit_nama_belakang_penerima"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Nama Belakang"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/edit_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="email"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/nomor_telepon"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/edit_nomor_telepon"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="nomor handphone"
-                            android:imeOptions="actionNext"
-                            android:inputType="number" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/alamat_penerima"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/edit_alamat_penerima"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Alamat pengiriman"
-                            android:imeOptions="actionDone"
-                            android:lines="2" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="Kota pengiriman : "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textColor="@color/color_accent" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right">
-
-                            <Spinner
-                                android:id="@+id/spinner_kota_penerima"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:entries="@array/city_arrays"
-                                android:prompt="@string/city_prompt"
-                                android:spinnerMode="dropdown" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btn_pesan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:background="@drawable/rounded_green"
-                        android:text="pesan"
-                        android:textColor="@android:color/white" />
-
-                </LinearLayout>
-
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-
-                android:id="@+id/card_resume_order"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:focusable="true"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
-                app:cardElevation="@dimen/spacing_medium"
-                app:cardUseCompatPadding="true"
-                android:visibility="gone"
-                >
-
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/orderResumeTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="@dimen/spacing_large"
-                        android:layout_marginRight="@dimen/spacing_large"
-                        android:layout_marginTop="@dimen/spacing_large"
-                        android:gravity="center"
-                        android:text="Pesanan Anda"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:textColor="@color/color_primary_dark" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal"
-                        android:paddingBottom="16dp"
-                        android:paddingTop="16dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:text="Pesanan anda sudah kami terima, silahkan lanjutkan ke proses pembayaran maksimal 24 jam dari sekarang."
-                            android:textColor="?attr/colorAccent" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="ID Pesanan"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/dialog_id_pesanan"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text="18"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="?attr/colorPrimaryDark" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="Tangal"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/dialog_tanggal_pesanan"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text="Wed Sep 02 2015 11:16:29"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="?attr/colorPrimaryDark" />
-
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="Nama Penerima"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/dialog_nama_penerima"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text="Walesa Danto"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="?attr/colorPrimaryDark" />
-
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="Jumlah Pesanan"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/dialog_jumlah_pesanan"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text="1 x 5kg"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="?attr/colorPrimaryDark" />
-
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="Harga Pesanan"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/dialog_harga_pesanan"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text="Rp. 20.000/kg"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="?attr/colorPrimaryDark" />
-
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="Kode Pembayaran"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/dialog_kode_transfer"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text="254"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="?attr/colorPrimaryDark" />
-
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="Ongkos kirim"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/dialog_ongkos_kirim"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text="gratis"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="?attr/colorPrimaryDark" />
-
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="Total transfer"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/dialog_total"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text="Rp. 100.254,-"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="?attr/colorPrimaryDark" />
-
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="Status"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/dialog_status_pesanan"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text="pesanan belum diproses"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="?attr/colorPrimaryDark" />
-
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btn_confirm_payment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/rounded_green"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:text="Konfirmasi Pembayaran"
-                        android:textColor="@android:color/white" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-
-        </LinearLayout>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:layout_marginTop="12dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:id="@+id/loading_bar"
-            android:visibility="visible"
-            android:layout_gravity="center">
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/progressBar"
-                android:layout_marginTop="50dp"
-                android:layout_gravity="center" />
-        </FrameLayout>
-    </FrameLayout>
+            android:layout_height="wrap_content">
 
-</android.support.v4.widget.NestedScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|top"
+                android:visibility="visible"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_input_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:focusable="true"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="16dp"
+                    app:cardElevation="@dimen/spacing_medium"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/amount_title"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingLeft="16dp"-->
+                        <!--android:paddingTop="16dp"-->
+                        <!--android:text="Jumlah yang dibayarkan"-->
+                        <!--android:textColor="?attr/colorPrimaryDark" />-->
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginBottom="16dp"-->
+                        <!--android:layout_marginLeft="16dp"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:paddingBottom="16dp"-->
+                        <!--android:paddingLeft="16dp"-->
+                        <!--android:paddingTop="16dp"-->
+                        <!--android:textColor="?attr/colorAccent">-->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal"
+                            android:paddingBottom="16dp"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="16dp"
+                            android:background="?attr/colorPrimaryDark"
+                            android:textColor="?attr/colorAccent"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/order_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1"
+                                android:textColor="?attr/colorAccent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" x "
+                                android:textColor="?attr/colorAccent" />
+
+                            <TextView
+                                android:id="@+id/stock_quantity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5"
+                                android:textColor="?attr/colorAccent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" kg x "
+                                android:textColor="?attr/colorAccent" />
+
+                            <TextView
+                                android:id="@+id/stock_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="17,000"
+                                android:textColor="?attr/colorAccent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="/kg = "
+                                android:textColor="?attr/colorAccent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rp. "
+                                android:textColor="?attr/colorAccent" />
+
+                            <TextView
+                                android:id="@+id/total_payment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="170.000"
+                                android:textColor="?attr/colorAccent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=",-"
+                                android:textColor="?attr/colorAccent" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/rangebar_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="16dp"
+                            android:text="Silahkan pilih jumlah paket yang ingin dipesan"
+                            android:textColor="?attr/colorPrimaryDark" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="vertical">
+
+                            <id.limakilo.www.bawang.util.widget.CustomNumberPicker
+                                android:id="@+id/numberPicker"
+                                dividerColor="@color/color_accent"
+                                max="10"
+                                min="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="vertical" />
+
+                        </LinearLayout>
+
+
+                        <Button
+                            android:id="@+id/btn_detail_penerima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@drawable/rounded_green"
+                            android:text="lanjut"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_detail_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    app:cardElevation="@dimen/spacing_medium"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/alamat_pengiriman_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="16dp"
+                            android:text="Silahkan masukkan data penerima pesanan anda"
+                            android:textColor="?attr/colorPrimaryDark" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/nama_depan_penerima"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginTop="16dp"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/edit_nama_depan_penerima"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Nama Depan"
+                                android:imeOptions="actionNext"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/nama_belakang_penerima"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/edit_nama_belakang_penerima"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Nama Belakang"
+                                android:imeOptions="actionNext"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/edit_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="email"
+                                android:imeOptions="actionNext"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/nomor_telepon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/edit_nomor_telepon"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="nomor handphone"
+                                android:imeOptions="actionNext"
+                                android:inputType="number" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/alamat_penerima"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/edit_alamat_penerima"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Alamat pengiriman"
+                                android:imeOptions="actionDone"
+                                android:lines="2" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="Kota pengiriman : "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="@color/color_accent" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right">
+
+                                <Spinner
+                                    android:id="@+id/spinner_kota_penerima"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:entries="@array/city_arrays"
+                                    android:prompt="@string/city_prompt"
+                                    android:spinnerMode="dropdown" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btn_pesan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@drawable/rounded_green"
+                            android:text="pesan"
+                            android:textColor="@android:color/white" />
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+
+                    android:id="@+id/card_resume_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:focusable="true"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="16dp"
+                    app:cardElevation="@dimen/spacing_medium"
+                    app:cardUseCompatPadding="true"
+                    android:visibility="gone"
+                    >
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/orderResumeTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="@dimen/spacing_large"
+                            android:layout_marginRight="@dimen/spacing_large"
+                            android:layout_marginTop="@dimen/spacing_large"
+                            android:gravity="center"
+                            android:text="Pesanan Anda"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textColor="@color/color_primary_dark" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal"
+                            android:paddingBottom="16dp"
+                            android:paddingTop="16dp"
+                            android:background="?attr/colorPrimaryDark"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginRight="16dp"
+                                android:text="Pesanan anda sudah kami terima, silahkan lanjutkan ke proses pembayaran maksimal 24 jam dari sekarang."
+                                android:textColor="?attr/colorAccent" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="ID Pesanan"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/dialog_id_pesanan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/spacing_xsmall"
+                                    android:text="18"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="?attr/colorPrimaryDark" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="Tangal"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/dialog_tanggal_pesanan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/spacing_xsmall"
+                                    android:text="Wed Sep 02 2015 11:16:29"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="?attr/colorPrimaryDark" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="Nama Penerima"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/dialog_nama_penerima"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/spacing_xsmall"
+                                    android:text="Walesa Danto"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="?attr/colorPrimaryDark" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="Jumlah Pesanan"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/dialog_jumlah_pesanan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/spacing_xsmall"
+                                    android:text="1 x 5kg"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="?attr/colorPrimaryDark" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="Harga Pesanan"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/dialog_harga_pesanan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/spacing_xsmall"
+                                    android:text="Rp. 20.000/kg"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="?attr/colorPrimaryDark" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="Kode Pembayaran"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/dialog_kode_transfer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/spacing_xsmall"
+                                    android:text="254"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="?attr/colorPrimaryDark" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="Ongkos kirim"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/dialog_ongkos_kirim"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/spacing_xsmall"
+                                    android:text="gratis"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="?attr/colorPrimaryDark" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="Total transfer"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/dialog_total"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/spacing_xsmall"
+                                    android:text="Rp. 100.254,-"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="?attr/colorPrimaryDark" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/spacing_xsmall"
+                                android:text="Status"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/dialog_status_pesanan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/spacing_xsmall"
+                                    android:text="pesanan belum diproses"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="?attr/colorPrimaryDark" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btn_confirm_payment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/rounded_green"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:text="Konfirmasi Pembayaran"
+                            android:textColor="@android:color/white" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:id="@+id/loading_bar"
+                android:visibility="gone"
+                android:layout_gravity="center">
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar"
+                    android:paddingTop="50dp"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+        </FrameLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>

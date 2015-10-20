@@ -1,27 +1,28 @@
 <resources>
+    <!--Support kit-->
+    <string name="SupportKit_activityConversation">Tanya Kami</string>
+    <string name="SupportKit_startOfConversation">Salam limakilo, sila tanyakan apapun kepada kami jika aplikasi kami menyulitkan anda untuk terhubung ke petani.</string>
+    <string name="SupportKit_welcome">Mari dukung gerakan #yukbelanjakepetani! :)</string>
+    <string name="SupportKit_messageHint">tulis pertanyan...</string>
+
     <string name="app_name">limakilo</string>
-    <string name="app_version">0.3.20</string>
+    <string name="app_version">1.0.5</string>
     <string name="app_release_version">3</string>
     <string name="facebook_app_id">135514710123752</string>
     <string name="menu_settings">Tentang Kami</string>
     <string name="login_later"><u>login later</u></string>
 
     <string name="gcm_defaultSenderId">1095409058135</string>
-
-    <string name="SupportKit_activityConversation">Tanya Kami</string>
-    <string name="SupportKit_startOfConversation">Salam limakilo, sila tanyakan apapun kepada kami jika aplikasi kami menyulitkan anda untuk terhubung ke petani.</string>
-    <string name="SupportKit_welcome">Mari dukung gerakan #yukbelikepetani! :)</string>
-    <string name="SupportKit_messageHint">tulis pertanyan...</string>
-
     <string name="city_prompt">Pilih kota</string>
 
     <string-array name="city_arrays">
         <item>Jakarta</item>
+        <item>Depok</item>
+        <item>Tangerang</item>
+        <item>Bekasi</item>
         <item>Bandung</item>
     </string-array>
 
-    <string name="lorem_ipsum"></string>o
-    <string name="lorem_ipsum_2"></string>
-    <string name="lorem_ipsum_3"></string>
+    <string name="lorem_ipsum"></string>
 
 </resources>
