@@ -15,7 +15,7 @@
     <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
 
     <application android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme"
+        android:icon="@drawable/logo_nineapps" android:theme="@style/AppTheme"
         android:name="id.limakilo.www.bawang.BawangApplication">
 
         <receiver
@@ -49,7 +49,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name="id.limakilo.www.bawang.ui.login.LoginActivity"
+            android:name=".ui.splash.SplashScreenActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
@@ -57,6 +57,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="id.limakilo.www.bawang.ui.login.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
         </activity>
 
         <activity
