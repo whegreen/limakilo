@@ -4,6 +4,9 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
 
+import id.limakilo.www.bawang.util.api.campaign.CampaignService;
+import id.limakilo.www.bawang.util.api.campaign.GetCampaignDetailResponseModel;
+import id.limakilo.www.bawang.util.api.campaign.GetCampaignResponseModel;
 import id.limakilo.www.bawang.util.api.order.GetOrderDetailResponseModel;
 import id.limakilo.www.bawang.util.api.order.GetOrderResponseModel;
 import id.limakilo.www.bawang.util.api.order.OrderService;
@@ -29,12 +32,12 @@ public class APICallManager {
         LOGINDIGIT, LOGINFACEBOOK, LOGIN,
         GETUSERS, GETUSER, POSTUSER, CONFIRMORDER,
         GETORDERS, GETORDER, POSTORDER,
-        GETSTOCKS, GETSTOCK, POSTSTOCK, PUTUSER,
+        GETSTOCKS, GETSTOCK, POSTSTOCK, PUTUSER, GETCAMPAIGN, GETCAMPAIGNS,
     }
 
     private static APICallManager instance;
     private RestAdapter restAdapter;
-    private String endPoint = "http://limakilo.id";
+    private String endPoint = "http://limakilo.id:3000";
 //    public static final String DEMO_AUTH = "EkhZMUG0";
     public static final String DEMO_AUTH = "VygphmZh";
     public APIRoute apiRoute;
@@ -166,11 +169,18 @@ public class APICallManager {
     }
 
 
+    //Campaign
 
+    public boolean getCampaigns(Callback<GetCampaignResponseModel> callback){
+        CampaignService campaignService= restAdapter.create(CampaignService.class);
+        campaignService.getCampaign(getAuthentification(), callback);
+        return true;
+    }
 
-
-
-
-
+    public boolean getCampaignDetail(String campaignId, Callback<GetCampaignDetailResponseModel> callback){
+        CampaignService campaignService= restAdapter.create(CampaignService.class);
+        campaignService.getCampaignDetail(getAuthentification(), campaignId, callback);
+        return true;
+    }
 
 }

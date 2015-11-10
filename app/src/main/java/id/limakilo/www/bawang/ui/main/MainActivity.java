@@ -53,6 +53,7 @@ import butterknife.ButterKnife;
 import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.HistoryOrderActivity;
 import id.limakilo.www.bawang.ui.login.LoginActivity;
+import id.limakilo.www.bawang.ui.main.campaignfragment.CampaignFragment;
 import id.limakilo.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import id.limakilo.www.bawang.ui.main.stockfragment.StockFragment;
 import id.limakilo.www.bawang.util.api.APICallManager;
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new StockFragment(), "Paket");
         adapter.addFragment(new GrosirFragment(), "Grosir");
+        adapter.addFragment(new CampaignFragment(), "Campaign");
         viewPager.setAdapter(adapter);
     }
 

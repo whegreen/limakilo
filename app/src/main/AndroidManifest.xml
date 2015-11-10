@@ -69,20 +69,23 @@
             android:name="id.limakilo.www.bawang.ui.main.MainActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
-
         </activity>
 
         <activity
             android:name="id.limakilo.www.bawang.ui.historybid.HistoryBidListActivity"
             android:screenOrientation="portrait"
-
             android:label="@string/app_name" >
         </activity>
 
         <activity
             android:name="id.limakilo.www.bawang.ui.historyorder.HistoryOrderActivity"
             android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
 
+        <activity
+            android:name="id.limakilo.www.bawang.ui.campaigndetail.CampaignDetailActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
         </activity>
 

@@ -256,9 +256,9 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView, 
 
 //    private void showLoadingState(boolean state){
 //        if (state){
-//            ((HistoryOrderActivity)getActivity()).showLoadingBar();
+//            ((CampaignDetailActivity)getActivity()).showLoadingBar();
 //        } else{
-//            ((HistoryOrderActivity)getActivity()).hideLoadingBar();
+//            ((CampaignDetailActivity)getActivity()).hideLoadingBar();
 //        }
 //    }
 
