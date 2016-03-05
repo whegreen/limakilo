@@ -1,12 +1,8 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="detail_backdrop_height">256dp</dimen>
     <dimen name="detail_no_backdrop_height">57dp</dimen>
     <dimen name="card_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="list_item_avatar_size">40dp</dimen>
 
     <dimen name="spacing">8dp</dimen>
@@ -27,5 +23,167 @@
     <dimen name="fb_margin_override_lr">10dp</dimen>
     <!--The next value changes the margin between the FB icon and the login text:-->
     <dimen name="fb_margin_override_textpadding">17dp</dimen>
+
+
+        <!-- Default screen margins, per the Android Design guidelines. -->
+        <dimen name="activity_horizontal_margin">16dp</dimen>
+        <dimen name="activity_vertical_margin">16dp</dimen>
+
+        <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+             https://developer.android.com/design/patterns/navigation-drawer.html -->
+        <dimen name="navigation_drawer_width">240dp</dimen>
+
+        <!-- value mentioned below is canon, if there are inconsistencies across documents, refer to here-->
+        <!--global-->
+        <dimen name="padding_horizontal">16dp</dimen>
+        <dimen name="touch_target">48dp</dimen>
+        <dimen name="base_body_txt_size">14sp</dimen>
+
+        <!--elevation-->
+        <dimen name="ab_elevation">4dp</dimen>
+        <dimen name="cb_elevation">4dp</dimen>
+        <dimen name="dialog_alert_elevation">24dp</dimen>
+        <dimen name="menu_elevation">8dp</dimen>
+        <dimen name="btn_elevation">2dp</dimen>
+        <dimen name="btn_press_elevation">8dp</dimen>
+        <dimen name="fab_elevation">6dp</dimen>
+        <dimen name="fab_press_elevation">12dp</dimen>
+        <dimen name="card_elevation">2dp</dimen>
+        <dimen name="sb_cl_elevation">16dp</dimen>
+
+        <!--icons (ic_)-->
+        <dimen name="ic_horizontal_margin">4dp</dimen>
+        <dimen name="ic_padding_target">12dp</dimen>
+        <dimen name="ic_group_margin">8dp</dimen>
+
+        <!--app bar (ab_)-->
+        <dimen name="ab_ads_margin">16dp</dimen>
+        <dimen name="ab_min_height">56dp</dimen>
+        <dimen name="ab_title_txt_size">20sp</dimen>
+        <dimen name="ab_title_margin_left">72dp</dimen>
+        <!--header_sidebar (head_)-->
+        <dimen name="head_title_txt_size">24sp</dimen>
+        <dimen name="head_subtitle_txt_size">16sp</dimen>
+
+        <!-- tabs (tab_)-->
+        <dimen name="tab_label_txt_size">16sp</dimen>
+        <dimen name="tab_indicator_height">2dp</dimen>
+        <dimen name="tab_height">48dp</dimen>
+
+        <!--control bar / bottom bar (cb_)-->
+        <dimen name="cb_min_height">48dp</dimen>
+        <dimen name="cb_counter_txt_size">20sp</dimen>
+        <dimen name="cb_counter_label_txt_size">12sp</dimen>
+
+        <!--side bar (sb_)-->
+        <dimen name="sb_cl_item_txt_size">16sp</dimen>
+        <dimen name="sb_cl_item_txt_margin">24dp</dimen>
+        <dimen name="sb_cl_item_height">48dp</dimen>
+        <dimen name="sb_cl_padding_top">8dp</dimen>
+        <dimen name="sb_cl_padding_right">16dp</dimen>
+        <dimen name="sb_cl_width">300dp</dimen>
+        <dimen name="sb_cl_divider_height">0.5dp</dimen>
+        <dimen name="sb_header_min_height">172dp</dimen>
+        <dimen name="sb_header_avatar_size">64dp</dimen>
+        <dimen name="sb_header_username_txt_size">16sp</dimen>
+        <dimen name="sb_header_sub_txt_size">14sp</dimen>
+
+        <!--merchant info (mi_)-->
+        <dimen name="mi_cover_height">324dp</dimen>
+        <dimen name="mi_transaction_input_height">72dp</dimen>
+
+        <!--friend list (fl_)-->
+        <dimen name="fl_ls_height">200dp</dimen>
+
+        <!--menu (menu_)-->
+        <dimen name="menu_item_height">40dp</dimen>
+        <dimen name="menu_item_label_txt_size">16sp</dimen>
+        <dimen name="menu_item_label_margin">24dp</dimen>
+        <dimen name="menu_margin_screen">8dp</dimen>
+        <dimen name="menu_width">150dp</dimen>
+
+        <!--dialog (dialog_)-->
+        <dimen name="dialog_alert_txt_max_width">210dp</dimen>
+        <dimen name="dialog_alert_txt_max_height">120dp</dimen>
+        <dimen name="dialog_alert_txt_size">16sp</dimen>
+        <dimen name="dialog_alert_txt_margin_horizontal">24dp</dimen>
+        <dimen name="dialog_alert_txt_margin_vertical">24dp</dimen>
+        <item name="dialog_alert_txt_line_height" format="float" type="dimen">1.5</item>
+
+        <!--button (btn_)-->
+        <dimen name="btn_rounded_corner">4dp</dimen>
+        <dimen name="btn_min_height">56dp</dimen>
+        <dimen name="btn_secondary_min_height">48dp</dimen>
+        <dimen name="btn_txt_size">20sp</dimen>
+        <dimen name="btn_secondary_txt_size">12dp</dimen>
+        <dimen name="btn_padding_horizontal">16dp</dimen>
+        <dimen name="btn_padding_vertical">10dp</dimen>
+        <dimen name="btn_flat_padding_horizontal">8dp</dimen>
+        <dimen name="btn_margin">8dp</dimen>
+
+        <!--card (card_)-->
+        <dimen name="card_rounded_corner">2dp</dimen>
+        <dimen name="card_margin_bottom">8dp</dimen>
+        <dimen name="card_deals_info_height">48dp</dimen>
+        <dimen name="card_deals_discount_tag_padding_horizontal">24dp</dimen>
+        <dimen name="card_deals_discount_tag_padding_vertical">12dp</dimen>
+        <dimen name="card_deals_discount_tag_margin_vertical">16dp</dimen>
+        <dimen name="card_deals_discount_tag_height">64dp</dimen>
+        <dimen name="card_deals_merchant_avatar_size">160dp</dimen>
+        <dimen name="card_deals_discount_tag_label_txt_size">12sp</dimen>
+        <dimen name="card_deals_discount_tag_detail_txt_size">16sp</dimen>
+        <dimen name="card_deals_discount_tag_value_txt_size">24sp</dimen>
+        <dimen name="card_deals_discount_tag_padding_side">14dp</dimen>
+
+        <!--swipe area (sa_)-->
+        <dimen name="sa_height">96dp</dimen>
+        <dimen name="sa_rail_height">4dp</dimen>
+
+        <!--list (ls_)-->
+        <dimen name="ls_item_header_height">56dp</dimen>
+        <dimen name="ls_item_height">48dp</dimen>
+        <dimen name="ls_item_twoline_height">72dp</dimen>
+        <dimen name="ls_item_header_txt_size">16sp</dimen>
+        <dimen name="ls_item_txt_size">16sp</dimen>
+        <dimen name="ls_item_subtxt_size">14sp</dimen>
+        <dimen name="ls_item_subsubtxt_size">12sp</dimen>
+
+        <!--typography-->
+        <dimen name="display_txt_size">36sp</dimen>
+        <dimen name="headline_txt_size">24sp</dimen>
+        <dimen name="title_txt_size">20sp</dimen>
+        <dimen name="subhead_txt_size">16sp</dimen>
+        <dimen name="body_txt_size">14sp</dimen>
+        <dimen name="caption_txt_size">12sp</dimen>
+
+        <!-- fast order -->
+        <dimen name="fast_order_details_price">22sp</dimen>
+
+        <!--popup-->
+        <dimen name="popup_width">100dp</dimen>
+        <dimen name="popup_height">400dp</dimen>
+        <dimen name="text_size_details_rejected">14sp</dimen>
+        <dimen name="text_size_details_retry">14sp</dimen>
+        <dimen name="text_size_details_load_retry">14sp</dimen>
+        <dimen name="text_size_details_redeemed">16sp</dimen>
+        <dimen name="text_size_details_confirmed">14sp</dimen>
+        <dimen name="text_size_details_failed">14sp</dimen>
+        <dimen name="text_size_details_redeem">12sp</dimen>
+        <dimen name="text_size_main_swipe">12sp</dimen>
+        <dimen name="text_size_deals_discount_tag">12sp</dimen>
+        <dimen name="text_size_deals_discount">16sp</dimen>
+        <dimen name="text_size_deals_shopname">16sp</dimen>
+        <dimen name="text_size_deals_shopaddress">12sp</dimen>
+        <dimen name="text_size_deals_consumer">12sp</dimen>
+        <dimen name="sa_height_retry">110dp</dimen>
+        <dimen name="fab_margin">16dp</dimen>
+        <dimen name="text_size_button_sign_up">20sp</dimen>
+        <dimen name="text_size_referral">18sp</dimen>
+
+        <!-- profile -->
+        <dimen name="profile_title">44dp</dimen>
+        <dimen name="referral_txt_size">26sp</dimen>
+        <dimen name="card_deals_discount_width">184dp</dimen>
+        <dimen name="card_deals_discount_height">56dp</dimen>
 
 </resources>

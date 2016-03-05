@@ -30,17 +30,13 @@ public class CampaignDetailPresenterImpl implements CampaignDetailPresenter, API
             case IDLE:
                 view.showState(CampaignDetailView.ViewState.IDLE);
                 break;
-            case CONFIRM_ORDER:
-//                interactor.callAPIConfirmOrder(
-//                        view.doRetrieveAuthentification(),
-////                        view.doRetrieveModel().getOrderDetailModel().getOrderId().toString(),
-////                        view.doRetrieveModel().getOrderDetailModel().getOrderAmount(),
-//                        view.doRetrieveFullname()
-//                );
-                break;
             case LOAD_DATA:
-                interactor.callAPIGetCampaignDetail(view.doRetrieveAuthentification(), "1");
+                interactor.callAPIGetCampaignDetail(view.doRetrieveAuthentification(),
+                        view.doRetrieveModel().getCampaignId());
                 view.showState(CampaignDetailView.ViewState.LOADING);
+                break;
+            case SHOW_DATA:
+                view.showState(CampaignDetailView.ViewState.SHOW_DATA);
                 break;
             case LOAD_ORDERS:
                 interactor.callAPIGetOrders(view.doRetrieveAuthentification());
@@ -86,9 +82,10 @@ public class CampaignDetailPresenterImpl implements CampaignDetailPresenter, API
 
     @Override
     public void onAPICallSucceed(APICallManager.APIRoute endPoint, RootResponseModel responseModel) {
-        presentState(CampaignDetailView.ViewState.IDLE);if (endPoint == APICallManager.APIRoute.GETCAMPAIGN){
+        presentState(CampaignDetailView.ViewState.IDLE);
+        if (endPoint == APICallManager.APIRoute.GETCAMPAIGN){
             view.doRetrieveModel().setCampaignDetailModel(((GetCampaignDetailResponseModel)responseModel).getData().get(0));
-            presentState(CampaignDetailView.ViewState.SHOW_CAMPAIGN_DETAIL);
+            presentState(CampaignDetailView.ViewState.SHOW_DATA);
         }
     }
 

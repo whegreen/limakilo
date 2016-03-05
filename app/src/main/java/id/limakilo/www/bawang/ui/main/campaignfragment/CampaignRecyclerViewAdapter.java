@@ -8,21 +8,24 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.Random;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
-import id.limakilo.www.bawang.ui.campaigndetail.CampaignDetailActivity;
 import id.limakilo.www.bawang.ui.main.MainActivity;
+import id.limakilo.www.bawang.ui.register_phone.RegisterPhoneActivity;
 import id.limakilo.www.bawang.util.api.campaign.GetCampaignResponseModel;
 
 /**
  * Created by walesadanto on 26/7/15.
  */
-public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRecyclerViewAdapter.StockViewHolder> {
+public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRecyclerViewAdapter.CampaignViewHolder> {
 
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
@@ -39,28 +42,26 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
     }
 
     @Override
-    public StockViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CampaignViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
 //                .inflate(R.layout.stock_list_item, parent, false);
                 .inflate(R.layout.card_campaign_list_item, parent, false);
         view.setBackgroundResource(mBackground);
-        return new StockViewHolder(view);
+        return new CampaignViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final StockViewHolder holder, int position) {
+    public void onBindViewHolder(final CampaignViewHolder holder, int position) {
         GetCampaignResponseModel.GetCampaignResponseData stock = mStocks.get(position);
         holder.bindData(stock);
-        int[] randomAva = {R.drawable.onion2,
-                R.drawable.onion3,
-                R.drawable.onion4,
-                R.drawable.onion5,
-                R.drawable.onion1};
+        int[] randomAva = {
+                R.drawable.bg_microfund_header
+        };
 
         Random rand = new Random();
-        int  n = rand.nextInt(5);
-//        holder.mBoundSellerAvaUrl = ((Integer)randomAva[n]).toString();
+        int  n = 1;
 
+//        holder.mBoundSellerAvaUrl = ((Integer)randomAva[n]).toString();
 //        Glide.with(holder.mImageView.getContext())
 //        .load(randomAva[n])
 //        .fitCenter()
@@ -73,30 +74,37 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
         return mStocks.size();
     }
 
-    public static class StockViewHolder extends RecyclerView.ViewHolder{
+    public static class CampaignViewHolder extends RecyclerView.ViewHolder{
 
 //        // element to be passed in intent later
-//        private String mBoundStockId;
-//        private String mBoundStockName;
-//        private String mBoundStockQuantity;
-//        private String mBoundStockPrice;
-//        private String mBoundSellerId;
-//        private String mBoundSellerName;
-//        private String mBoundSellerAvaUrl;
-//        private String mBoundSellerAddress;
-//        private String mBoundSellerReputation;
-//        private String mBoundSellerCity;
-//
+        private String mBoundCampaignId;
+
 //        // ui element
-//        @Bind(R.id.avatar) ImageView mImageView;
-//        @Bind(R.id.paket) TextView mTextView;
-//        @Bind(R.id.seller) TextView mTextView2;
-//        @Bind(R.id.harga) TextView mTextView3;
-//        @Bind(R.id.city) TextView mTextView5;
-////        @Bind(R.id.stock_quota) TextView mTextView4;
+        @Bind(R.id.card_campaign_title)
+        TextView mTitle;
+        @Bind(R.id.card_share_button)
+        ImageView mShareButton;
+        @Bind(R.id.card_cover_image)
+        ImageView mCoverImage;
+        @Bind(R.id.card_campaign_price)
+        TextView mPrice;
+        @Bind(R.id.card_campaign_ordered)
+        TextView mOrdered;
+        @Bind(R.id.card_campaign_end_time)
+        TextView mEndTime;
+        @Bind(R.id.card_campaign_progress)
+        View mProgress;
+        @Bind(R.id.card_campaign_progress_full)
+        View mProgressFull;
+        @Bind(R.id.card_campaign_commodity)
+        TextView mCommodity;
+        @Bind(R.id.card_campaign_farmer)
+        TextView mFarmer;
+        @Bind(R.id.card_campaign_location)
+        TextView mLocation;
 
         @OnClick(R.id.card_campaign_item_view_holder)
-        public void OnStockItemClick(View view){
+        public void OnCampaignItemClick(View view){
             final Context context = view.getContext();
             ((MainActivity)context).showLoadingBar();
 
@@ -104,17 +112,8 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
             handler.postDelayed(new Runnable() {
                 public void run() {
                     handler.removeCallbacks(this);
-                    Intent intent = new Intent(context, CampaignDetailActivity.class);
-//                    intent.putExtra(OrderActivity.STOCKID, mBoundStockId);
-//                    intent.putExtra(OrderActivity.STOCKNAME, mBoundStockName);
-//                    intent.putExtra(OrderActivity.STOCKQUANTITY, mBoundStockQuantity);
-//                    intent.putExtra(OrderActivity.STOCKPRICE, mBoundStockPrice);
-//                    intent.putExtra(OrderActivity.SELLERID, mBoundSellerId);
-//                    intent.putExtra(OrderActivity.SELLERNAME, mBoundSellerName);
-//                    intent.putExtra(OrderActivity.SELLERAVAURL, mBoundSellerAvaUrl);
-//                    intent.putExtra(OrderActivity.SELLERADDRESS, mBoundSellerAddress);
-//                    intent.putExtra(OrderActivity.SELLERREPUTATION, mBoundSellerReputation);
-//                    intent.putExtra(OrderActivity.SELLERCITY, mBoundSellerCity);
+                    Intent intent = new Intent(context, RegisterPhoneActivity.class);
+//                    intent.putExtra(CampaignDetailActivity.CAMPAIGN_ID, mBoundCampaignId);
                     context.startActivity(intent);
                     ((MainActivity)context).hideLoadingBar();
                 }
@@ -122,28 +121,10 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
         }
 
         public void bindData(GetCampaignResponseModel.GetCampaignResponseData stock){
-//            mTextView.setText(stock.getStockName());
-//            mTextView2.setText(stock.getSellerName());
-//
-//            Double stockPrice = Double.parseDouble(stock.getStockPrice());
-//
-//            mTextView3.setText("Rp. "+TextFormatter.decimalFormat(stockPrice)+",-");
-//            mTextView5.setText(stock.getSellerCity());
-////            mTextView4.setText(stock.getStockOrdered()+"/"+stock.getStockQuota()+"kg");
-//
-//            mBoundStockId = stock.getStockId().toString();
-//            mBoundStockName = stock.getStockName();
-//            mBoundStockQuantity = stock.getStockQuantity().toString();
-//            mBoundStockPrice = stock.getStockPrice();
-//            mBoundSellerId = stock.getSellerId().toString();
-//            mBoundSellerName = stock.getSellerName();
-//            mBoundSellerAvaUrl = stock.getSellerAvatarUrl();
-//            mBoundSellerAddress = stock.getSellerAddress();
-//            mBoundSellerReputation = stock.getSellerReputation();
-//            mBoundSellerCity = stock.getSellerCity();
+            mBoundCampaignId = stock.getCamId().toString();
         }
 
-        public StockViewHolder(View itemView) {
+        public CampaignViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

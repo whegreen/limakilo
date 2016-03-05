@@ -25,4 +25,54 @@
 
     <string name="lorem_ipsum"></string>
 
+
+
+
+    <!--error dialog strings-->
+    <string name="err_not_enough_friend">Sembako baru seru dengan lebih banyak teman! Coba masuk lagi setelah teman FB Kamu lebih banyak dari 25 orang</string>
+    <string name="err_no_more_swipe">Diskon ini sudah habis untuk hari ini! Sementara waktu, coba klaim diskon lainnya!</string>
+    <string name="err_banned_user">Voucher-voucher ini sudah habis untuk hari ini! Coba lagi klaim diskonnya di lain waktu!</string>
+    <string name="err_swipe_end">Kamu sudah mencapai ujung daftar diskon, tap di atas untuk muat lebih banyak diskon lagi!</string>
+    <string name="err_no_internet">Gagal mendapatkan koneksi Internet… Coba cek pengaturan koneksi.</string>
+    <string name="err_login_failed">Gagal masuk dengan Facebook, coba beberapa saat lagi ya…</string>
+    <string name="err_lost_internet">Duh, koneksinya mengalami gangguan! coba cek Internet Kamu</string>
+    <string name="err_redeem_failed">Redeem gagal! coba lagi ya</string>
+    <string name="err_general">Terjadi kesalahan menerima permintaan Kamu, silakan coba lagi...</string>
+    ​
+    <string name="err_no_more_swipe_option">Order Yang Lain</string>
+    <string name="err_not_enough_friend_option">Oke Deh</string>
+    <string name="err_banned_user_option">Sip Lah</string>
+    <string name="err_swipe_end_option">Muat Diskon Lainnya</string>
+    <string name="err_redeem_failed_option">Coba Lagi</string>
+    <string name="err_no_internet_option">Cek Koneksi</string>
+
+
+    <!-- progressDialog -->
+    <string name="message_loading">Memuat...</string>
+
+    <string name="button_register_start">Mulai Belanja</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+
+    <string name="dialog_phone">No. Ponsel (contoh: 081234567890)</string>
+    <string name="dialog_address">Alamat Kamu</string>
+    <string name="dialog_address_content">Kamu belum memasukkan nomor ponsel dan alamat :(\nSilakan masukkan nomor ponsel dan alamat Kamu untuk mengantarkan barang.</string>
+    <string name="dialog_address_title">Oops...</string>
+
+    <string name="dialog_help_load_retry_title">Menunggu Konfirmasi</string>
+    <string name="dialog_help_load_retry_content">Saat ini pesanan Kamu sudah dikirimkan ke toko dan menunggu untuk dikonfirmasi oleh toko.</string>
+
+    <string name="dialog_help_retry_title">Beritahu Toko</string>
+    <string name="dialog_help_retry_content">Kamu bisa memberitahu toko untuk segera mengkonfirmasi pesanan Kamu dengan mengetuk tombol dibawah.</string>
+
+    <string name="dialog_help_rejected_title">Konfirmasi Gagal</string>
+    <string name="dialog_help_rejected_content">Pesanan Kamu tidak dikonfirmasi oleh pihak toko, maka pesanan tidak akan diantar. Silakan coba pesan lagi lain waktu.</string>
+
+    <string name="title_activity_referral">Referral</string>
+    <string name="referral_withdraw">Saldo Referral Kamu</string>
+
+    <string name="dialog_cancel_order_call">Kamu akan menghubungi nomor \%%nomor dan meninggalkan aplikasi</string>
+    <string name="dialog_cancel_order">Apakah Kamu yakin ingin membatalkan pesanan ini?</string>
+
+
+
 </resources>

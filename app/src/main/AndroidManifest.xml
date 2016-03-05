@@ -84,6 +84,12 @@
         </activity>
 
         <activity
+            android:name="id.limakilo.www.bawang.ui.register_phone.RegisterPhoneActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity
             android:name="id.limakilo.www.bawang.ui.campaigndetail.CampaignDetailActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >

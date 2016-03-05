@@ -54,8 +54,8 @@ import id.limakilo.www.bawang.R;
 import id.limakilo.www.bawang.ui.historyorder.HistoryOrderActivity;
 import id.limakilo.www.bawang.ui.login.LoginActivity;
 import id.limakilo.www.bawang.ui.main.campaignfragment.CampaignFragment;
-import id.limakilo.www.bawang.ui.main.grosirfragment.GrosirFragment;
 import id.limakilo.www.bawang.ui.main.stockfragment.StockFragment;
+import id.limakilo.www.bawang.ui.register_phone.RegisterPhoneActivity;
 import id.limakilo.www.bawang.util.api.APICallManager;
 import id.limakilo.www.bawang.util.api.user.GetUserResponseModel;
 import id.limakilo.www.bawang.util.common.PreferencesManager;
@@ -70,13 +70,25 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @Bind(R.id.nav_view) NavigationView navigationView;
+
     @Bind(R.id.viewpager) ViewPager viewPager;
     @Bind(R.id.tabs) TabLayout tabLayout;
-    @Bind(R.id.nav_username) TextView navUsername;
-    @Bind(R.id.nav_email) TextView navEmail;
-    @Bind(R.id.avatar_navheader) ImageView avatar;
-    @Bind(R.id.cover_navheader) ImageView cover;
+//    @Nullable
+//    @Bind(R.id.nav_username) TextView navUsername;
+//    @Nullable
+//    @Bind(R.id.nav_email) TextView navEmail;
+//    @Nullable
+//    @Bind(R.id.avatar_navheader) ImageView avatar;
+//    @Nullable
+//    @Bind(R.id.cover_navheader) ImageView cover;
     @Bind(R.id.loading_bar) View loadingView;
+
+    TextView navUsername;
+    TextView navEmail;
+    ImageView avatar;
+    ImageView cover;
+
+    View navigationHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +105,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (navigationView != null) {
             setupDrawerContent(navigationView);
+
+            navigationHeader = navigationView.inflateHeaderView(R.layout.nav_header);
+//            navigationHeader = navigationView.findViewById(R.id.nav_header);
         }
+
 
         if (viewPager != null) {
             setupViewPager(viewPager);
@@ -148,9 +164,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new StockFragment(), "Paket");
-        adapter.addFragment(new GrosirFragment(), "Grosir");
-        adapter.addFragment(new CampaignFragment(), "Campaign");
+        adapter.addFragment(new StockFragment(), "Pasar Tani");
+//        adapter.addFragment(new GrosirFragment(), "Grosir");
+        adapter.addFragment(new CampaignFragment(), "Pendanaan");
         viewPager.setAdapter(adapter);
     }
 
@@ -176,10 +192,20 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 }, 300L);
                                 break;
-//                            case id.limakilo.www.bawang.R.id.nav_messages:
+                            case id.limakilo.www.bawang.R.id.nav_messages:
 //                                Snackbar.make(findViewById(id.limakilo.www.bawang.R.id.drawer_layout), "fitur ini sedang dikembangkan",
 //                                        Snackbar.LENGTH_LONG).show();
-//                                break;
+                                MainActivity.this.showLoadingBar();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        handler.removeCallbacks(this);
+                                        Intent intent1 = new Intent(context, RegisterPhoneActivity.class);
+                                        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        context.startActivity(intent1);
+                                        MainActivity.this.hideLoadingBar();
+                                    }
+                                }, 300L);
+                                break;
                             case id.limakilo.www.bawang.R.id.nav_feedback:
                                 MainActivity.this.showLoadingBar();
                                 handler.postDelayed(new Runnable() {
@@ -246,6 +272,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initNavigationProfile(){
+
+        navEmail = (TextView) navigationHeader.findViewById(R.id.nav_email);
+        navUsername= (TextView) navigationHeader.findViewById(R.id.nav_email);
+        avatar = (ImageView) navigationHeader.findViewById(R.id.avatar_navheader);
+        cover = (ImageView) navigationHeader.findViewById(R.id.cover_navheader);
 
         String handphone = PreferencesManager.getAsString(this, PreferencesManager.HANDPHONE);
         final String email = PreferencesManager.getAsString(this, PreferencesManager.EMAIL);

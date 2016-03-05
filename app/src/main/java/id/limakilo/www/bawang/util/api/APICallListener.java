@@ -6,6 +6,7 @@ import retrofit.RetrofitError;
  * Created by walesadanto on 15/7/15.
  */
 public interface APICallListener {
-    public void onAPICallSucceed(APICallManager.APIRoute endPoint, RootResponseModel responseModel);
-    public void onAPICallFailed(APICallManager.APIRoute endPoint, RetrofitError retrofitError);
+
+    void onAPICallSucceed(APICallManager.APIRoute route, RootResponseModel responseModel);
+    void onAPICallFailed(APICallManager.APIRoute route, RetrofitError retrofitError);
 }

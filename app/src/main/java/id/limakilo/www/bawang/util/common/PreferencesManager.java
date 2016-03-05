@@ -25,6 +25,11 @@ public class PreferencesManager {
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
 
+    // e-cash
+    public static final String ECASH_TOKEN = "token";
+    public static final String ECASH_MSISDN = "msisdn";
+    public static final String ECASH_CREDENTIALS = "credentials";
+
     private static PreferencesManager instance;
 
     /** Returns singleton class instance */

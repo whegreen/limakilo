@@ -11,12 +11,12 @@ import retrofit.http.Path;
 public interface CampaignService {
 
 
-    @GET("/campaigns/{id}")
+    @GET("/microfunds/{id}")
     void getCampaignDetail(@Header("authentification") String authentification,
                         @Path("id") String orderId,
                         Callback<GetCampaignDetailResponseModel> callback);
 
-    @GET("/campaigns")
+    @GET("/microfunds")
     void getCampaign(@Header("authentification") String authentification,
                    Callback<GetCampaignResponseModel> callback);
 

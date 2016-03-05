@@ -14,20 +14,10 @@ package id.limakilo.www.bawang.service.gcm; /**
  * limitations under the License.
  */
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
-
-import id.limakilo.www.bawang.R;
-import id.limakilo.www.bawang.ui.main.MainActivity;
 
 public class GCMListenerService extends GcmListenerService {
 
@@ -84,7 +74,7 @@ public class GCMListenerService extends GcmListenerService {
 //        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 //        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 ////                .setSmallIcon(R.drawable.ic_stat_ic_notification)
-//                .setSmallIcon(R.drawable.logo)
+//                .setSmallIcon(R.drawable.logo_text)
 //                .setContentTitle("GCM Message")
 //                .setContentText(message)
 //                .setAutoCancel(true)

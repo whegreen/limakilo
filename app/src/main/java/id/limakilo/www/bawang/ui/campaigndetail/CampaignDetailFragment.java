@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -37,6 +39,8 @@ public class CampaignDetailFragment extends Fragment implements CampaignDetailVi
 
     private CampaignDetailModel model;
     private View view;
+    private CardCampaignViewHolder cardCampaignViewHolder;
+    private CardBuyerViewHolder cardBuyerViewHolder;
 
 //    @Bind(R.id.loading_bar) View loadingView;
 //    @Bind(R.id.blank_state) View blankStateView;
@@ -51,29 +55,67 @@ public class CampaignDetailFragment extends Fragment implements CampaignDetailVi
 //    }
 
     public class CardCampaignViewHolder{
-        @Bind(R.id.card_campaign) View cardCampaign;
+//        @Bind(R.id.card_campaign) View cardCampaign;
+
+        @Bind(R.id.card_campaign_title)
+        TextView mTitle;
+        @Bind(R.id.card_share_button)
+        ImageView mShareButton;
+        @Bind(R.id.card_cover_image)
+        ImageView mCoverImage;
+        @Bind(R.id.card_campaign_price)
+        TextView mPrice;
+        @Bind(R.id.card_campaign_ordered)
+        TextView mOrdered;
+        @Bind(R.id.card_campaign_end_time)
+        TextView mEndTime;
+        @Bind(R.id.card_campaign_progress)
+        View mProgress;
+        @Bind(R.id.card_campaign_progress_full)
+        View mProgressFull;
+        @Bind(R.id.card_campaign_commodity)
+        TextView mCommodity;
+        @Bind(R.id.card_campaign_farmer)
+        TextView mFarmer;
+        @Bind(R.id.card_campaign_location)
+        TextView mLocation;
+
+        public CardCampaignViewHolder(View view){
+            ButterKnife.bind(this, view);
+        }
     }
 
     public class CardStockViewHolder{
-        @Bind(R.id.card_stock) View cardCampaign;
-        @Bind(R.id.recyclerview_stock)
+//        @Bind(R.id.card_stock) View cardCampaign;
+//        @Bind(R.id.recyclerview_stock)
         RecyclerView recyclerviewStock;
 
         public void setupOrderRecyclerView(){
             recyclerviewStock.setLayoutManager(new LinearLayoutManager((recyclerviewStock.getContext())));
-            recyclerviewStock.setAdapter(new CampaignStockRecyclerViewAdapter(getActivity(), model.getOrderList(), presenter, model));
+            recyclerviewStock.setAdapter(new CampaignStockRecyclerViewAdapter(getActivity(), model.getContributorList(), presenter, model));
         }
 
     }
 
     public class CardFeedbackViewHolder{
-        @Bind(R.id.card_feedback) View cardCampaign;
-        @Bind(R.id.recyclerview_feedback) View recyclerviewFeedback;
+//        @Bind(R.id.card_feedback) View cardCampaign;
+//        @Bind(R.id.recyclerview_feedback) View recyclerviewFeedback;
     }
 
     public class CardBuyerViewHolder{
         @Bind(R.id.card_buyer) View cardCampaign;
-        @Bind(R.id.recyclerview_buyer) View recyclerViewBuyer;
+        @Bind(R.id.recyclerview_buyer) RecyclerView recyclerViewBuyer;
+
+        public void setupOrderRecyclerView(){
+            CampaignContributorRecyclerViewAdapter adapter = new CampaignContributorRecyclerViewAdapter(getActivity(), model.getContributorList(), presenter, model);
+            recyclerViewBuyer.setLayoutManager(new LinearLayoutManager((recyclerViewBuyer.getContext())));
+            recyclerViewBuyer.setAdapter(adapter);
+        }
+
+        public CardBuyerViewHolder(View view){
+            ButterKnife.bind(this, view);
+        }
+
     }
 
     @Override
@@ -83,6 +125,11 @@ public class CampaignDetailFragment extends Fragment implements CampaignDetailVi
 
         presenter = new CampaignDetailPresenterImpl(this);
         model = new CampaignDetailModel();
+
+        model.setCampaignId(((CampaignDetailActivity) getActivity()).getCampaignId());
+
+//        cardCampaignViewHolder = new CardCampaignViewHolder(view.findViewById(R.id.card_campaign));
+        cardBuyerViewHolder = new CardBuyerViewHolder(view.findViewById(R.id.card_buyer));
 
         setupOrderRecyclerView();
 
@@ -194,8 +241,10 @@ public class CampaignDetailFragment extends Fragment implements CampaignDetailVi
     @Override
     public void showState(ViewState state) {
         switch (state){
+            case SHOW_DATA:
+                cardBuyerViewHolder.setupOrderRecyclerView();
+                break;
             case LOAD_ORDERS:
-
                 setupOrderRecyclerView();
                 break;
             case SHOW_ORDERS:

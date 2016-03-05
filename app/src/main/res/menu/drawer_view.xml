@@ -21,10 +21,10 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_history_state"
             android:title="Riwayat Pemesanan" />
-        <!--<item-->
-            <!--android:id="@+id/nav_messages"-->
-            <!--android:icon="@drawable/ic_history_state"-->
-            <!--android:title="Riwayat Grosir" />-->
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/ic_history_state"
+            android:title="Mandiri e-cash" />
         <item
             android:id="@+id/nav_feedback"
             android:icon="@drawable/ic_question_state"

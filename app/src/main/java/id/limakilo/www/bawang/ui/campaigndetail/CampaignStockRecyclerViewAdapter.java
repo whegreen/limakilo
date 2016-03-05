@@ -25,19 +25,19 @@ import id.limakilo.www.bawang.util.api.campaign.GetCampaignDetailResponseModel;
 /**
  * Created by walesadanto on 26/7/15.
  */
-public class CampaignStockRecyclerViewAdapter extends RecyclerView.Adapter<CampaignStockRecyclerViewAdapter.OrderItemViewHolder> {
+public class CampaignStockRecyclerViewAdapter extends RecyclerView.Adapter<CampaignStockRecyclerViewAdapter.CampaignStockItemViewHolder> {
 
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
-    private List<GetCampaignDetailResponseModel.Package> campaignStockList;
+    private List<GetCampaignDetailResponseModel.GetCampaignDetailData> campaignStockList;
     private CampaignDetailPresenter presenter;
     private CampaignDetailModel model;
 
-    public GetCampaignDetailResponseModel.Package getValueAt(int position){
+    public GetCampaignDetailResponseModel.GetCampaignDetailData getValueAt(int position){
         return campaignStockList.get(position);
     }
 
-    public CampaignStockRecyclerViewAdapter(Context context, List<GetCampaignDetailResponseModel.Package> campaignStockList,
+    public CampaignStockRecyclerViewAdapter(Context context, List<GetCampaignDetailResponseModel.GetCampaignDetailData> campaignStockList,
                                             CampaignDetailPresenter presenter, CampaignDetailModel model){
         context.getTheme().resolveAttribute(android.support.design.R.attr.selectableItemBackground, mTypedValue, true);
         mBackground = mTypedValue.resourceId;
@@ -47,16 +47,16 @@ public class CampaignStockRecyclerViewAdapter extends RecyclerView.Adapter<Campa
     }
 
     @Override
-    public OrderItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CampaignStockItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.campaign_stock_list_item, parent, false);
         view.setBackgroundResource(mBackground);
-        return new OrderItemViewHolder(view);
+        return new CampaignStockItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final OrderItemViewHolder holder, int position) {
-        GetCampaignDetailResponseModel.Package item = campaignStockList.get(position);
+    public void onBindViewHolder(final CampaignStockItemViewHolder holder, int position) {
+        GetCampaignDetailResponseModel.GetCampaignDetailData item = campaignStockList.get(position);
         holder.bindData(item);
     }
 
@@ -65,7 +65,7 @@ public class CampaignStockRecyclerViewAdapter extends RecyclerView.Adapter<Campa
         return campaignStockList.size();
     }
 
-    public class OrderItemViewHolder extends RecyclerView.ViewHolder{
+    public class CampaignStockItemViewHolder extends RecyclerView.ViewHolder{
         public String text;
         public String totalPayment;
         public String orderId;
@@ -112,15 +112,15 @@ public class CampaignStockRecyclerViewAdapter extends RecyclerView.Adapter<Campa
             }
         }
 
-        public OrderItemViewHolder(View itemView) {
+        public CampaignStockItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindData(GetCampaignDetailResponseModel.Package item){
+        public void bindData(GetCampaignDetailResponseModel.GetCampaignDetailData item){
 //            model.getOrderDetailModel().setData(item);
 
-            mTextView.setText(item.getStockName());
+            mTextView.setText(item.getCamTitle());
 
             String status = "dalam pengiriman";
 //            if (item.getOrderStatus().toString().equalsIgnoreCase("order_processed")){
@@ -153,7 +153,7 @@ public class CampaignStockRecyclerViewAdapter extends RecyclerView.Adapter<Campa
 //            model.setTotalPayment(totalPayment);
 
             mTextView3.setText("Rp. "+totalPayment+",-");
-            mTextView4.setText(item.getSellerName().toString());
+            mTextView4.setText(item.getCamDescription().toString());
 
 //            String[] timestamp = item.getOrderDate().toString().split("T");
 //            mTextView5.setText(timestamp[0]);

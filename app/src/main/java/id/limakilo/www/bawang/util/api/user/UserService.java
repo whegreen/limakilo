@@ -33,6 +33,13 @@ public interface UserService {
                @Field("app_version") String appVersion,
                Callback<LoginResponseModel> callback);
 
+    @FormUrlEncoded
+    @POST("/login")
+    void loginEmail(
+            @Field("username") String username,
+            @Field("password") String password,
+            Callback<LoginEmailResponseModel> callback);
+
     @GET("/users")
     void getUsers(@Header("authentification") String authentification,
                   Callback<GetUserResponseModel> callback);

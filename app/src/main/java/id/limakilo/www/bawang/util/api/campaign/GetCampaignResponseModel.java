@@ -13,15 +13,11 @@ import id.limakilo.www.bawang.util.api.RootResponseModel;
  */
 public class GetCampaignResponseModel extends RootResponseModel {
 
+
     @SerializedName("data")
     @Expose
     private List<GetCampaignResponseData> data = new ArrayList<GetCampaignResponseData>();
 
-    /**
-     *
-     * @return
-     * The data
-     */
     public List<GetCampaignResponseData> getData() {
         return data;
     }
@@ -35,392 +31,229 @@ public class GetCampaignResponseModel extends RootResponseModel {
         this.data = data;
     }
 
-    public class Farmer {
-
-        @SerializedName("id")
-        @Expose
-        private Integer id;
-        @SerializedName("name")
-        @Expose
-        private String name;
-        @SerializedName("avatar_url")
-        @Expose
-        private String avatarUrl;
-        @SerializedName("biograph")
-        @Expose
-        private String biograph;
-
-        /**
-         *
-         * @return
-         * The id
-         */
-        public Integer getId() {
-            return id;
-        }
-
-        /**
-         *
-         * @param id
-         * The id
-         */
-        public void setId(Integer id) {
-            this.id = id;
-        }
-
-        /**
-         *
-         * @return
-         * The name
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         *
-         * @param name
-         * The name
-         */
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        /**
-         *
-         * @return
-         * The avatarUrl
-         */
-        public String getAvatarUrl() {
-            return avatarUrl;
-        }
-
-        /**
-         *
-         * @param avatarUrl
-         * The avatar_url
-         */
-        public void setAvatarUrl(String avatarUrl) {
-            this.avatarUrl = avatarUrl;
-        }
-
-        /**
-         *
-         * @return
-         * The biograph
-         */
-        public String getBiograph() {
-            return biograph;
-        }
-
-        /**
-         *
-         * @param biograph
-         * The biograph
-         */
-        public void setBiograph(String biograph) {
-            this.biograph = biograph;
-        }
-
-    }
 
     public class GetCampaignResponseData {
 
-        @SerializedName("id")
+        @SerializedName("cam_id")
         @Expose
-        private Integer id;
-        @SerializedName("title")
+        private Integer camId;
+        @SerializedName("cam_title")
         @Expose
-        private String title;
-        @SerializedName("description")
+        private String camTitle;
+        @SerializedName("cam_description")
         @Expose
-        private String description;
-        @SerializedName("image_url")
+        private String camDescription;
+        @SerializedName("cam_image")
         @Expose
-        private String imageUrl;
-        @SerializedName("commodity")
+        private String camImage;
+        @SerializedName("cam_progress")
         @Expose
-        private String commodity;
-        @SerializedName("commodity_category")
+        private String camProgress;
+        @SerializedName("cam_available")
         @Expose
-        private String commodityCategory;
-        @SerializedName("address")
+        private String camAvailable;
+        @SerializedName("cam_target")
         @Expose
-        private String address;
-        @SerializedName("city")
+        private String camTarget;
+        @SerializedName("cam_start_date")
         @Expose
-        private String city;
-        @SerializedName("end_date")
+        private String camStartDate;
+        @SerializedName("cam_end_date")
         @Expose
-        private String endDate;
-        @SerializedName("price")
+        private String camEndDate;
+        @SerializedName("cam_create_date")
         @Expose
-        private String price;
-        @SerializedName("sold")
+        private String camCreateDate;
+        @SerializedName("cam_usr_id")
         @Expose
-        private String sold;
-        @SerializedName("target")
+        private Integer camUsrId;
+        @SerializedName("cam_url")
         @Expose
-        private String target;
-        @SerializedName("farmer_id")
+        private String camUrl;
+        @SerializedName("cam_status")
         @Expose
-        private Integer farmerId;
-        @SerializedName("farmer")
-        @Expose
-        private List<Farmer> farmer = new ArrayList<Farmer>();
+        private Integer camStatus;
 
         /**
-         *
-         * @return
-         * The id
+         * @return The camId
          */
-        public Integer getId() {
-            return id;
+        public Integer getCamId() {
+            return camId;
         }
 
         /**
-         *
-         * @param id
-         * The id
+         * @param camId The cam_id
          */
-        public void setId(Integer id) {
-            this.id = id;
+        public void setCamId(Integer camId) {
+            this.camId = camId;
         }
 
         /**
-         *
-         * @return
-         * The title
+         * @return The camTitle
          */
-        public String getTitle() {
-            return title;
+        public String getCamTitle() {
+            return camTitle;
         }
 
         /**
-         *
-         * @param title
-         * The title
+         * @param camTitle The cam_title
          */
-        public void setTitle(String title) {
-            this.title = title;
+        public void setCamTitle(String camTitle) {
+            this.camTitle = camTitle;
         }
 
         /**
-         *
-         * @return
-         * The description
+         * @return The camDescription
          */
-        public String getDescription() {
-            return description;
+        public String getCamDescription() {
+            return camDescription;
         }
 
         /**
-         *
-         * @param description
-         * The description
+         * @param camDescription The cam_description
          */
-        public void setDescription(String description) {
-            this.description = description;
+        public void setCamDescription(String camDescription) {
+            this.camDescription = camDescription;
         }
 
         /**
-         *
-         * @return
-         * The imageUrl
+         * @return The camImage
          */
-        public String getImageUrl() {
-            return imageUrl;
+        public String getCamImage() {
+            return camImage;
         }
 
         /**
-         *
-         * @param imageUrl
-         * The image_url
+         * @param camImage The cam_image
          */
-        public void setImageUrl(String imageUrl) {
-            this.imageUrl = imageUrl;
+        public void setCamImage(String camImage) {
+            this.camImage = camImage;
         }
 
         /**
-         *
-         * @return
-         * The commodity
+         * @return The camProgress
          */
-        public String getCommodity() {
-            return commodity;
+        public String getCamProgress() {
+            return camProgress;
         }
 
         /**
-         *
-         * @param commodity
-         * The commodity
+         * @param camProgress The cam_progress
          */
-        public void setCommodity(String commodity) {
-            this.commodity = commodity;
+        public void setCamProgress(String camProgress) {
+            this.camProgress = camProgress;
         }
 
         /**
-         *
-         * @return
-         * The commodityCategory
+         * @return The camAvailable
          */
-        public String getCommodityCategory() {
-            return commodityCategory;
+        public String getCamAvailable() {
+            return camAvailable;
         }
 
         /**
-         *
-         * @param commodityCategory
-         * The commodity_category
+         * @param camAvailable The cam_available
          */
-        public void setCommodityCategory(String commodityCategory) {
-            this.commodityCategory = commodityCategory;
+        public void setCamAvailable(String camAvailable) {
+            this.camAvailable = camAvailable;
         }
 
         /**
-         *
-         * @return
-         * The address
+         * @return The camTarget
          */
-        public String getAddress() {
-            return address;
+        public String getCamTarget() {
+            return camTarget;
         }
 
         /**
-         *
-         * @param address
-         * The address
+         * @param camTarget The cam_target
          */
-        public void setAddress(String address) {
-            this.address = address;
+        public void setCamTarget(String camTarget) {
+            this.camTarget = camTarget;
         }
 
         /**
-         *
-         * @return
-         * The city
+         * @return The camStartDate
          */
-        public String getCity() {
-            return city;
+        public String getCamStartDate() {
+            return camStartDate;
         }
 
         /**
-         *
-         * @param city
-         * The city
+         * @param camStartDate The cam_start_date
          */
-        public void setCity(String city) {
-            this.city = city;
+        public void setCamStartDate(String camStartDate) {
+            this.camStartDate = camStartDate;
         }
 
         /**
-         *
-         * @return
-         * The endDate
+         * @return The camEndDate
          */
-        public String getEndDate() {
-            return endDate;
+        public String getCamEndDate() {
+            return camEndDate;
         }
 
         /**
-         *
-         * @param endDate
-         * The end_date
+         * @param camEndDate The cam_end_date
          */
-        public void setEndDate(String endDate) {
-            this.endDate = endDate;
+        public void setCamEndDate(String camEndDate) {
+            this.camEndDate = camEndDate;
         }
 
         /**
-         *
-         * @return
-         * The price
+         * @return The camCreateDate
          */
-        public String getPrice() {
-            return price;
+        public String getCamCreateDate() {
+            return camCreateDate;
         }
 
         /**
-         *
-         * @param price
-         * The price
+         * @param camCreateDate The cam_create_date
          */
-        public void setPrice(String price) {
-            this.price = price;
+        public void setCamCreateDate(String camCreateDate) {
+            this.camCreateDate = camCreateDate;
         }
 
         /**
-         *
-         * @return
-         * The sold
+         * @return The camUsrId
          */
-        public String getSold() {
-            return sold;
+        public Integer getCamUsrId() {
+            return camUsrId;
         }
 
         /**
-         *
-         * @param sold
-         * The sold
+         * @param camUsrId The cam_usr_id
          */
-        public void setSold(String sold) {
-            this.sold = sold;
+        public void setCamUsrId(Integer camUsrId) {
+            this.camUsrId = camUsrId;
         }
 
         /**
-         *
-         * @return
-         * The target
+         * @return The camUrl
          */
-        public String getTarget() {
-            return target;
+        public String getCamUrl() {
+            return camUrl;
         }
 
         /**
-         *
-         * @param target
-         * The target
+         * @param camUrl The cam_url
          */
-        public void setTarget(String target) {
-            this.target = target;
+        public void setCamUrl(String camUrl) {
+            this.camUrl = camUrl;
         }
 
         /**
-         *
-         * @return
-         * The farmerId
+         * @return The camStatus
          */
-        public Integer getFarmerId() {
-            return farmerId;
+        public Integer getCamStatus() {
+            return camStatus;
         }
 
         /**
-         *
-         * @param farmerId
-         * The farmer_id
+         * @param camStatus The cam_status
          */
-        public void setFarmerId(Integer farmerId) {
-            this.farmerId = farmerId;
+        public void setCamStatus(Integer camStatus) {
+            this.camStatus = camStatus;
         }
-
-        /**
-         *
-         * @return
-         * The farmer
-         */
-        public List<Farmer> getFarmer() {
-            return farmer;
-        }
-
-        /**
-         *
-         * @param farmer
-         * The farmer
-         */
-        public void setFarmer(List<Farmer> farmer) {
-            this.farmer = farmer;
-        }
-
     }
-
 }

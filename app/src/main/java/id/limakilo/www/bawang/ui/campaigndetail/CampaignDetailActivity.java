@@ -2,20 +2,14 @@ package id.limakilo.www.bawang.ui.campaigndetail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import id.limakilo.www.bawang.R;
 
 /**
@@ -24,33 +18,44 @@ import id.limakilo.www.bawang.R;
 public class CampaignDetailActivity extends AppCompatActivity {
 
     @Nullable
-    @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
+//    @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.fab) FloatingActionButton fab;
+//    @Bind(R.id.fab) FloatingActionButton fab;
+
+    public static final String CAMPAIGN_ID = "campaign_id";
+
+    private String campaignId;
 
     private boolean wrapInScrollView = true;
     private MaterialDialog faq;
 
-    @OnClick(R.id.fab)
-    public void OnClickFab(){
-        final View loadingBar = faq.getCustomView().findViewById(R.id.loading_bar);
-        final WebView webView = ((WebView)faq.getCustomView().findViewById(R.id.webview));
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://limakilo.id/faq");
-        webView.setWebViewClient(new WebViewClient() {
-
-            public void onPageFinished(WebView view, String url) {
-                // do your stuff here
-                webView.setVisibility(View.VISIBLE);
-                loadingBar.setVisibility(View.GONE);
-            }
-        });
-        faq.show();
-    }
+//    @OnClick(R.id.fab)
+//    public void OnClickFab(){
+//        final View loadingBar = faq.getCustomView().findViewById(R.id.loading_bar);
+//        final WebView webView = ((WebView)faq.getCustomView().findViewById(R.id.webview));
+//        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.loadUrl("http://limakilo.id/faq");
+//        webView.setWebViewClient(new WebViewClient() {
+//
+//            public void onPageFinished(WebView view, String url) {
+//                // do your stuff here
+//                webView.setVisibility(View.VISIBLE);
+//                loadingBar.setVisibility(View.GONE);
+//            }
+//        });
+//        faq.show();
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras == null) {
+            //
+        } else {
+            setCampaignId(extras.getString(CAMPAIGN_ID));
+        }
 
         setContentView(R.layout.activity_campaign_detail);
         ButterKnife.bind(this);
@@ -59,7 +64,9 @@ public class CampaignDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String itemTitle = "Campaign Detail";
-        collapsingToolbarLayout.setTitle(itemTitle);
+//        collapsingToolbarLayout.setTitle(itemTitle);
+
+        toolbar.setTitle(itemTitle);
 
         faq = new MaterialDialog.Builder(this)
                 .customView(R.layout.fragment_webview, wrapInScrollView)
@@ -72,7 +79,14 @@ public class CampaignDetailActivity extends AppCompatActivity {
                     }
                 })
                 .build();
+    }
 
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
+    }
+
+    public String getCampaignId() {
+        return campaignId;
     }
 
     @Override
